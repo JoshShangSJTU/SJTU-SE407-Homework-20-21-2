@@ -6,3 +6,11 @@
 ## 小组协作文档
 
 https://www.notion.so/c499f9314fae4039bcbd33818525a5b1
+
+# 准备干活了！
+
+项目主目录为sports
+
+accounts是关于用户的app：用于注册，登录等操作
+
+frontend是使用vue的前端部分
