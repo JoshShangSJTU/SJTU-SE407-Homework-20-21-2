@@ -7,10 +7,20 @@
 
 https://www.notion.so/c499f9314fae4039bcbd33818525a5b1
 
-# 准备干活了！
+# 项目说明：
 
 项目主目录为sports
 
 accounts是关于用户的app：用于注册，登录等操作
 
+splatform是显示赛事信息的app：用于展示信息和查询的部分
+
 frontend是使用vue的前端部分
+
+# 更新日志：
+
+* 2021/4/23：新建项目
+
+* 2021/4/24：添加splatform，数据库的添加
+
+  Player,Match,Teacher
