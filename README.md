@@ -19,8 +19,10 @@ frontend是使用vue的前端部分
 
 # 更新日志：
 
-* 2021/4/23：新建项目
-
 * 2021/4/24：添加splatform，数据库的添加
 
-  Player,Match,Teacher
+  Player,Match,Teacher三个
+
+* 2021/4/23：新建项目
+
+  
