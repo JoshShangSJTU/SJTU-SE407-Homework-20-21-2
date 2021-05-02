@@ -1,6 +1,15 @@
 from django.db import models
 
 
+class Team(models.Model):
+    team_name = models.CharField(max_length=50) # 队伍名
+    coach = models.CharField(max_length=20) # 主教练
+    group = models.CharField(max_length=100) # 小组名
+    # matches = models.ManyToManyField(Team, through='Match') # 队伍与比赛多对多关系
+
+    def __str__(self):
+        return self.team_name
+
 class Player(models.Model):
     # 运动员模型
     player_name = models.CharField(max_length=30) # 运动员名字
@@ -17,27 +26,15 @@ class Player(models.Model):
 
 
 class Match(models.Model):
-    match_id = models.IntegerField(default=0) # 比赛序号
-    h_team_id = models.ForeignKey(Team, related_name='h_team', on_delete=models.CASCADE) # 主队
-    a_team_id = models.ForeignKey(Team, related_name='a_team', on_delete=models.CASCADE) # 客队
+    match_no = models.IntegerField(default=0) # 比赛序号
+    h_team_name = models.ForeignKey(Team, related_name='h_team', on_delete=models.CASCADE) # 主队
+    a_team_name = models.ForeignKey(Team, related_name='a_team', on_delete=models.CASCADE) # 客队
 
     h_score = models.IntegerField(default=0) # 主队进球数
     a_score = models.IntegerField(default=0) # 客队进球数
-    
+
     match_time = models.DateTimeField() # 比赛时间
-    match_loc = models.CharField(max_length=20) # 比赛地点
+    match_loc = models.CharField(max_length=50) # 比赛地点
 
     def __str__(self):
-        return self.match_no
-
-
-class Team(models.Model):
-    team_name = models.CharField(max_length=50) # 队伍名
-    coach = models.CharField(max_length=20) # 主教练
-    group = models.CharField(max_length=100) # 小组名
-
-    def __str__(self):
-        return self.team_name
-
-
-# 用户名密码的django好像有专门的一个模块，先研究一下其他的数据
+        return str(self.match_no)
