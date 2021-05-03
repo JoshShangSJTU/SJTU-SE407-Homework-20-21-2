@@ -20,6 +20,9 @@ class Player(models.Model):
 
     team = models.ForeignKey(Team, related_name='players', on_delete=models.CASCADE, verbose_name='队伍') # 定义外键，Team和Player是1:n
 
+    class Meta:
+        ordering = ['-goal'] # 按照进球数降序排序
+
     def __str__(self):
         return self.player_name
 
