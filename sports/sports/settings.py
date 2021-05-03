@@ -41,12 +41,13 @@ INSTALLED_APPS = [
 
     'accounts',
     'splatform',
+    'boards',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
+    'corsheaders.middleware.CorsMiddleware', # 跨域访问
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -56,8 +57,8 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'sports.urls'
 
-CORS_ORIGIN_ALLOW_ALL = True
-CORS_ALLOW_CREDENTIALS = True
+CORS_ORIGIN_ALLOW_ALL = True #
+CORS_ALLOW_CREDENTIALS = True # 这俩都是允许跨域访问的相关参数
 
 TEMPLATES = [
     {
