@@ -7,6 +7,9 @@ class Team(models.Model):
     group = models.CharField('小组', max_length=100) # 小组名
     # rank = models.IntegerField('排名', max_length=20) # 排名
 
+    class Meta:
+        verbose_name_plural = '队伍表'
+
     def __str__(self):
         return self.team_name
 
@@ -23,6 +26,7 @@ class Player(models.Model):
 
     class Meta:
         ordering = ['-goal'] # 按照进球数降序排序
+        verbose_name_plural = '队员表'
 
     def __str__(self):
         return self.player_name
@@ -38,6 +42,9 @@ class Match(models.Model):
 
     match_time = models.DateTimeField('比赛时间') # 比赛时间
     match_loc = models.CharField('比赛地点', max_length=50) # 比赛地点
+
+    class Meta:
+        verbose_name_plural = '比赛表'
 
     def __str__(self):
         return str(self.match_no)
