@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.humanize',
+    'widget_tweaks',
 
     'accounts',
     'splatform',
@@ -72,6 +74,10 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+            'libraries':{ # 这里是添加自定义标签的地方
+                 'my_customer_tags': 'boards.templatetags.form_tags',
+                 'my_customer_icons': 'boards.templatetags.gravatar',
+             },
         },
     },
 ]

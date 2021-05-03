@@ -1,17 +1,17 @@
 {% extends 'base_boards.html' %}
 
 {% block breadcrumb %}
-    <li class="breadcrumb-item active">Boards</li>
+    <li class="breadcrumb-item active">讨论区</li>
 {% endblock %}
 
 {% block content %}
     <table class="table">
         <thead class="thead-inverse">
             <tr>
-                <th>Board</th>
-                <th>Posts</th>
-                <th>Topics</th>
-                <th>Last Post</th>
+                <th>分区</th>
+                <th>帖子</th>
+                <th>话题</th>
+                <th>最近一次发帖</th>
             </tr>
         </thead>
         <tbody>
@@ -37,7 +37,7 @@
                         </small>
                       {% else %}
                         <small class="text-muted">
-                            <em>No posts yet.</em>
+                            <em>这里空空如也~</em>
                         </small>
                       {% endif %}
                     {% endwith %}

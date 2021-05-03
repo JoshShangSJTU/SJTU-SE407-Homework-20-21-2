@@ -15,7 +15,7 @@ from .forms import NewTopicForm, PostForm
 class BoardListView(ListView):
     model = Board
     context_object_name = 'boards'
-    template_name = 'home.html'
+    template_name = 'home_boards.html'
 
 
 class TopicListView(ListView):

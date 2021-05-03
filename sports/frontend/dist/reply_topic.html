@@ -16,17 +16,17 @@
 {% endblock %}
 
 {% block breadcrumb %}
-    <li class="breadcrumb-item"><a href="{% url 'home' %}">Boards</a></li>
+    <li class="breadcrumb-item"><a href="{% url 'home_boards' %}">讨论区</a></li>
     <li class="breadcrumb-item"><a href="{% url 'board_topics' topic.board.pk %}">{{ topic.board.name }}</a></li>
     <li class="breadcrumb-item"><a href="{% url 'topic_posts' topic.board.pk topic.pk %}">{{ topic.subject }}</a></li>
-    <li class="breadcrumb-item" active>Post a reply</li>
+    <li class="breadcrumb-item" active>回复</li>
 {% endblock %}
 
 {% block content %}
   <form method="post" class="mb-4" novalidate>
     {% csrf_token %}
     {% include 'includes/form.html' %}
-    <button type="submit" class="btn btn-success">Post a reply</button>
+    <button type="submit" class="btn btn-success">回复</button>
   </form>
 
   {% for post in topic.get_last_ten_posts %}

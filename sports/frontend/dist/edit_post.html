@@ -16,17 +16,17 @@
 {% endblock %}
 
 {% block breadcrumb %} 
-  <li class="breadcrumb-item"><a href="{% url 'home' %}">Boards</a></li>
+  <li class="breadcrumb-item"><a href="{% url 'home_boards' %}">讨论区</a></li>
   <li class="breadcrumb-item"><a href="{% url 'board_topics' post.topic.board.pk %}">{{ post.topic.board.name }}</a></li>
   <li class="breadcrumb-item"><a href="{% url 'topic_posts' post.topic.board.pk post.topic.pk %}">{{ post.topic.subject }}</a></li>
-  <li class="breadcrumb-item active">Edit post</li>
+  <li class="breadcrumb-item active">编辑帖子</li>
 {% endblock %}
 
 {% block content %}
   <form method="POST" class="mb-4" novalidate>
       {% csrf_token %}
       {% include 'includes/form.html' %} 
-      <button type="submit" class="btn btn-success">Save changes</button>
-      <a href="{% url 'topic_posts' post.topic.board.pk post.topic.pk %}" class="btn btn-outline-secondary" role="button">Cancel</a>
+      <button type="submit" class="btn btn-success">保存修改</button>
+      <a href="{% url 'topic_posts' post.topic.board.pk post.topic.pk %}" class="btn btn-outline-secondary" role="button">取消</a>
   </form>
 {% endblock %}
