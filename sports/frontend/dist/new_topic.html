@@ -1,0 +1,22 @@
+{% extends 'base_boards.html' %}
+
+
+{% load widget_tweaks %}
+
+{% block title %}
+Start a New Topic
+{% endblock %}
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item"><a href="{% url 'home_boards' %}">讨论区</a></li>
+    <li class="breadcrumb-item"><a href="{% url 'board_topics' board.pk %}">{{ board.name }}</a></li>
+    <li class="breadcrumb-item active">创建新话题</li>
+{% endblock %}
+
+{% block content %}
+<form method="post" novalidate>
+    {% csrf_token %}
+  
+    {% include 'includes/form.html' %}
+    <button type="submit" class="btn btn-success">发帖</button>
+{% endblock %}

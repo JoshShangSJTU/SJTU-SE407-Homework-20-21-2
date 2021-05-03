@@ -18,8 +18,11 @@ from django.urls import path
 from django.conf.urls import url, include
 from django.views.generic import TemplateView
 
+import boards.urls
+
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', TemplateView.as_view(template_name='index.html')),
-    path('home/', TemplateView.as_view(template_name='home.html'))
+    path('admin/', admin.site.urls), # 管理员
+    path('', TemplateView.as_view(template_name='index.html')), # vue主页
+    path('home/', TemplateView.as_view(template_name='home.html')), # 赛事主页
+    path('talk/', include(boards.urls)), # 讨论区页面
 ]
