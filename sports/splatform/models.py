@@ -5,6 +5,7 @@ class Team(models.Model):
     team_name = models.CharField('队伍名', max_length=50) # 队伍名
     coach = models.CharField('主教练', max_length=20) # 主教练
     group = models.CharField('小组', max_length=100) # 小组名
+    # rank = models.IntegerField('排名', max_length=20) # 排名
 
     def __str__(self):
         return self.team_name
