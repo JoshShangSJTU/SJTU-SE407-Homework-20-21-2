@@ -17,30 +17,25 @@
   <script src="{% static 'js/bootstrap.min.js' %}"></script>
   <script src="{% static 'js/jquery.tablesorter.min.js' %}"></script>
 
-  <!--图片大小-->
-  <style>
-    .carousel-inner img {
-      width: 100%;
-      height: auto;
-    }
-  </style>
 </head>
 
 <!--body属性用于滚动监听-->
 
-<body data-spy="scroll" data-target="#navbar1" data-offset="30">
+<body data-spy="scroll" data-target="#navbar2" data-offset="30">
   <!--导航栏-->
   <nav class="navbar navbar-expand-md bg-light navbar-light">
-    <a class="navbar-brand" href="#">首页</a>
 
     <!--缩放时用于包裹的按钮-->
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar1">
       <span class="navbar-toggler-icon"></span>
     </button>
 
     <!--导航栏选项（按钮内）-->
-    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+    <div class="collapse navbar-collapse" id="navbar1">
       <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="navbar-brand" href="#">首页</a>
+        </li>
         <li class="nav-item">
           <a class="nav-link" href="#">赛事</a>
         </li>
@@ -70,7 +65,7 @@
   </nav>
 
   <!--轮播-->
-  <div id="demo" class="container carousel slide carousel-fade" data-ride="carousel">
+  <div class="container carousel slide carousel-fade" data-ride="carousel" id="shuff">
     <div class="row">
       <ul class="carousel-indicators">
         <li data-target="#demo" data-slide-to="0" class="active"></li>
@@ -102,7 +97,7 @@
   </div>
 
   <!--侧边导航栏-->
-  <nav id="navbar1" class="navbar navbar-light bg-light position-fixed" style="right: 40px; top: 360px">
+  <nav id="navbar2" class="navbar navbar-light bg-light position-fixed" style="right: 40px; top: 360px">
     <ul class="nav nav-pills flex-column">
       <li class="nav-item">
         <a class="nav-link" href="#section1">赛事信息</a>
@@ -121,173 +116,135 @@
 
   <!--主体一-->
   <div id="section1">
-    <h1 class="font-weight-bold text-center" style="margin-top: 80px; margin-bottom: 80px;">赛事信息</h1>
+    <h1 class="font-weight-bold text-center">赛事信息</h1>
 
-    <!--container,有两张卡片，可重复添加-->
-    <div class="container" style="margin-bottom: 50px">
-      <div class="row">
-        <div class="card mb-3 col-6" style="min-height: 360px;">
-          <div class="row no-gutters">
-            <div class="col-md-8">
-              <img src="..." class="card-img" alt="...">
-            </div>
+    <!--container,卡片可重复添加-->
+    <div class="container" style="text-align: center">
+      <div class="card mb-3">
+        <div class="row no-gutters">
+          <div class="col-md-8">
+            <img src="..." class="card-img" alt="...">
+          </div>
 
-            <div class="col-md-4">
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text"></p>
-                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-              </div>
+          <div class="col-md-4">
+            <div class="card-body">
+              <h5 class="card-title">Card title</h5>
+              <p class="card-text"></p>
+              <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
             </div>
           </div>
         </div>
+      </div>
 
-        <div class="card mb-3 col-6" style="min-height: 360px;">
-          <div class="row no-gutters">
-            <div class="col-md-8">
-              <img src="..." class="card-img" alt="...">
+      <div class="card mb-3">
+        <div class="row no-gutters">
+          <div class="col-md-8">
+            <img src="..." class="card-img" alt="...">
+          </div>
+
+          <div class="col-md-4">
+            <div class="card-body">
+              <h5 class="card-title">Card title</h5>
+              <p class="card-text"></p>
+              <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
             </div>
+          </div>
+        </div>
+      </div>
 
-            <div class="col-md-4">
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text"></p>
-                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-              </div>
+      <div class="card mb-3">
+        <div class="row no-gutters">
+          <div class="col-md-8">
+            <img src="..." class="card-img" alt="...">
+          </div>
+
+          <div class="col-md-4">
+            <div class="card-body">
+              <h5 class="card-title">Card title</h5>
+              <p class="card-text"></p>
+              <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card mb-3">
+        <div class="row no-gutters">
+          <div class="col-md-8">
+            <img src="..." class="card-img" alt="...">
+          </div>
+
+          <div class="col-md-4">
+            <div class="card-body">
+              <h5 class="card-title">Card title</h5>
+              <p class="card-text"></p>
+              <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
             </div>
           </div>
         </div>
       </div>
     </div>
-
-    <div class="container" style="margin-bottom: 50px">
-      <div class="row">
-        <div class="card mb-3 col-6" style="min-height: 360px;">
-          <div class="row no-gutters">
-            <div class="col-md-8">
-              <img src="..." class="card-img" alt="...">
-            </div>
-
-            <div class="col-md-4">
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text"></p>
-                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="card mb-3 col-6" style="min-height: 360px;">
-          <div class="row no-gutters">
-            <div class="col-md-8">
-              <img src="..." class="card-img" alt="...">
-            </div>
-
-            <div class="col-md-4">
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text"></p>
-                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!--主体二-->
-  <div id="section2">
-    <h1 class="font-weight-bold text-center" style="margin-top: 30px; margin-bottom: 80px;">数据榜单</h1>
-    <!--表格，行列可重复添加-->
-    <div class="container" style="margin-bottom: 50px;">
-      <table class="table table-hover table-responsive-md col-10 offset-md-1">
+    <!--主体二-->
+    <div id="section2">
+      <h1 class="font-weight-bold text-center">数据榜单</h1>
+      <!--表格，行列可重复添加-->
+      <table class="table table-hover tablesorter" id="table1">
         <thead class="thead-light">
           <tr>
-            <th scope="col">#</th>
-            <th scope="col">User_Name</th>
-            <th scope="col">Object1</th>
-            <th scope="col">Object2</th>
-            <th scope="col">Object3</th>
-            <th scope="col">Object3</th>
-            <th scope="col">Object3</th>
-            <th scope="col">Object3</th>
-            <th scope="col">Object3</th>
-            <th scope="col">Object3</th>
-            <th scope="col">Object3</th>
-            <th scope="col">Object3</th>
+            <th scope="row" class="header">#</th>
+            <th scope="row" class="header">User_Name</th>
+            <th scope="row" class="header">指标一</th>
+            <th scope="row" class="header">指标二</th>
+            <th scope="row" class="header">指标三</th>
+            <th scope="row" class="header">指标四</th>
+            <th scope="row" class="header">指标五</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <th scope="row">1</th>
+            <td>1</td>
             <td>User1</td>
-            <td>1.1</td>
-            <td>1.2</td>
-            <td>1.3</td>
+            <td>1</td>
+            <td>2</td>
+            <td>3</td>
+            <td>4</td>
+            <td>5</td>
           </tr>
           <tr>
-            <th scope="row">2</th>
+            <td>2</td>
             <td>User2</td>
-            <td>2.1</td>
-            <td>2.2</td>
-            <td>2.3</td>
+            <td>2</td>
+            <td>3</td>
+            <td>4</td>
+            <td>5</td>
+            <td>1</td>
           </tr>
           <tr>
-            <th scope="row">3</th>
+            <td>3</td>
             <td>User3</td>
-            <td>3.1</td>
-            <td>3.2</td>
-            <td>3.3</td>
+            <td>3</td>
+            <td>4</td>
+            <td>5</td>
+            <td>1</td>
+            <td>2</td>
           </tr>
           <tr>
-            <th scope="row">3</th>
-            <td>User3</td>
-            <td>3.1</td>
-            <td>3.2</td>
-            <td>3.3</td>
+            <td>4</td>
+            <td>User4</td>
+            <td>4</td>
+            <td>5</td>
+            <td>1</td>
+            <td>2</td>
+            <td>3</td>
           </tr>
           <tr>
-            <th scope="row">3</th>
-            <td>User3</td>
-            <td>3.1</td>
-            <td>3.2</td>
-            <td>3.3</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>User3</td>
-            <td>3.1</td>
-            <td>3.2</td>
-            <td>3.3</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>User3</td>
-            <td>3.1</td>
-            <td>3.2</td>
-            <td>3.3</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>User3</td>
-            <td>3.1</td>
-            <td>3.2</td>
-            <td>3.3</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>User3</td>
-            <td>3.1</td>
-            <td>3.2</td>
-            <td>3.3</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>User3</td>
-            <td>3.1</td>
-            <td>3.2</td>
-            <td>3.3</td>
+            <td>5</td>
+            <td>User5</td>
+            <td>5</td>
+            <td>1</td>
+            <td>2</td>
+            <td>3</td>
+            <td>4</td>
           </tr>
         </tbody>
       </table>
@@ -295,7 +252,7 @@
   </div>
   <!--主体三，当前内容用于测试滚动监听效果用，后续可添加实际内容-->
   <div id="section3">
-    <h1 class="font-weight-bold text-center" style="margin-top: 30px; margin-bottom: 80px;">赛事资讯</h1>
+    <h1 class="font-weight-bold text-center">赛事资讯</h1>
     <div class="container" style="margin-bottom: 50px;">
       <p>
         测试用
@@ -324,7 +281,7 @@
   </div>
   <!--主体四，说明同主体三-->
   <div id="section4">
-    <h1 class="font-weight-bold text-center" style="margin-top: 30px; margin-bottom: 80px;">赛事讨论区</h1>
+    <h1 class="font-weight-bold text-center">赛事讨论区</h1>
 
     <div class="container" style="margin-bottom: 50px;">
       <p>
