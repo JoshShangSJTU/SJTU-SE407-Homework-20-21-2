@@ -1,0 +1,35 @@
+
+.navbar-brand {
+    margin-left: 1rem;
+}
+
+.carousel-inner img {
+    width: 100%;
+    height: auto;
+}
+
+h1 {
+    margin-top: 50px;
+    margin-bottom: 80px
+}
+
+.card {
+    margin: 10px;
+    position: relative;
+    width: 480px;
+    background-origin: border-box;
+    display: inline-block;
+}
+
+.no-gutters {
+    height: 276px;
+}
+
+#div-table1 {
+    width: 720px;
+    margin: auto
+}
+
+table {
+    text-align: center;
+}
