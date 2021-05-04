@@ -25,6 +25,11 @@ h1 {
     height: 276px;
 }
 
+#navbar2 {
+    right: 40px; 
+    top: 360px
+}
+
 #div-table1 {
     width: 720px;
     margin: auto
