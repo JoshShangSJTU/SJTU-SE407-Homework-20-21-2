@@ -13,15 +13,24 @@ h1 {
     margin-bottom: 50px
 }
 
+.card-body a{
+    color: black;
+    text-decoration: none;
+}
+
+a>img{
+    height: 276px;
+}
+
 #match .card{
     margin: 10px;
-    position: relative;
     width: 480px;
+    position: relative;
     background-origin: border-box;
     display: inline-block;
 }
 
-#match .no-gutters {
+#match .row {
     height: 276px;
 }
 
@@ -71,11 +80,6 @@ hr.style1{
 
 #news .card-body{
     padding: 0.25rem;
-}
-
-#news .card-body a{
-    color: black;
-    text-decoration: none;
 }
 
 #news .card-title{
