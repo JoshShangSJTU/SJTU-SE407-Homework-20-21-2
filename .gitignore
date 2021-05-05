@@ -10,7 +10,7 @@ __pycache__/
 .Python
 build/
 develop-eggs/
-# dist/
+# dist/ # 这里把dist注释掉了
 downloads/
 eggs/
 .eggs/
@@ -56,6 +56,8 @@ coverage.xml
 *.log
 local_settings.py
 # db.sqlite3
+db.sqlite3
+# sports/db.sqlite3
 
 # Flask stuff:
 instance/
@@ -112,3 +114,7 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+sports/db.sqlite3
+*.sqlite3
+*.pyc
