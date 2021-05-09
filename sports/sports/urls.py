@@ -26,4 +26,7 @@ urlpatterns = [
     path('home/', TemplateView.as_view(template_name='home.html')), # 赛事主页
     path('login/', TemplateView.as_view(template_name='login.html')), # 赛事主页
     path('talk/', include(boards.urls)), # 讨论区页面
+
+    path('api/mgr/', include('mgr.urls')),
+
 ]

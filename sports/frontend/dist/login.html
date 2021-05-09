@@ -40,13 +40,14 @@
                 el:"#login",
                 data:{
                     username:"",
-                    password:""
+                    password:"",
                 },
                 methods:{
                     matchin:function(){
                         axios.post("http://127.0.0.1:8000/api/mgr/signin",{username: this.username, password: this.password,}).then(
                             function(response){
-                              console.log(username)
+							  console.log(response),
+							  alert(response.data.msg)
                         },
                             function(err){
 								alert('tmd')
