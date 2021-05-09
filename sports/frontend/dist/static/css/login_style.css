@@ -1,0 +1,84 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+body{
+	background: #34495e;
+}
+.control{
+	width: 340px;
+	background: #191919;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+	border-radius: 5px;
+}
+.item{
+	width: 340px;
+	height: 60px;
+	background: black;
+}
+.item div{
+	width: 170px;
+	height: 60px;
+	display: inline-block;
+	color: white;
+	font-size: 18px;
+	text-align: center;
+	line-height: 60px;
+	cursor: pointer;
+}
+.content{
+	width: 100%;
+}
+.content div{
+	margin: 20px 30px;
+	display: none;
+	text-align: center;
+}
+
+
+.content input[type="text"], .content input[type="password"]{
+    border: 0;
+	width: 180px;
+	height: 40px;
+	border-radius: 24px;
+	border: 2px solid #3498db;;
+	padding: 0 10px;
+    text-align: center;
+    box-sizing: border-box;
+    margin: 20px auto;
+    outline: none;                             /*取消框线*/
+    transition: 0.25s;
+}
+.content input[type="submit"]{
+	margin-top: 40px;
+	width: 150px;
+	height: 40px;
+	border-radius: 24px;
+	color: white;
+    border: 2px solid #2ecc71;
+	background: none;
+	cursor: pointer;
+    outline: none;
+	letter-spacing: 4px;
+	margin-bottom: 40px;
+}
+.active{
+	background: black;
+}
+.item div:hover{
+	background: #3498db;
+}
+
+.content input[type = "text"]:focus, .content input[type = "password"]:focus
+{
+  width: 280px;
+  border-color: #2ecc71;
+
+}
+.content input[type = "submit"]:hover
+{
+  background: #2ecc71;
+}

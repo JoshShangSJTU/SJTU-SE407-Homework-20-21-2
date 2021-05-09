@@ -38,14 +38,20 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.humanize',
+    'widget_tweaks',
+
+    'mgr',
+    'splatform',
+    'boards',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
+    'corsheaders.middleware.CorsMiddleware', # 跨域访问
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    #'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -53,8 +59,8 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'sports.urls'
 
-CORS_ORIGIN_ALLOW_ALL = True
-CORS_ALLOW_CREDENTIALS = True
+CORS_ORIGIN_ALLOW_ALL = True #
+CORS_ALLOW_CREDENTIALS = True # 这俩都是允许跨域访问的相关参数
 
 TEMPLATES = [
     {
@@ -68,6 +74,10 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+            'libraries':{ # 这里是添加自定义标签的地方
+                 'my_customer_tags': 'boards.templatetags.form_tags',
+                 'my_customer_icons': 'boards.templatetags.gravatar',
+             },
         },
     },
 ]
