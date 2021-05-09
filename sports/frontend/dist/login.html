@@ -3,12 +3,13 @@
 	<head>
 		<meta charset="utf-8">
 		<title>login</title>
-		<link rel="stylesheet" type="text/css" href="static/css/login_style.css" />
-		<script src="static/js/login.js"></script>
+		<link rel="stylesheet" type="text/css" href="../static/css/login_style.css" />
+		<script src="../static/js/login.js"></script>
 	</head>
 	<body>
         <!--导包-->
         <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 		<div class="control">
 			<div class="item">
 				<div class="active">登录</div><div>注册</div>
@@ -43,11 +44,13 @@
                 },
                 methods:{
                     matchin:function(){
-                        axios.get("").then(
+                        axios.post("http://127.0.0.1:8000/api/mgr/signin",{username: this.username, password: this.password,}).then(
                             function(response){
-
+                              console.log(username)
                         },
-                            function(err){})
+                            function(err){
+								alert('tmd')
+							})
                     }
                 }
             })
