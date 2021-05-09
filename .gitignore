@@ -116,3 +116,5 @@ dmypy.json
 # sports/db.sqlite3
 # *.sqlite3
 # *.pyc
+sports/db.sqlite3
+sports/db.sqlite3
