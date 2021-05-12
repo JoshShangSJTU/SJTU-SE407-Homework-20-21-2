@@ -17,14 +17,15 @@ from django.contrib import admin
 from django.urls import path
 from django.conf.urls import url, include
 from django.views.generic import TemplateView
+from splatform.views import HomeView
 
 import boards.urls
 
 urlpatterns = [
     path('admin/', admin.site.urls), # 管理员
     path('', TemplateView.as_view(template_name='index.html')), # vue主页
-    path('home/', TemplateView.as_view(template_name='home.html')), # 赛事主页
-    path('login/', TemplateView.as_view(template_name='login.html')), # 赛事主页
+    path('home/', HomeView.as_view()), # 赛事主页
+    path('login/', TemplateView.as_view(template_name='login.html')), # 登录界面
     path('talk/', include(boards.urls)), # 讨论区页面
 
     path('api/mgr/', include('mgr.urls')),
