@@ -1,0 +1,451 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>
+    SJTU Sports Home
+  </title>
+
+  <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+  <link rel="stylesheet" href="{% static 'css/home.css' %}">
+
+  <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+  <script src="{% static 'js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'js/jquery.tablesorter.min.js' %}"></script>
+  <script src="{% static 'js/home.js' %}"></script>
+
+</head>
+
+<!--body属性用于滚动监听-->
+
+<body data-spy="scroll" data-target="#navbar2" data-offset="30">
+  <!--导航栏-->
+  <nav class="navbar navbar-expand-md bg-light navbar-light">
+
+    <!--缩放时用于包裹的按钮-->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar1">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!--导航栏选项（按钮内）-->
+    <div class="collapse navbar-collapse" id="navbar1">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="navbar-brand" href="#">首页</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">赛事</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">榜单</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">资讯</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'home_boards' %}">交流区</a>
+        </li>
+      </ul>
+    </div>
+
+    <!--导航栏选项（按扭外）-->
+    <div>
+      <form class="form-inline">
+        <input class="form-control" type="text">
+        <button class="btn btn-success" type="button">搜索</button>
+      </form>
+    </div>
+
+    <div>
+      <a class="nav-link text-primary" href="login">登录</a>
+    </div>
+  </nav>
+
+  <!--轮播-->
+  <div class="container carousel slide carousel-fade" data-ride="carousel" id="shuff">
+    <div class="row">
+      <ul class="carousel-indicators">
+        <li data-target="#demo" data-slide-to="0" class="active"></li>
+        <li data-target="#demo" data-slide-to="1"></li>
+        <li data-target="#demo" data-slide-to="2"></li>
+      </ul>
+
+      <!--图片链接-->
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <img src="https://static.runoob.com/images/mix/img_fjords_wide.jpg">
+        </div>
+        <div class="carousel-item">
+          <img src="https://static.runoob.com/images/mix/img_nature_wide.jpg">
+        </div>
+        <div class="carousel-item">
+          <img src="https://static.runoob.com/images/mix/img_mountains_wide.jpg">
+        </div>
+      </div>
+
+      <a class="carousel-control-prev" href="#demo" data-slide="prev">
+        <span class="carousel-control-prev-icon"></span>
+      </a>
+
+      <a class="carousel-control-next" href="#demo" data-slide="next">
+        <span class="carousel-control-next-icon"></span>
+      </a>
+    </div>
+  </div>
+
+  <!--侧边导航栏-->
+  <nav id="navbar2" class="navbar navbar-light bg-light position-fixed">
+    <ul class="nav nav-pills flex-column">
+      <li class="nav-item">
+        <a class="nav-link" href="#section1">赛事信息</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#section2">数据榜单</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#section3">赛事资讯</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#section4">赛事讨论区</a>
+      </li>
+    </ul>
+  </nav>
+
+  <!--主体一-->
+  <div id="section1">
+    <h1 class="font-weight-bold text-center">赛事信息</h1>
+    <hr class="style1" />
+    <!--container,卡片可重复添加-->
+    <div class="container" style="text-align: center" id="match">
+      <div class="card mb-3">
+        <div class="row no-gutters">
+          <div class="col-md-8">
+            <a href="#">
+              <img src="http://5b0988e595225.cdn.sohucs.com/images/20200502/791db1af5862438298d98a7134e598cf.jpeg" class="card-img" alt="...">
+            </a>
+          </div>
+
+          <div class="col-md-4">
+            <div class="card-body">
+              <a href="#">
+                <h5 class="card-title">比赛名称</h5>
+              </a>
+              <p class="card-text">比赛信息</p>
+              <p class="card-text"><small class="text-muted"></small></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card mb-3">
+        <div class="row no-gutters">
+          <div class="col-md-8">
+            <a href="#">
+              <img src="https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1161591332,1616831420&fm=11&gp=0.jpg" class="card-img" alt="...">
+            </a>
+          </div>
+
+          <div class="col-md-4">
+            <div class="card-body">
+              <a href="#">
+                <h5 class="card-title">比赛名称</h5>
+              </a>
+              <p class="card-text">比赛信息</p>
+              <p class="card-text"><small class="text-muted"></small></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card mb-3">
+        <div class="row no-gutters">
+          <div class="col-md-8">
+            <a href="#">
+              <img src="..." class="card-img" alt="...">
+            </a>
+          </div>
+
+          <div class="col-md-4">
+            <div class="card-body">
+              <a href="#">
+                <h5 class="card-title">比赛名称</h5>
+              </a>
+              <p class="card-text">比赛信息</p>
+              <p class="card-text"><small class="text-muted"></small></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card mb-3">
+        <div class="row no-gutters">
+          <div class="col-md-8">
+            <a href="#">
+              <img src="..." class="card-img" alt="...">
+            </a>
+          </div>
+
+          <div class="col-md-4">
+            <div class="card-body">
+              <a href="#">
+                <h5 class="card-title">比赛名称</h5>
+              </a>
+              <p class="card-text">比赛信息</p>
+              <p class="card-text"><small class="text-muted"></small></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--主体二-->
+  <div id="section2">
+    <h1 class="font-weight-bold text-center">数据榜单</h1>
+	<style>
+		a {
+			color: #525C66;
+			text-decoration: none;
+		}
+        <!-- div 大小设定 -->
+		.top-10 {
+			float: left;
+			width: 340px;
+
+			margin-top: 106px;
+			margin-left: 118px;
+			background: #fff;
+			border: 1px solid #FFF;
+			box-shadow: #d0d0d0 1px 1px 10px 0px;
+		}
+
+		.top-10 ul {
+			counter-reset: section;
+		}
+
+		.top-10 li {
+			float: left;
+			width: 260px;
+			border-bottom: 1px solid #b8c2cc;
+			line-height: 46px;
+			height: 46px;
+			overflow: hidden;
+			color: #525C66;
+			font-size: 14px;
+
+		}
+
+		.top-10 li:before {
+			counter-increment: section;
+			content: counter(section);
+			display: inline-block;
+			padding: 0 12px;
+			margin-right: 10px;
+			height: 18px;
+			line-height: 18px;
+			background: #b8c2cc;
+			color: #fff;
+			border-radius: 3px;
+			font-size: 9px
+		}
+        <!-- 排名前三名颜色控制 -->
+		.top-10 li:nth-child(1):before {
+			background: #0164b4
+		}
+
+		.top-10 li:nth-child(2):before {
+			background: #0164b4
+		}
+
+		.top-10 li:nth-child(3):before {
+			background: #0164b4
+		}
+
+		#rank-more {
+			float: left;
+			width: 100%;
+			margin-top: 8px;
+			text-align: center;
+		}
+
+		.span-h7 {
+			font-size: 14px;
+			color: #B8C2CC;
+			font-weight: 300;
+		}
+	</style>
+
+	<body>
+
+		<div class="top-10">
+			<ul>
+				<li><a>第一名-XX01</a></li>
+				<li><a>第二名-XX02</a></li>
+				<li><a>第三名-XX03</a></li>
+				<li><a>第四名-XX04</a></li>
+				<li><a>第五名-XX05</a></li>
+				<li><a>第六名-XX06</a></li>
+				<li><a>第七名-XX07</a></li>
+				<li><a>第八名-XX08</a></li>
+				<li><a>第九名-XX09</a></li>
+				<li><a>第十名-XX10</a></li>
+			</ul>
+			<div id="rank-more">
+				<span class="span-h7"><a href="#">查看更多</a></span>
+			</div>
+
+
+		</div>
+	</body>
+
+
+  <!--主体三，当前内容用于测试滚动监听效果用，后续可添加实际内容-->
+  <div id="section3">
+    <h1 class="font-weight-bold text-center">赛事资讯</h1>
+    <div class="container" style="text-align: right;">
+      <a href="#" target="_blank" class="btn more">
+        更多
+      </a>
+    </div>
+    <hr class="style1" />
+    <div style="text-align: center;" id="news">
+      <div class="card mb-3">
+        <div class="row no-gutters">
+          <div class="col-md-10">
+            <div class="card-body">
+              <a href="#">
+                <h5 class="card-title">标题</h5>
+              </a>
+              <p class="card-text">内容</p>
+              <p class="card-text" style="text-align: right;">
+                <small class="text-muted">xxxx/xx/xx</small>
+              </p>
+            </div>
+          </div>
+
+          <div class="col-md-2">
+            <img src="..." class="card-img" alt="...">
+          </div>
+        </div>
+      </div>
+      <hr class="style2" />
+      <div class="card mb-3">
+        <div class="row no-gutters">
+          <div class="col-md-10">
+            <div class="card-body">
+              <a href="#">
+                <h5 class="card-title">标题</h5>
+              </a>
+              <p class="card-text">内容</p>
+              <p class="card-text" style="text-align: right;">
+                <small class="text-muted">xxxx/xx/xx</small>
+              </p>
+            </div>
+          </div>
+
+          <div class="col-md-2">
+            <img src="..." class="card-img" alt="...">
+          </div>
+        </div>
+      </div>
+      <hr class="style2" />
+      <div class="card mb-3">
+        <div class="row no-gutters">
+          <div class="col-md-10">
+            <div class="card-body">
+              <a href="#">
+                <h5 class="card-title">标题</h5>
+              </a>
+              <p class="card-text">内容</p>
+              <p class="card-text" style="text-align: right;">
+                <small class="text-muted">xxxx/xx/xx</small>
+              </p>
+            </div>
+          </div>
+
+          <div class="col-md-2">
+            <img src="..." class="card-img" alt="...">
+          </div>
+        </div>
+      </div>
+      <hr class="style2" />
+      <div class="card mb-3">
+        <div class="row no-gutters">
+          <div class="col-md-10">
+            <div class="card-body">
+              <a href="#">
+                <h5 class="card-title">标题</h5>
+              </a>
+              <p class="card-text">内容</p>
+              <p class="card-text" style="text-align: right;">
+                <small class="text-muted">xxxx/xx/xx</small>
+              </p>
+            </div>
+          </div>
+
+          <div class="col-md-2">
+            <img src="..." class="card-img" alt="...">
+          </div>
+        </div>
+      </div>
+      <hr class="style2" />
+      <div class="card mb-3">
+        <div class="row no-gutters">
+          <div class="col-md-10">
+            <div class="card-body">
+              <a href="#">
+                <h5 class="card-title">标题</h5>
+              </a>
+              <p class="card-text">内容</p>
+              <p class="card-text" style="text-align: right;">
+                <small class="text-muted">xxxx/xx/xx</small>
+              </p>
+            </div>
+          </div>
+
+          <div class="col-md-2">
+            <img src="..." class="card-img" alt="...">
+          </div>
+        </div>
+      </div>
+      <hr class="style2" />
+    </div>
+  </div>
+
+  <!--主体四，说明同主体三-->
+  <div id="section4">
+    <h1 class="font-weight-bold text-center">赛事讨论区</h1>
+    <hr class="style1" />
+    <div class="container">
+      <p>
+        测试用
+      </p>
+      <p>
+        首先来考察其某些性质：1，在这一微分方程组中，有不同n和m的未知函数Unm，Vnm，Wnm，Pnm和Ψnm是互相耦合的。且容易看出，具有m为偶数的未知量相互耦合，具有m为奇数的未知量也相互耦合。但具有m为奇数的未知量是独立于m为偶数的未知量的。以后仅讨论m为偶数的情形，对m为奇数情形是不难同样讨论的。
+        2．科里奥利力的出现使方程(5)和(6)不再恒等。Wnm≠0的引入解决了这一问题。并且，如果变形的平衡状态（即基本态）是不对称的话，容易看出，在周向两方向传播的波也是耦合的。
+        特别在m=0情形，扰动量必须取如下形式：
+        这样在方程(12)-(18)中，当n=0时，为应用表达式(19)，应该把m和mwπ0分别用0和wπ0来替代。
+        这是不同于旋转星的振动稳定性情形。但相似于既考虑自转又考虑潮汐的振动稳定性情形。
+        3．因为f02和f2在均匀不可压情形为常数，所以整个微分方程是欧拉型的，这些微分方程的解可表为α^α，其中α为特征值。
+      </p>
+      <p>
+        从上面的讨论可知，最后归结为解在一定边界条件下的无穷个未知函数的相互耦合的无穷个微分方程。为实际计算，可以限于讨论到n=2的情形，这时共有十九个未知量：1．从四个方程(12)-(15)可得以u，v，w和p为未知函数的常微分方程组。其非线性项系以毋来表示的。
+        2．分别利用球心处有限与无穷远处趋于零的条件，由方程(17)求得内、外扰动引力势的表达式。并利用条件(25)，把内、外扰动引力势的某些待定常数先确定
+        3．把解得的内部扰动引力势的表达式代入由步骤1所得的微分方程的右边。这样可以利用边界条件(20)和(22)求得u，v，w和p的表达式
+        4．把所求得的u，Ψ+和Ψ-代入边界条件(23)，就可得到决定四个待定常数的齐次线性方程组。为了得到不全为0的解，其充要条件是其系数行列式为0，这样就得到决定特征频率σ的方程，这一特征频率可以是实数，也可以是复数，主要决定于g02和g2的取值。当频率为实数时，这一原先的平衡状态为稳定的；而当频率为复数时，主要决定于其虚部。当虚部由正变负时，原先的平衡状态也就变成不稳定的了。所以频率的虚部为0的状态为临界状态。洛希极限就由这临界状态求得。
+        像已经知道的那样，在上面求解常微分方程时都需先解特征方程。而恰恰这些特征方程的系数包含有洛希极限项（即g02和g2）。因此要用直接方法来解这特征方程是非常困难的。
+        我们提出一间接方法：首先，任选M/(πR³ρ)的值。这样就可向上面所描述的过程进行求解，因为M/(πR³ρ)的任意性，一般来说特征频率σ为复数。从而改变M/(πR³ρ)的值，就可以得到不同的特征频率。这样的过程一直持续到特征频率的虚部接近于0。在这一间接方法中，重要的是初值的选取。整个过程可由计算机来实现。
+      </p>
+      <p>
+        除原点之外，λ＜λc对应曲线与横轴有二个交点A、B，由图可见，曲线在点A的斜率大于0，即W″(e0)＞0，函数W(e)在此点有极小值，故点A是平衡状态。在点B的斜率小于0，即W″(e0)＜0，函数W(e)在此点有极大值，故点B不是平衡状态。所以有结论:λ＜λc时存在平衡状态;除原点之外，λ=λc对应曲线与横轴仅有一个交点———切点C;除原点之外，λ＞λc对应曲线与横轴无交点，故此时不满足平衡条件。所以λ=λc确实是系统有无平衡状态的分界点。
+        至于λ=λc时是否有平衡状态，由于对应曲线在点C与横轴相切，即W'(ec)=0，W″(ec)=0，需要看W(e)在点C的三阶导数是否等于0和四阶导数是否大于0。经数值计算，发现三阶导数不等于0，故此点不存在极值，更谈不上有极小值，所以此时不存在平衡状态。综上所述，λ≥λc时系统是不稳定的。由此不等式和如下关系:λ=(m1/m)(R/r)³、m1=ρ4πR³/3、m=ρ'4πR³/3、式(42)，可得洛希极限：
+      </p>
+    </div>
+  </div>
+  <br>
+</body>
+
+</html>
