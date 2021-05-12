@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+	</head>
+	<style>
+		a {
+			color: #525C66;
+			text-decoration: none;
+		}
+        <!-- div 大小设定 -->
+		.top-10 {
+			float: left;
+			width: 340px;
+
+			margin-top: 106px;
+			margin-left: 118px;
+			background: #fff;
+			border: 1px solid #FFF;
+			box-shadow: #d0d0d0 1px 1px 10px 0px;
+		}
+
+		.top-10 ul {
+			counter-reset: section;
+		}
+
+		.top-10 li {
+			float: left;
+			width: 260px;
+			border-bottom: 1px solid #b8c2cc;
+			line-height: 46px;
+			height: 46px;
+			overflow: hidden;
+			color: #525C66;
+			font-size: 14px;
+
+		}
+
+		.top-10 li:before {
+			counter-increment: section;
+			content: counter(section);
+			display: inline-block;
+			padding: 0 12px;
+			margin-right: 10px;
+			height: 18px;
+			line-height: 18px;
+			background: #b8c2cc;
+			color: #fff;
+			border-radius: 3px;
+			font-size: 9px
+		}
+        <!-- 排名前三名颜色控制 -->
+		.top-10 li:nth-child(1):before {
+			background: #0164b4
+		}
+
+		.top-10 li:nth-child(2):before {
+			background: #0164b4
+		}
+
+		.top-10 li:nth-child(3):before {
+			background: #0164b4
+		}
+
+		#rank-more {
+			float: left;
+			width: 100%;
+			margin-top: 8px;
+			text-align: center;
+		}
+
+		.span-h7 {
+			font-size: 14px;
+			color: #B8C2CC;
+			font-weight: 300;
+		}
+	</style>
+
+	<body>
+
+		<div class="top-10">
+			<ul>
+				<li><a>第一名-XX01</a></li>
+				<li><a>第二名-XX02</a></li>
+				<li><a>第三名-XX03</a></li>
+				<li><a>第四名-XX04</a></li>
+				<li><a>第五名-XX05</a></li>
+				<li><a>第六名-XX06</a></li>
+				<li><a>第七名-XX07</a></li>
+				<li><a>第八名-XX08</a></li>
+				<li><a>第九名-XX09</a></li>
+				<li><a>第十名-XX10</a></li>
+			</ul>
+			<div id="rank-more">
+				<span class="span-h7"><a href="#">查看更多</a></span>
+			</div>
+
+
+
+		</div>
+	</body>
+</html>
