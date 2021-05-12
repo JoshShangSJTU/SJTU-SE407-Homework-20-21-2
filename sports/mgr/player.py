@@ -63,7 +63,7 @@ def addplayer(request):
 
     info = request.params['data']
 
-    # 从请求消息中 获取要添加客户的信息
+    # 从请求消息中 获取要添加队员的信息
     # 并且插入到数据库中
     # 返回值 就是对应插入记录的对象
     record = Player.objects.create(
@@ -80,17 +80,17 @@ def addplayer(request):
 
 def modifyplayer(request):
 
-    # 从请求消息中 获取修改客户的信息
-    # 找到该客户，并且进行修改操作
+    # 从请求消息中 获取修改队员的信息
+    # 找到该队员，并且进行修改操作
 
     playerid = request.params['id']
     newdata = request.params['newdata']
 
     try:
-        # 根据 id 从数据库中找到相应的客户记录
+        # 根据 id 从数据库中找到相应的队员记录
         player = Player.objects.get(id=playerid)
     except player.DoesNotExist:
-        return {'ret': 1, 'msg': f'id 为`{playerid}`的客户不存在'}
+        return {'ret': 1, 'msg': f'id 为`{playerid}`的队员不存在'}
 
     if 'player_name' in newdata:
         player.player_name = newdata['player_name']
@@ -116,12 +116,12 @@ def deleteplayer(request):
     playerid = request.params['id']
 
     try:
-        # 根据 id 从数据库中找到相应的客户记录
+        # 根据 id 从数据库中找到相应的队员记录
         player = Player.objects.get(id=playerid)
     except player.DoesNotExist:
         return {
                 'ret': 1,
-                'msg': f'id 为`{playerid}`的客户不存在'
+                'msg': f'id 为`{playerid}`的队员不存在'
         }
 
     # delete 方法就将该记录从数据库中删除了

@@ -2,21 +2,20 @@
 
 请求消息
 GET  /api/mgr/team?action=list_team  HTTP/1.1
+
 请求参数
 http 请求消息 url 中 需要携带如下参数，
 
 action
-
 填写值为 list_team
 
 响应消息
 HTTP/1.1 200 OK
 Content-Type: application/json
+
 响应内容
 http 响应消息 body 中， 数据以json格式存储，
-
 如果获取信息成功，返回如下
-
 {
     "ret": 0,
     "retlist": [
@@ -38,11 +37,9 @@ http 响应消息 body 中， 数据以json格式存储，
     ]              
 }
 ret 为 0 表示登录成功
-
 retlist 里面包含了所有的队伍信息列表。
 
 每个队伍信息以如下格式存储
-
 {
     "id": 1,
     "team_name": "aaa",
@@ -52,16 +49,15 @@ retlist 里面包含了所有的队伍信息列表。
 }
 
 
-
 添加一个队伍
+
 请求消息
 POST  /api/mgr/team  HTTP/1.1
 Content-Type:   application/json
+
 请求参数
 http 请求消息 body 携带添加队伍的信息
-
 消息体的格式是json，如下示例：
-
 {
     "action":"add_team",
     "data":{
@@ -72,31 +68,24 @@ http 请求消息 body 携带添加队伍的信息
     }
 }
 其中
-
 action 字段固定填写 add_team 表示添加一个队伍
-
 data 字段中存储了要添加的队伍的信息
-
 服务端接受到该请求后，应该在系统中增加一位这样的队伍。
 
 响应消息
 HTTP/1.1 200 OK
 Content-Type: application/json
+
 响应内容
 http 响应消息 body 中， 数据以json格式存储，
-
 如果添加成功，返回如下
-
 {
     "ret": 0,
     "id" : 123
 }
 ret 为 0 表示成功。
-
 id 为 添加队伍的id号。
-
 如果添加失败，返回失败的原因，示例如下
-
 {
     "ret": 1,    
     "msg": "队伍名已经存在"
@@ -105,14 +94,14 @@ ret 不为 0 表示失败， msg字段描述添加失败的原因
 
 
 修改队伍信息
+
 请求消息
 PUT  /api/mgr/team  HTTP/1.1
 Content-Type:   application/json
+
 请求参数
 http 请求消息 body 携带修改队伍的信息
-
 消息体的格式是json，如下示例：
-
 {
     "action":"modify_team",
     "id": 6,
@@ -124,31 +113,23 @@ http 请求消息 body 携带修改队伍的信息
     }
 }
 其中
-
 action 字段固定填写 modify_team 表示修改一个队伍的信息
-
 id 字段为要修改的队伍的id号
-
 newdata 字段中存储了修改后的队伍的信息（可以只包含部分信息）
-
 服务端接受到该请求后，应该在系统中更改id号对应的队伍。
-
 
 响应消息
 HTTP/1.1 200 OK
 Content-Type: application/json
+
 响应内容
 http 响应消息 body 中， 数据以json格式存储，
-
 如果修改成功，返回如下
-
 {
     "ret": 0
 }
 ret 为 0 表示成功。
-
 如果修改失败，返回失败的原因，示例如下
-
 {
     "ret": 1,    
     "msg": "id为456的队伍不存在"
@@ -156,47 +137,38 @@ ret 为 0 表示成功。
 ret 不为 0 表示失败， msg字段描述添加失败的原因
 
 
-
 删除队伍信息
+
 请求消息
 DELETE  /api/mgr/team  HTTP/1.1
 Content-Type:   application/json
+
 请求参数
 http 请求消息 body 携带要删除队伍的id
-
 消息体的格式是json，如下示例：
-
 {
     "action":"del_team",
     "id": 6
 }
 其中
-
 action 字段固定填写 del_team 表示删除一个队伍
-
 id 字段为要删除的队伍的id号
-
 服务端接受到该请求后，应该在系统中尝试删除该id对应的队伍。
-
 
 响应消息
 HTTP/1.1 200 OK
 Content-Type: application/json
+
 响应内容
 http 响应消息 body 中， 数据以json格式存储，
-
 如果删除成功，返回如下
-
 {
     "ret": 0
 }
 ret 为 0 表示成功。
-
 如果删除失败，返回失败的原因，示例如下
-
 {
     "ret": 1,    
     "msg": "id为 566 的队伍不存在"
 }
 ret 不为 0 表示失败， msg字段描述添加失败的原因
-

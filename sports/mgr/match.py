@@ -63,7 +63,7 @@ def addmatch(request):
 
     info = request.params['data']
 
-    # 从请求消息中 获取要添加客户的信息
+    # 从请求消息中 获取要添加比赛的信息
     # 并且插入到数据库中
     # 返回值 就是对应插入记录的对象
     record = Match.objects.create(
@@ -81,17 +81,17 @@ def addmatch(request):
 
 def modifymatch(request):
 
-    # 从请求消息中 获取修改客户的信息
-    # 找到该客户，并且进行修改操作
+    # 从请求消息中 获取修改比赛的信息
+    # 找到该比赛，并且进行修改操作
 
     matchid = request.params['id']
     newdata = request.params['newdata']
 
     try:
-        # 根据 id 从数据库中找到相应的客户记录
+        # 根据 id 从数据库中找到相应的比赛记录
         match = Match.objects.get(id=matchid)
     except match.DoesNotExist:
-        return {'ret': 1, 'msg': f'id 为`{matchid}`的客户不存在'}
+        return {'ret': 1, 'msg': f'id 为`{matchid}`的比赛不存在'}
 
     if 'match_no' in newdata:
         match.match_no = newdata['match_no']
@@ -119,12 +119,12 @@ def deletematch(request):
     matchid = request.params['id']
 
     try:
-        # 根据 id 从数据库中找到相应的客户记录
+        # 根据 id 从数据库中找到相应的比赛记录
         match = Match.objects.get(id=matchid)
     except match.DoesNotExist:
         return {
                 'ret': 1,
-                'msg': f'id 为`{matchid}`的客户不存在'
+                'msg': f'id 为`{matchid}`的比赛不存在'
         }
 
     # delete 方法就将该记录从数据库中删除了

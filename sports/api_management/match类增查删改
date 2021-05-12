@@ -2,21 +2,20 @@
 
 请求消息
 GET  /api/mgr/match?action=list_match  HTTP/1.1
+
 请求参数
 http 请求消息 url 中 需要携带如下参数，
 
 action
-
 填写值为 list_match
 
 响应消息
 HTTP/1.1 200 OK
 Content-Type: application/json
+
 响应内容
 http 响应消息 body 中， 数据以json格式存储，
-
 如果获取信息成功，返回如下
-
 {
     "ret": 0,
     "retlist": [
@@ -44,11 +43,9 @@ http 响应消息 body 中， 数据以json格式存储，
     ]              
 }
 ret 为 0 表示登录成功
-
 retlist 里面包含了所有的比赛信息列表。
 
 每个比赛信息以如下格式存储
-
 {
     "id": 1,
     "match_no": 1,
@@ -63,14 +60,14 @@ retlist 里面包含了所有的比赛信息列表。
 
 
 添加一个比赛
+
 请求消息
 POST  /api/mgr/match  HTTP/1.1
 Content-Type:   application/json
+
 请求参数
 http 请求消息 body 携带添加比赛的信息
-
 消息体的格式是json，如下示例：
-
 {
     "action":"add_match",
     "data":{
@@ -84,31 +81,24 @@ http 请求消息 body 携带添加比赛的信息
     }
 }
 其中
-
 action 字段固定填写 add_match 表示添加一个比赛
-
 data 字段中存储了要添加的比赛的信息
-
 服务端接受到该请求后，应该在系统中增加一位这样的比赛。
 
 响应消息
 HTTP/1.1 200 OK
 Content-Type: application/json
+
 响应内容
 http 响应消息 body 中， 数据以json格式存储，
-
 如果添加成功，返回如下
-
 {
     "ret": 0,
     "id" : 123
 }
 ret 为 0 表示成功。
-
 id 为 添加比赛的id号。
-
 如果添加失败，返回失败的原因，示例如下
-
 {
     "ret": 1,    
     "msg": "比赛名已经存在"
@@ -117,14 +107,14 @@ ret 不为 0 表示失败， msg字段描述添加失败的原因
 
 
 修改比赛信息
+
 请求消息
 PUT  /api/mgr/match  HTTP/1.1
 Content-Type:   application/json
+
 请求参数
 http 请求消息 body 携带修改比赛的信息
-
 消息体的格式是json，如下示例：
-
 {
     "action":"modify_match",
     "id": 6,
@@ -139,31 +129,23 @@ http 请求消息 body 携带修改比赛的信息
     }
 }
 其中
-
 action 字段固定填写 modify_match 表示修改一个比赛的信息
-
 id 字段为要修改的比赛的id号
-
 newdata 字段中存储了修改后的比赛的信息（可以只包含部分信息）
-
 服务端接受到该请求后，应该在系统中更改id号对应的比赛。
-
 
 响应消息
 HTTP/1.1 200 OK
 Content-Type: application/json
+
 响应内容
 http 响应消息 body 中， 数据以json格式存储，
-
 如果修改成功，返回如下
-
 {
     "ret": 0
 }
 ret 为 0 表示成功。
-
 如果修改失败，返回失败的原因，示例如下
-
 {
     "ret": 1,    
     "msg": "id为456的比赛不存在"
@@ -171,47 +153,38 @@ ret 为 0 表示成功。
 ret 不为 0 表示失败， msg字段描述添加失败的原因
 
 
-
 删除比赛信息
+
 请求消息
 DELETE  /api/mgr/match  HTTP/1.1
 Content-Type:   application/json
+
 请求参数
 http 请求消息 body 携带要删除比赛的id
-
 消息体的格式是json，如下示例：
-
 {
     "action":"del_match",
     "id": 6
 }
 其中
-
 action 字段固定填写 del_match 表示删除一个比赛
-
 id 字段为要删除的比赛的id号
-
 服务端接受到该请求后，应该在系统中尝试删除该id对应的比赛。
-
 
 响应消息
 HTTP/1.1 200 OK
 Content-Type: application/json
+
 响应内容
 http 响应消息 body 中， 数据以json格式存储，
-
 如果删除成功，返回如下
-
 {
     "ret": 0
 }
 ret 为 0 表示成功。
-
 如果删除失败，返回失败的原因，示例如下
-
 {
     "ret": 1,    
     "msg": "id为 566 的比赛不存在"
 }
 ret 不为 0 表示失败， msg字段描述添加失败的原因
-

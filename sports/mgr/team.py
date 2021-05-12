@@ -63,7 +63,7 @@ def addteam(request):
 
     info = request.params['data']
 
-    # 从请求消息中 获取要添加客户的信息
+    # 从请求消息中 获取要添加队伍的信息
     # 并且插入到数据库中
     # 返回值 就是对应插入记录的对象
     record = Team.objects.create(
@@ -78,17 +78,17 @@ def addteam(request):
 
 def modifyteam(request):
 
-    # 从请求消息中 获取修改客户的信息
-    # 找到该客户，并且进行修改操作
+    # 从请求消息中 获取修改队伍的信息
+    # 找到该队伍，并且进行修改操作
 
     teamid = request.params['id']
     newdata = request.params['newdata']
 
     try:
-        # 根据 id 从数据库中找到相应的客户记录
+        # 根据 id 从数据库中找到相应的队伍记录
         team = Team.objects.get(id=teamid)
     except Team.DoesNotExist:
-        return {'ret': 1, 'msg': f'id 为`{teamid}`的客户不存在'}
+        return {'ret': 1, 'msg': f'id 为`{teamid}`的队伍不存在'}
 
     if 'team_name' in newdata:
         team.team_name = newdata['team_name']
@@ -110,12 +110,12 @@ def deleteteam(request):
     teamid = request.params['id']
 
     try:
-        # 根据 id 从数据库中找到相应的客户记录
+        # 根据 id 从数据库中找到相应的队伍记录
         team = Team.objects.get(id=teamid)
     except Team.DoesNotExist:
         return {
                 'ret': 1,
-                'msg': f'id 为`{teamid}`的客户不存在'
+                'msg': f'id 为`{teamid}`的队伍不存在'
         }
 
     # delete 方法就将该记录从数据库中删除了
