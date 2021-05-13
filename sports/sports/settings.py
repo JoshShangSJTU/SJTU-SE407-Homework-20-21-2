@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.humanize',
     'widget_tweaks',
+    'rest_framework', # 提供后端接口
 
     'mgr',
     'splatform',
