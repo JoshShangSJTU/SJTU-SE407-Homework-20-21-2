@@ -14,6 +14,7 @@ from . import serializers
 
 
 # Create your views here.
+# 下面是接口
 class BoardViewSet(viewsets.ModelViewSet):
     """
     区域信息接口
@@ -21,6 +22,8 @@ class BoardViewSet(viewsets.ModelViewSet):
     queryset = Board.objects.all()
     serializer_class = serializers.BoardSerializer
 
+
+# -----------------这是分割线-----------------------
 class BoardListView(ListView):
     model = Board
     context_object_name = 'boards'
