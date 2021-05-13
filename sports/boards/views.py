@@ -6,12 +6,24 @@ from django.views.generic import UpdateView, ListView
 from django.utils import timezone
 from django.utils.decorators import method_decorator
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from rest_framework import viewsets
 
 from .models import Board, Topic, Post
 from .forms import NewTopicForm, PostForm
+from . import serializers
 
 
 # Create your views here.
+# 下面是接口
+class BoardViewSet(viewsets.ModelViewSet):
+    """
+    区域信息接口
+    """
+    queryset = Board.objects.all()
+    serializer_class = serializers.BoardSerializer
+
+
+# -----------------这是分割线-----------------------
 class BoardListView(ListView):
     model = Board
     context_object_name = 'boards'
