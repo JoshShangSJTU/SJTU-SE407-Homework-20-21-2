@@ -70,7 +70,7 @@
     <span class="label" style="transform: translateY(240px);">
         <p>篮球</p>
     </span>
-    
+
     <span class="label" style="transform: translateY(320px);">
         <p>排球</p>
     </span>
@@ -79,25 +79,22 @@
         <div class="body-top">
             <b>赛 事 信 息 列 表</b>
         </div>
-        <nav aria-label="Page navigation">
+
+        <div>
             <ul class="pagination">
-                <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                        <span class="sr-only">Previous</span>
-                    </a>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                        <span class="sr-only">Next</span>
-                    </a>
-                </li>
             </ul>
-        </nav>
+        </div>
+
+        <script src="static/js/bootstrap-paginator.js"></script>
+        <script type="text/javascript">
+            var options = {
+                bootstrapMajorVersion: 3,
+                currentPage: 1,
+                totalPages: 10,
+            }
+            $(".pagination").bootstrapPaginator(options);
+        </script>
+
         <div style="text-align: center;">
             <div class="match-card">
                 <a href="#" target="_blank" class="match-img" style="background-image: url(#);"></a>
@@ -160,28 +157,7 @@
                 </a>
             </div>
         </div>
-
-        <nav aria-label="Page navigation">
-            <ul class="pagination">
-                <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                        <span class="sr-only">Previous</span>
-                    </a>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                        <span class="sr-only">Next</span>
-                    </a>
-                </li>
-            </ul>
-        </nav>
     </div>
-
 
 </body>
 
