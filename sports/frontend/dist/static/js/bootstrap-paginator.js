@@ -409,6 +409,10 @@
 
             itemContainer.addClass(itemContainerClass).append(itemContent);
 
+            //bootstrap4 修改样式
+            itemContainer.addClass("page-item");
+            itemContainer.find("a").addClass("page-link");
+            
             itemContent.addClass(itemContentClass).html(text).on("click", null, {type: type, page: page}, $.proxy(this.onPageItemClicked, this));
 
             if (this.options.pageUrl) {
