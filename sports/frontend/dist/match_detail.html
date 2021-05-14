@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>
+        Match Detail
+    </title>
+
+    <link rel="stylesheet" href="static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="static/css/match.css">
+
+    <script src="static/js/jquery-3.6.0.min.js"></script>
+    <script src="static/js/bootstrap.min.js"></script>
+
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-md bg-light navbar-light">
+
+        <!--缩放时用于包裹的按钮-->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar1">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!--导航栏选项（按钮内）-->
+        <div class="collapse navbar-collapse" id="navbar1">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">首页</a>
+                </li>
+                <li class="nav-item">
+                    <a class="navbar-brand" href="home_match">赛事</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">榜单</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">资讯</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'home_boards' %}">交流区</a>
+                </li>
+            </ul>
+        </div>
+
+        <!--导航栏选项（按扭外）-->
+        <div>
+            <form class="form-inline">
+                <input class="form-control" type="text">
+                <button class="btn btn-success" type="button">搜索</button>
+            </form>
+        </div>
+
+        <div>
+            <a class="nav-link text-primary" href="login">登录</a>
+        </div>
+    </nav>
+
+    <div class="backgrd">
+        <div class="match-point">
+            <div class="match-title">
+                <div class="title-name">比赛名称</div>
+                <div class="title-place">比赛地点</div>
+                <div class="title-time">05-14 21:51</div>
+            </div>
+            <div class="match-team">
+                <div class="team-left">
+                    <div class="ln">
+                        <p class="team-name">队伍名称-左</p>
+                    </div>
+                </div>
+                <div class="match-result">
+                    <div class="result-left">
+                        <div class="score-top"></div>
+                        <div class="score-bottom"></div>
+                        <span class="score">0</span>
+                    </div>
+                    <div class="result-right">
+                        <div class="score-top"></div>
+                        <div class="score-bottom"></div>
+                        <span class="score win">1</span>
+                    </div>
+                </div>
+                <div class="team-right">
+                    <div class="rn">
+                        <p class="team-name">队伍名称-右</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="match-member">
+            <div class="members">
+                <div class="members-left">
+                    <div class="member-top">
+                        <div class="member-type">教练</div>
+                    </div>
+                    <div class="member-information">
+                        <div class="member-list">
+                            <span class="member-list-item">
+                                <img class="usr-img">
+                                <div class="usr-name">姓名</div>
+                                <div class="member-pos">主教练</div>
+                            </span>
+                            <span class="member-list-item">
+                                <img class="usr-img">
+                                <div class="usr-name">姓名</div>
+                                <div class="member-pos">经理</div>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="member-top">
+                        <div class="member-type">选手</div>
+                    </div>
+                    <div class="member-information">
+                        <div class="member-list">
+                            <span class="member-list-item">
+                                <img class="usr-img">
+                                <div class="usr-name">姓名1</div>
+                                <div class="member-pos">位置1</div>
+                            </span>
+                            <span class="member-list-item">
+                                <img class="usr-img">
+                                <div class="usr-name">姓名2</div>
+                                <div class="member-pos">位置2</div>
+                            </span>
+                            <span class="member-list-item">
+                                <img class="usr-img">
+                                <div class="usr-name">姓名3</div>
+                                <div class="member-pos">位置3</div>
+                            </span>
+                            <span class="member-list-item">
+                                <img class="usr-img">
+                                <div class="usr-name">姓名4</div>
+                                <div class="member-pos">位置4</div>
+                            </span>
+                            <span class="member-list-item">
+                                <img class="usr-img">
+                                <div class="usr-name">姓名5</div>
+                                <div class="member-pos">位置5</div>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="member-top">
+                        <div class="member-type">替补</div>
+                    </div>
+                    <div class="member-information">
+                        <div class="member-list">
+                            <span class="member-list-item">
+                                <img class="usr-img">
+                                <div class="usr-name">姓名1</div>
+                                <div class="member-pos">位置1</div>
+                            </span>
+                            <span class="member-list-item">
+                                <img class="usr-img">
+                                <div class="usr-name">姓名2</div>
+                                <div class="member-pos">位置2</div>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="members-right">
+                    <div class="member-top">
+                        <div class="member-type">教练</div>
+                    </div>
+                    <div class="member-information">
+                        <div class="member-list">
+                            <span class="member-list-item">
+                                <img class="usr-img">
+                                <div class="usr-name">姓名</div>
+                                <div class="member-pos">主教练</div>
+                            </span>
+                            <span class="member-list-item">
+                                <img class="usr-img">
+                                <div class="usr-name">姓名</div>
+                                <div class="member-pos">经理</div>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="member-top">
+                        <div class="member-type">选手</div>
+                    </div>
+                    <div class="member-information">
+                        <div class="member-list">
+                            <span class="member-list-item">
+                                <img class="usr-img">
+                                <div class="usr-name">姓名1</div>
+                                <div class="member-pos">位置1</div>
+                            </span>
+                            <span class="member-list-item">
+                                <img class="usr-img">
+                                <div class="usr-name">姓名2</div>
+                                <div class="member-pos">位置2</div>
+                            </span>
+                            <span class="member-list-item">
+                                <img class="usr-img">
+                                <div class="usr-name">姓名3</div>
+                                <div class="member-pos">位置3</div>
+                            </span>
+                            <span class="member-list-item">
+                                <img class="usr-img">
+                                <div class="usr-name">姓名4</div>
+                                <div class="member-pos">位置4</div>
+                            </span>
+                            <span class="member-list-item">
+                                <img class="usr-img">
+                                <div class="usr-name">姓名5</div>
+                                <div class="member-pos">位置5</div>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="member-top">
+                        <div class="member-type">替补</div>
+                    </div>
+                    <div class="member-information">
+                        <div class="member-list">
+                            <span class="member-list-item">
+                                <img class="usr-img">
+                                <div class="usr-name">姓名1</div>
+                                <div class="member-pos">位置1</div>
+                            </span>
+                            <span class="member-list-item">
+                                <img class="usr-img">
+                                <div class="usr-name">姓名2</div>
+                                <div class="member-pos">位置2</div>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
