@@ -24,11 +24,12 @@ urlpatterns = [
     path('admin/', admin.site.urls), # 管理员
     path('', TemplateView.as_view(template_name='index.html')), # vue主页
     path('home/', TemplateView.as_view(template_name='home.html')), # 赛事主页
-    path('login/', TemplateView.as_view(template_name='login.html')), # 赛事主页
+    path('login/', TemplateView.as_view(template_name='login.html')), # 登录界面
     path('talk/', include(boards.urls)), # 讨论区页面
 
     path('api/mgr/', include('mgr.urls')),
-    
-    path('matchinfo',)
+
+    path('home-match',TemplateView.as_view(template_name='home_match.html'))#赛事信息页
+
 
 ]
