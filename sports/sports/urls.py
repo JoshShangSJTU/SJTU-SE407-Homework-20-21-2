@@ -28,5 +28,7 @@ urlpatterns = [
     path('talk/', include(boards.urls)), # 讨论区页面
 
     path('api/mgr/', include('mgr.urls')),
+    
+    path('matchinfo',)
 
 ]
