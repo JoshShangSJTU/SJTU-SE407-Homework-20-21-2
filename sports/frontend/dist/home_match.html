@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>
+        SJTU Sports Match
+    </title>
+
+    <link rel="stylesheet" href="static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="static/css/match.css">
+
+    <script src="static/js/jquery-3.6.0.min.js"></script>
+    <script src="static/js/bootstrap.min.js"></script>
+
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-md bg-light navbar-light">
+
+        <!--缩放时用于包裹的按钮-->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar1">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!--导航栏选项（按钮内）-->
+        <div class="collapse navbar-collapse" id="navbar1">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">首页</a>
+                </li>
+                <li class="nav-item">
+                    <a class="navbar-brand" href="home_match">赛事</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">榜单</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">资讯</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'home_boards' %}">交流区</a>
+                </li>
+            </ul>
+        </div>
+
+        <!--导航栏选项（按扭外）-->
+        <div>
+            <form class="form-inline">
+                <input class="form-control" type="text">
+                <button class="btn btn-success" type="button">搜索</button>
+            </form>
+        </div>
+
+        <div>
+            <a class="nav-link text-primary" href="login">登录</a>
+        </div>
+    </nav>
+
+    <span class="label" style="transform: translateY(80px);">
+        <p>全部</p>
+    </span>
+
+    <span class="label" style="transform: translateY(160px);">
+        <p>足球</p>
+    </span>
+
+    <span class="label" style="transform: translateY(240px);">
+        <p>篮球</p>
+    </span>
+
+    <span class="label" style="transform: translateY(320px);">
+        <p>排球</p>
+    </span>
+
+    <div class="backgrd">
+        <div class="body-top">
+            <b>赛 事 信 息 列 表</b>
+        </div>
+
+        <div>
+            <ul class="pagination">
+            </ul>
+        </div>
+
+        <script src="static/js/bootstrap-paginator.js"></script>
+        <script type="text/javascript">
+            var options = {
+                bootstrapMajorVersion: 3,
+                currentPage: 1,
+                totalPages: 10,
+            }
+            $(".pagination").bootstrapPaginator(options);
+        </script>
+
+        <div style="text-align: center;">
+            <div class="match-card">
+                <a href="#" target="_blank" class="match-img" style="background-image: url(#);"></a>
+                <a href="#" target="_blank" class="match-text">
+                    <span class="match-text-style">
+                        <span class="match-name">比赛名称</span>
+                        <span class="match-place">比赛地点</span>
+                    </span>
+                    <span class="match-date">2021/xx/xx</span>
+                </a>
+            </div>
+            <div class="match-card">
+                <a href="#" target="_blank" class="match-img" style="background-image: url(#);"></a>
+                <a href="#" target="_blank" class="match-text">
+                    <span class="match-text-style">
+                        <span class="match-name">比赛名称</span>
+                        <span class="match-place">比赛地点</span>
+                    </span>
+                    <span class="match-date">2021/xx/xx</span>
+                </a>
+            </div>
+            <div class="match-card">
+                <a href="#" target="_blank" class="match-img" style="background-image: url(#);"></a>
+                <a href="#" target="_blank" class="match-text">
+                    <span class="match-text-style">
+                        <span class="match-name">比赛名称</span>
+                        <span class="match-place">比赛地点</span>
+                    </span>
+                    <span class="match-date">2021/xx/xx</span>
+                </a>
+            </div>
+            <div class="match-card">
+                <a href="#" target="_blank" class="match-img" style="background-image: url(#);"></a>
+                <a href="#" target="_blank" class="match-text">
+                    <span class="match-text-style">
+                        <span class="match-name">比赛名称</span>
+                        <span class="match-place">比赛地点</span>
+                    </span>
+                    <span class="match-date">2021/xx/xx</span>
+                </a>
+            </div>
+            <div class="match-card">
+                <a href="#" target="_blank" class="match-img" style="background-image: url(#);"></a>
+                <a href="#" target="_blank" class="match-text">
+                    <span class="match-text-style">
+                        <span class="match-name">比赛名称</span>
+                        <span class="match-place">比赛地点</span>
+                    </span>
+                    <span class="match-date">2021/xx/xx</span>
+                </a>
+            </div>
+            <div class="match-card">
+                <a href="#" target="_blank" class="match-img" style="background-image: url(#);"></a>
+                <a href="#" target="_blank" class="match-text">
+                    <span class="match-text-style">
+                        <span class="match-name">比赛名称</span>
+                        <span class="match-place">比赛地点</span>
+                    </span>
+                    <span class="match-date">2021/xx/xx</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
