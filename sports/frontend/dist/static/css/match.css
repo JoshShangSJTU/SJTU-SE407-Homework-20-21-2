@@ -105,7 +105,7 @@ b{
 .match-img{
     background-repeat: no-repeat;
     background-size: 100% 100%;
-    background-image: url(/assets/default.jpg);
+    background-image: url(http://www.twtaiyi.com/upload/20180530/e676f667c4cdfc7e074898adab2622f2.jpg);
     cursor: pointer;
     position: absolute;
     top: 10px;
@@ -116,7 +116,7 @@ b{
     padding: 2px 5px;
     overflow: hidden;
     border: 12px solid;
-    border-image: url(/assets/fux2_bd1.png) 12;
+    border-image: url(../border01.png) 12;
     border-radius: 5px;
     box-sizing: border-box;
     box-shadow: 0 4px 4px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 20%), 0 1px 5px 0 rgb(0 0 0 / 12%)
@@ -127,7 +127,6 @@ b{
 }
 
 .match-text{
-    border-color: #CCCCCC;
     background-color: #EEEEEE;
     font-size: 12px;
     position: absolute;
@@ -137,6 +136,7 @@ b{
     right: 10px;
     padding: 2px 5px;
     overflow: hidden;
+    border: 5px solid #CCCCCC;
     border-radius: 5px;
     box-sizing: border-box;
     box-shadow: 0 4px 4px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 20%), 0 1px 5px 0 rgb(0 0 0 / 12%);
@@ -178,6 +178,47 @@ b{
     margin-right: 10px;
     text-align: right;
     font-size: 18px
+}
+
+.match-bottom{
+    background-color: #CCCCCC;
+    position: absolute;
+    margin: 0;
+    bottom: 0;
+    height: 40px;
+    width: 100%;
+}
+
+.match-label{
+    position: absolute;
+    width: 100%;
+    text-align: left;
+    left: 0px;
+    bottom: 3px;
+    margin-right: 0px !important;
+    margin-left: 0px !important;
+}
+
+.match-detail{
+    position: absolute;
+    right: 5px;
+    bottom: 3px;
+    padding: 0px 5px;
+    text-align: right;
+    font-size: 16px;
+    text-shadow: 0px 0px 1px rgb(128 128 128 / 70%);
+    background-color: #FFFFFF;
+    border-radius: 5px;
+    box-sizing: border-box;
+    box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 20%), 0 1px 5px 0 rgb(0 0 0 / 12%);
+}
+
+.match-detail a{
+    color: black;
+}
+
+.match-detail a:hover{
+    text-decoration: none;
 }
 
 .match-point, .match-member{
