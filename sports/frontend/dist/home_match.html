@@ -99,7 +99,7 @@
                 </a>
                 <span class="match-label">
                     <span class="match-detail" style="margin: 0px 10px;">
-                        <a href="#" target="_blank" style="background: #FFFFFF">
+                        <a href="match-detail" target="_blank" style="background: #FFFFFF">
                             详情
                         </a>
                     </span>
@@ -209,6 +209,11 @@
                 bootstrapMajorVersion: 3,
                 currentPage: 1,
                 totalPages: 10,
+                itemContainerClass: function(type, page, current) {
+                    if(type == 'prev') return "pagination-prev";
+                    else if(type == 'next') return "pagination-next";
+                    if(page == current) return "pagination-active";
+                }
             }
             $(".pagination").bootstrapPaginator(options);
         </script>
