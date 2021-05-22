@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
     'widget_tweaks',
     'rest_framework', # 提供后端接口
+    "drf_yasg", # 接口文档
 
     'mgr',
     'splatform',
