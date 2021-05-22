@@ -6,7 +6,11 @@ from django.views.generic import UpdateView, ListView
 from django.utils import timezone
 from django.utils.decorators import method_decorator
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from rest_framework import viewsets
+
+from rest_framework import viewsets, mixins
+from rest_framework.generics import ListAPIView
+from rest_framework.pagination import LimitOffsetPagination, PageNumberPagination
+from rest_framework.permissions import AllowAny
 
 from .models import Board, Topic, Post
 from .forms import NewTopicForm, PostForm
@@ -22,12 +26,14 @@ class BoardViewSet(viewsets.ModelViewSet):
     queryset = Board.objects.all()
     serializer_class = BoardSerializer
 
-class TopicViewSet(viewsets.ModelViewSet):
+class TopicViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     '''
     Topic的接口
     '''
     queryset = Topic.objects.all().order_by('-last_updated')
     serializer_class = TopicSerializer
+    pagination_class = LimitOffsetPagination
+    permission_classes = [AllowAny]
 
 
 # -----------------这是分割线-----------------------
