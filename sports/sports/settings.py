@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'mgr',
     'splatform',
     'boards',
+    'matchinfo',
 ]
 
 MIDDLEWARE = [

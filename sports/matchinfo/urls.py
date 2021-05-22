@@ -6,7 +6,7 @@ from . import views
 urlpatterns = [
 
     path('home',TemplateView.as_view(template_name='home_match.html')),
-    path('POST',views.POSTtest),
-    path('Login',views.Login)
+    path('Login',views.Login),
+    path('QueryPlayers',views.QueryPlayers)
 
 ]
