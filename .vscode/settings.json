@@ -1,3 +1,4 @@
 {
-    "python.formatting.provider": "yapf"
+    "python.formatting.provider": "yapf",
+    "python.pythonPath": "e:\\Codefield\\Code_Python_VScode\\.venv\\Scripts\\python.exe"
 }
