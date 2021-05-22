@@ -7,15 +7,9 @@ class HomeView(TemplateView):
     template_name = "home.html"
 
     def goal_list(request):
-        if request.method == 'GET':
-            results = Player.objects.order_by('-goal')
-            for i in results:
-                data = {}
-                data['name'] = i.player_name
-                data['team'] = i.team
-                data['goal'] = i.goal
-            return JsonResponse({'status':200, 'data':data})
+        results = Player.objects.order_by('-goal')
 
+        return render(request, 'home.html', results)
     
     
     
