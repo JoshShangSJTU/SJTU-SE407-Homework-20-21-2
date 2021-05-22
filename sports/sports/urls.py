@@ -30,7 +30,4 @@ urlpatterns = [
     path('api/mgr/', include('mgr.urls')),
     path('matchinfo/',include('matchinfo.urls')), # 赛事信息页
 
-    path('home-match',TemplateView.as_view(template_name='home_match.html'))
-
-
 ]
