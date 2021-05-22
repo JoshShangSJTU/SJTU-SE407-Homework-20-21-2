@@ -17,7 +17,7 @@ from . import serializers
 # 下面是接口
 class BoardViewSet(viewsets.ModelViewSet):
     """
-    区域信息接口
+    Board信息接口
     """
     queryset = Board.objects.all()
     serializer_class = serializers.BoardSerializer
