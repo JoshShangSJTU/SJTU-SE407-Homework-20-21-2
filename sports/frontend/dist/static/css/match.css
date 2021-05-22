@@ -105,7 +105,7 @@ b{
 .match-img{
     background-repeat: no-repeat;
     background-size: 100% 100%;
-    background-image: url(/assets/default.jpg);
+    background-image: url(http://www.twtaiyi.com/upload/20180530/e676f667c4cdfc7e074898adab2622f2.jpg);
     cursor: pointer;
     position: absolute;
     top: 10px;
@@ -116,7 +116,7 @@ b{
     padding: 2px 5px;
     overflow: hidden;
     border: 12px solid;
-    border-image: url(/assets/fux2_bd1.png) 12;
+    border-image: url(../border01.png) 12;
     border-radius: 5px;
     box-sizing: border-box;
     box-shadow: 0 4px 4px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 20%), 0 1px 5px 0 rgb(0 0 0 / 12%)
@@ -127,7 +127,6 @@ b{
 }
 
 .match-text{
-    border-color: #CCCCCC;
     background-color: #EEEEEE;
     font-size: 12px;
     position: absolute;
@@ -137,6 +136,7 @@ b{
     right: 10px;
     padding: 2px 5px;
     overflow: hidden;
+    border: 5px solid #CCCCCC;
     border-radius: 5px;
     box-sizing: border-box;
     box-shadow: 0 4px 4px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 20%), 0 1px 5px 0 rgb(0 0 0 / 12%);
@@ -180,7 +180,49 @@ b{
     font-size: 18px
 }
 
-.match-point, .match-member{
+.match-bottom{
+    background-color: #CCCCCC;
+    position: absolute;
+    margin: 0;
+    bottom: 0;
+    height: 40px;
+    width: 100%;
+}
+
+.match-label{
+    position: absolute;
+    width: 100%;
+    text-align: left;
+    left: 0px;
+    bottom: 3px;
+    margin-right: 0px !important;
+    margin-left: 0px !important;
+}
+
+.match-detail{
+    position: absolute;
+    right: 5px;
+    bottom: 3px;
+    padding: 0px 5px;
+    text-align: right;
+    font-size: 16px;
+    text-shadow: 0px 0px 1px rgb(128 128 128 / 70%);
+    background-color: #FFFFFF;
+    border-radius: 5px;
+    box-sizing: border-box;
+    box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 20%), 0 1px 5px 0 rgb(0 0 0 / 12%);
+}
+
+.match-detail a{
+    color: black;
+}
+
+.match-detail a:hover{
+    text-decoration: none;
+    opacity: 0.7;
+}
+
+.match-point{
     padding-top: 30px;
     position: relative;
 
@@ -189,6 +231,17 @@ b{
     background: #fff;
     box-shadow: 0 0 0 1px #ebebed;
     border-radius: 2px;
+}
+
+.match-member{
+    margin-top: 0px;
+    margin: auto;
+    position: relative;
+    width: 80%;
+    height: 100%;
+    overflow: hidden;
+    zoom: 1;
+    display: table;
 }
 
 .match-title{
@@ -241,7 +294,7 @@ b{
     width: 320px;
     text-align: center;
     margin-top: -2px;
-    margin-right: 30px;
+    margin-right: 60px;
 }
 
 .ln p{
@@ -319,7 +372,7 @@ b{
     width: 320px;
     text-align: center;
     margin-top: -2px;
-    margin-left: 30px;
+    margin-left: 60px;
 }
 
 .rn p{
@@ -337,28 +390,22 @@ b{
     text-overflow: ellipsis;
 }
 
-.members{
-    width: 100%;
-    height: 100%;
-    margin-top: 0px;
-    overflow: hidden;
-    position: relative;
-
-    zoom: 1;
-    display: table;
+.members-left, .members-right{
+    margin-top: 20px;
+    padding-right: 24px;
+    width: 49%;
+    background: #fff;
+    box-shadow: 0 0 0 1px #ebebed;
+    border-radius: 2px;
 }
 
 .members-left{
-    padding-right: 25px;
     text-align: right;
-    width: 50%;
     float: left;
 }
 
 .members-right{
-    padding-left: 25px;
     text-align: left;
-    width: 50%;
     float: right;
 }
 
@@ -409,7 +456,8 @@ b{
 
 .member-list-item{
     margin-bottom: 20px;
-    margin-right: 16px;
+    margin-left: 20px;
+    margin-right: 20px;
     width: 114px;
     height: 170px;
     position: relative;
@@ -441,7 +489,7 @@ b{
 
 .member-pos{
     margin: 8px auto 0;
-    width: auto;
+    width: 40px;
     height: 20px;
     line-height: 20px;
     background: #f5f6f7;
@@ -449,4 +497,49 @@ b{
     font-size: 12px;
     color: #a8abb3;
     text-align: center;
+}
+
+.pagination ul{
+    border: 0; 
+    margin: 0;
+    padding: 0;
+}
+
+.pagination li{
+    border: 0px; 
+    margin: 0px; 
+    padding: 0px;
+    font-size: 11px;
+    list-style: none;
+    margin-right: 2px;
+}
+
+.pagination a{
+    border: solid 1px #9aafe5;
+    margin-right: 2px;
+}
+
+.pagination a:link,.pagination a:visited {
+    color: #0e509e;
+    display: block;
+    float: left;
+    padding: 3px 6px;
+    text-decoration: none;
+}
+
+.pagination a:hover{
+    border: solid 1px #0e509e
+}
+
+.pagination-active{
+    background: #2e6ab1;
+    color: #FFFFFF;
+    font-weight: bold;
+    display: block;
+    float: left;
+    padding: 4px 6px;
+}
+
+.pagination-prev a, .pagination-next a{
+    font-weight: bold;
 }

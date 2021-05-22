@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 
@@ -9,11 +10,11 @@
         SJTU Sports Match
     </title>
 
-    <link rel="stylesheet" href="static/css/bootstrap.min.css">
-    <link rel="stylesheet" href="static/css/match.css">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/match.css' %}">
 
-    <script src="static/js/jquery-3.6.0.min.js"></script>
-    <script src="static/js/bootstrap.min.js"></script>
+    <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
 
 </head>
 
@@ -29,10 +30,10 @@
         <div class="collapse navbar-collapse" id="navbar1">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">首页</a>
+                    <a class="nav-link" href="home">首页</a>
                 </li>
                 <li class="nav-item">
-                    <a class="navbar-brand" href="home_match">赛事</a>
+                    <a class="navbar-brand" href="javascript:location.reload();">赛事</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">榜单</a>
@@ -85,78 +86,137 @@
             </ul>
         </div>
 
-        <script src="static/js/bootstrap-paginator.js"></script>
+        <div style="text-align: center;">
+            <div class="match-card">
+                <p class="match-bottom"></p>
+                <a href="#" target="_blank" class="match-img" style="background-image: url(#);"></a>
+                <a href="#" target="_blank" class="match-text">
+                    <span class="match-text-style">
+                        <span class="match-name">比赛名称</span>
+                        <span class="match-place">比赛地点</span>
+                    </span>
+                    <span class="match-date">2021/xx/xx</span>
+                </a>
+                <span class="match-label">
+                    <span class="match-detail" style="margin: 0px 10px;">
+                        <a href="match-detail" target="_blank" style="background: #FFFFFF">
+                            详情
+                        </a>
+                    </span>
+                </span>
+                
+            </div>
+            <div class="match-card">
+                <p class="match-bottom"></p>
+                <a href="#" target="_blank" class="match-img" style="background-image: url(#);"></a>
+                <a href="#" target="_blank" class="match-text">
+                    <span class="match-text-style">
+                        <span class="match-name">比赛名称</span>
+                        <span class="match-place">比赛地点</span>
+                    </span>
+                    <span class="match-date">2021/xx/xx</span>
+                </a>
+                <span class="match-label">
+                    <span class="match-detail" style="margin: 0px 10px;">
+                        <a href="#" target="_blank" style="background: #FFFFFF">
+                            详情
+                        </a>
+                    </span>
+                </span>
+            </div>
+            <div class="match-card">
+                <p class="match-bottom"></p>
+                <a href="#" target="_blank" class="match-img" style="background-image: url(#);"></a>
+                <a href="#" target="_blank" class="match-text">
+                    <span class="match-text-style">
+                        <span class="match-name">比赛名称</span>
+                        <span class="match-place">比赛地点</span>
+                    </span>
+                    <span class="match-date">2021/xx/xx</span>
+                </a>
+                <span class="match-label">
+                    <span class="match-detail" style="margin: 0px 10px;">
+                        <a href="#" target="_blank" style="background: #FFFFFF">
+                            详情
+                        </a>
+                    </span>
+                </span>
+            </div>
+            <div class="match-card">
+                <p class="match-bottom"></p>
+                <a href="#" target="_blank" class="match-img" style="background-image: url(#);"></a>
+                <a href="#" target="_blank" class="match-text">
+                    <span class="match-text-style">
+                        <span class="match-name">比赛名称</span>
+                        <span class="match-place">比赛地点</span>
+                    </span>
+                    <span class="match-date">2021/xx/xx</span>
+                </a>
+                <span class="match-label">
+                    <span class="match-detail" style="margin: 0px 10px;">
+                        <a href="#" target="_blank" style="background: #FFFFFF">
+                            详情
+                        </a>
+                    </span>
+                </span>
+            </div>
+            <div class="match-card">
+                <p class="match-bottom"></p>
+                <a href="#" target="_blank" class="match-img" style="background-image: url(#);"></a>
+                <a href="#" target="_blank" class="match-text">
+                    <span class="match-text-style">
+                        <span class="match-name">比赛名称</span>
+                        <span class="match-place">比赛地点</span>
+                    </span>
+                    <span class="match-date">2021/xx/xx</span>
+                </a>
+                <span class="match-label">
+                    <span class="match-detail" style="margin: 0px 10px;">
+                        <a href="#" target="_blank" style="background: #FFFFFF">
+                            详情
+                        </a>
+                    </span>
+                </span>
+            </div>
+            <div class="match-card">
+                <p class="match-bottom"></p>
+                <a href="#" target="_blank" class="match-img" style="background-image: url(#);"></a>
+                <a href="#" target="_blank" class="match-text">
+                    <span class="match-text-style">
+                        <span class="match-name">比赛名称</span>
+                        <span class="match-place">比赛地点</span>
+                    </span>
+                    <span class="match-date">2021/xx/xx</span>
+                </a>
+                <span class="match-label">
+                    <span class="match-detail" style="margin: 0px 10px;">
+                        <a href="#" target="_blank" style="background: #FFFFFF">
+                            详情
+                        </a>
+                    </span>
+                </span>
+            </div>
+        </div>
+
+        <div>
+            <ul class="pagination">
+            </ul>
+        </div>
+
+        <script src="{% static 'js/bootstrap-paginator.js' %}"></script>
         <script type="text/javascript">
             var options = {
                 bootstrapMajorVersion: 3,
                 currentPage: 1,
                 totalPages: 10,
+                itemContainerClass: function(type, page, current) {
+                    if(type == 'prev') return "pagination-prev";
+                    else if(type == 'next') return "pagination-next";
+                    if(page == current) return "pagination-active";
+                }
             }
             $(".pagination").bootstrapPaginator(options);
         </script>
-
-        <div style="text-align: center;">
-            <div class="match-card">
-                <a href="#" target="_blank" class="match-img" style="background-image: url(#);"></a>
-                <a href="#" target="_blank" class="match-text">
-                    <span class="match-text-style">
-                        <span class="match-name">比赛名称</span>
-                        <span class="match-place">比赛地点</span>
-                    </span>
-                    <span class="match-date">2021/xx/xx</span>
-                </a>
-            </div>
-            <div class="match-card">
-                <a href="#" target="_blank" class="match-img" style="background-image: url(#);"></a>
-                <a href="#" target="_blank" class="match-text">
-                    <span class="match-text-style">
-                        <span class="match-name">比赛名称</span>
-                        <span class="match-place">比赛地点</span>
-                    </span>
-                    <span class="match-date">2021/xx/xx</span>
-                </a>
-            </div>
-            <div class="match-card">
-                <a href="#" target="_blank" class="match-img" style="background-image: url(#);"></a>
-                <a href="#" target="_blank" class="match-text">
-                    <span class="match-text-style">
-                        <span class="match-name">比赛名称</span>
-                        <span class="match-place">比赛地点</span>
-                    </span>
-                    <span class="match-date">2021/xx/xx</span>
-                </a>
-            </div>
-            <div class="match-card">
-                <a href="#" target="_blank" class="match-img" style="background-image: url(#);"></a>
-                <a href="#" target="_blank" class="match-text">
-                    <span class="match-text-style">
-                        <span class="match-name">比赛名称</span>
-                        <span class="match-place">比赛地点</span>
-                    </span>
-                    <span class="match-date">2021/xx/xx</span>
-                </a>
-            </div>
-            <div class="match-card">
-                <a href="#" target="_blank" class="match-img" style="background-image: url(#);"></a>
-                <a href="#" target="_blank" class="match-text">
-                    <span class="match-text-style">
-                        <span class="match-name">比赛名称</span>
-                        <span class="match-place">比赛地点</span>
-                    </span>
-                    <span class="match-date">2021/xx/xx</span>
-                </a>
-            </div>
-            <div class="match-card">
-                <a href="#" target="_blank" class="match-img" style="background-image: url(#);"></a>
-                <a href="#" target="_blank" class="match-text">
-                    <span class="match-text-style">
-                        <span class="match-name">比赛名称</span>
-                        <span class="match-place">比赛地点</span>
-                    </span>
-                    <span class="match-date">2021/xx/xx</span>
-                </a>
-            </div>
-        </div>
     </div>
 
 </body>
