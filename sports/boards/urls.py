@@ -17,5 +17,6 @@ urlpatterns = [
     re_path(r'^boards/(?P<pk>\d+)/topics/(?P<topic_pk>\d+)/posts/(?P<post_pk>\d+)/edit/$', views.PostUpdateView.as_view(), name='edit_post'),
     
     # 这是boards的api接口
-    path('api/', include(router.urls))
+    path('api/', include(router.urls)),
+    path("api/auth/", include("rest_framework.urls", namespace="rest_framework")),
 ]
