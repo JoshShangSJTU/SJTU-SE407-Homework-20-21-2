@@ -10,6 +10,7 @@
         <!--导包-->
         <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+		<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
 		<div class="control">
 			<div class="item">
 				<div class="active">登录</div><div>注册</div>
@@ -21,7 +22,7 @@
 					
 					<input type="password" v-model="password" />
 					<br/>
-					<input type="submit" value="登录" @click="matchin"/>
+					<input type="submit" value="登录" @click="matchin"  />
 				</div>
 				<div>
 					
@@ -45,12 +46,17 @@
                 methods:{
                     matchin:function(){
                         axios.post("http://127.0.0.1:8000/api/mgr/signin",{username: this.username, password: this.password,}).then(
-                            function(response){
-							  console.log(response),
-							  alert(response.data.msg)
+                            res => {
+							  console.log(res);
+							 if(res.data.ret==1) { 
+								  alert(res.data.msg)
+							    };
+							 if(res.data.ret==0) { 
+								window.location.href = '/home'
+							    };
                         },
-                            function(err){
-								alert('tmd')
+                            error => {
+							  alert('登陆失败')
 							})
                     }
                 }
