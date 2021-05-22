@@ -6,6 +6,7 @@ from . import views
 
 router = routers.DefaultRouter()
 router.register('board', views.BoardViewSet)
+router.register('topic', views.TopicViewSet)
 
 urlpatterns = [
     path('', views.BoardListView.as_view(), name='home_boards'),

@@ -10,7 +10,7 @@ from rest_framework import viewsets
 
 from .models import Board, Topic, Post
 from .forms import NewTopicForm, PostForm
-from . import serializers
+from .serializers import BoardSerializer, TopicSerializer
 
 
 # Create your views here.
@@ -20,10 +20,19 @@ class BoardViewSet(viewsets.ModelViewSet):
     Board信息接口
     """
     queryset = Board.objects.all()
-    serializer_class = serializers.BoardSerializer
+    serializer_class = BoardSerializer
+
+class TopicViewSet(viewsets.ModelViewSet):
+    '''
+    Topic的接口
+    '''
+    queryset = Topic.objects.all().order_by('-last_updated')
+    serializer_class = TopicSerializer
 
 
 # -----------------这是分割线-----------------------
+# 下面的是原教程的view函数
+# ----------------这是分割线------------------------
 class BoardListView(ListView):
     model = Board
     context_object_name = 'boards'
