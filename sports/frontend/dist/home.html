@@ -389,8 +389,7 @@
     <h1 class="font-weight-bold text-center"><a href="{% url 'home_boards' %}">赛事讨论区</a></h1>
     <hr class="style1" />
     <div class="container">
-      <div class="container" id="boards-inform">
-        <p>{{message}}</p>
+      <div class="container">
         <ol class="breadcrumb my-4">
           <li class="breadcrumb-item active">讨论区</li>
         </ol>
@@ -403,12 +402,11 @@
               <th>最近一次发帖</th>
             </tr>
           </thead>
-          <tbody>
-            {% for board in message %}
-            <tr>
+          <tbody  id="boards-inform">
+            <tr v-for="item in message">
               <td>
-                <a href="{% url 'board_topics' board.pk %}">{{ board.name }}</a>
-                <small class="text-muted d-block"></small>
+                <a href="#">[[item.name]]</a>
+                <small class="text-muted d-block">[[item.description]]</small>
               </td>
               <td class="align-middle">
                 {{ board.get_posts_count }}
@@ -420,7 +418,7 @@
                 {% with post=board.get_last_post %}
                 {% if post %}
                 <small>
-                  <a href="{% url 'topic_posts' board.pk post.topic.pk %}">
+                  <a href="#">
                     By {{ post.created_by.username }} at {{ post.created_at }}
                   </a>
                 </small>
@@ -432,7 +430,6 @@
                 {% endwith %}
               </td>
             </tr>
-            {% endfor %}
           </tbody>
         </table>
       </div>
@@ -440,10 +437,11 @@
       <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
       <script type="text/javascript">
         var boards = new Vue({
+          delimiters:['[[', ']]'],
           el: '#boards-inform',
           data() {
             return {
-              message: null,
+              message: null
             }
           },
           mounted() {
@@ -451,16 +449,14 @@
             axios
               .get("http://127.0.0.1:8000/talk/api/board/")
               .then(function (response) {
-                this.message = response.data;
-                console.log(response);
-                console.log(that.message);
-                console.log(that.message[0].id)
+                that.message = response.data;
               })
               .catch(function (error) {
                 console.log(error)
               })
           }
         });
+        console.log(that.message)
       </script>
     </div>
   </div>
