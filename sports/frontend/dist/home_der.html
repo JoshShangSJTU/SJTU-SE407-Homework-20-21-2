@@ -205,6 +205,8 @@
   <!--主体二-->
   <div id="section2">
     <h1 class="font-weight-bold text-center">数据榜单</h1>
+	
+	
 	<style>
 		a {
 			color: #525C66;
@@ -280,18 +282,19 @@
 
 	<body>
 
-		<div class="top-10">
+		<div id="database"， class="top-10">
+		
 			<ul>
-				<li><a>第一名-XX01</a></li>
-				<li><a>第二名-XX02</a></li>
-				<li><a>第三名-XX03</a></li>
-				<li><a>第四名-XX04</a></li>
-				<li><a>第五名-XX05</a></li>
-				<li><a>第六名-XX06</a></li>
-				<li><a>第七名-XX07</a></li>
-				<li><a>第八名-XX08</a></li>
-				<li><a>第九名-XX09</a></li>
-				<li><a>第十名-XX10</a></li>
+				<li><a>[[message1]]</a></li>
+				<li><a>[[message2]]</a></li>
+				<li><a>[[message3]]</a></li>
+				<li><a>[[message4]]</a></li>
+				<li><a>[[message5]]</a></li>
+				<li><a>[[message6]]</a></li>
+				<li><a>[[message7]]</a></li>
+				<li><a>[[message8]]</a></li>
+				<li><a>[[message9]]</a></li>
+				<li><a>[[message10]]</a></li>
 			</ul>
 			<div id="rank-more">
 				<span class="span-h7"><a href="#">查看更多</a></span>
@@ -300,8 +303,38 @@
 
 		</div>
 	</body>
-
-
+	
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<script>
+	new Vue({
+	   delimiters:['[[', ']]'],
+       el: '#database',
+       data () {
+	   message1;
+	   message2;
+	   message3;
+	   message4;
+	   message5;
+	   message6;
+	   message7;
+	   message8;
+	   message9;
+	   message10;
+    return {
+      info: null
+    }
+  },
+  mounted () {
+    axios
+      .get('http://127.0.0.1:8000/home/')//需API链接
+      .then(response => (console.log(response)),
+	  
+	  error => {
+	  alert("错误")}
+  }
+})
+</script>
   <!--主体三，当前内容用于测试滚动监听效果用，后续可添加实际内容-->
   <div id="section3">
     <h1 class="font-weight-bold text-center">赛事资讯</h1>
