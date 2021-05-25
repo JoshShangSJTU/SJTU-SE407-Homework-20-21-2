@@ -14,26 +14,36 @@ from rest_framework.permissions import AllowAny
 
 from .models import Board, Topic, Post
 from .forms import NewTopicForm, PostForm
-from .serializers import BoardSerializer, TopicSerializer
+from .serializers import BoardSerializer, TopicSerializer, PostListSerializer
 
 
 # Create your views here.
 # 下面是接口
 class BoardViewSet(viewsets.ModelViewSet):
     """
-    Board信息接口
+    Board的视图集
     """
     queryset = Board.objects.all()
     serializer_class = BoardSerializer
 
 class TopicViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     '''
-    Topic的接口
+    Topic的视图集
     '''
-    queryset = Topic.objects.all().order_by('-last_updated')
+    queryset = Topic.objects.all().order_by('-last_updated').annotate(replies=Count('posts') - 1)
     serializer_class = TopicSerializer
     pagination_class = LimitOffsetPagination
     permission_classes = [AllowAny]
+
+
+class PostViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
+    '''
+    Post的视图集
+    '''
+    queryset = Post.objects.all()
+    serializer_class = PostListSerializer
+    permission_classes = [AllowAny]
+
 
 
 # -----------------这是分割线-----------------------

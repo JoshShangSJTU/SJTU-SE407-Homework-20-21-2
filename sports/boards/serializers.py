@@ -20,3 +20,11 @@ class TopicSerializer(serializers.ModelSerializer):
         model = Topic
         fields = ('id', 'subject', 'last_updated', 'board', 'starter', 'views')
         
+
+class PostListSerializer(serializers.ModelSerializer):
+    '''
+    Post序列化
+    '''
+    class Meta:
+        model = Post
+        fields = '__all__'
