@@ -49,3 +49,14 @@ class Match(models.Model):
 
     def __str__(self):
         return str(self.match_no)
+
+class News(models.Model):
+    # 存储新闻url的模型
+    num = models.IntegerField('新闻编号', default=0) # 新闻编号
+    url = models.CharField('新闻地址', max_length= 999) # 新闻对应url
+
+    class Meta:
+        verbose_name_plural = '新闻表'
+
+    def __str__(self):
+        return str(self.id)

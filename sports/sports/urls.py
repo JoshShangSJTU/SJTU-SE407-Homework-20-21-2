@@ -17,8 +17,8 @@ from django.contrib import admin
 from django.urls import path
 from django.conf.urls import url, include
 from django.views.generic import TemplateView
-from splatform import views_api
-
+from splatform import views_list
+from splatform import views_news
 
 urlpatterns = [
     path('admin/', admin.site.urls), # 管理员
@@ -26,8 +26,8 @@ urlpatterns = [
     path('home/', TemplateView.as_view(template_name='home.html')), # 赛事主页
     path('login/', TemplateView.as_view(template_name='login.html')), # 登录界面
     path('talk/', include('boards.urls')), # 讨论区页面
-    path('api/goal_list/', views_api.goal_list), # 数据榜单射手榜接口
-    # path('news/',), # 赛事咨询区页面
+    path('api/goal_list/', views_list.goal_list), # 数据榜单射手榜接口
+    path('news/', views_news.news_list), # 赛事新闻区页面
     path('api/mgr/', include('mgr.urls')),
 
 ]

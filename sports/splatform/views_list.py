@@ -10,6 +10,8 @@ def goal_list(request):
         result_dict = model_to_dict(results)
 
         return JsonResponse({'status':200})
+
+
     
     
     
