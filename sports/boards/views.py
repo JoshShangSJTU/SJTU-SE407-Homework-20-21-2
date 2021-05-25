@@ -37,7 +37,9 @@ class TopicViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
 
 
 # -----------------这是分割线-----------------------
-# 下面的是原教程的view函数
+# 下面的是原来的view函数，上面的部分是在返回api，目前
+# 等待前端同学完善
+# 下面的部分目前还在使用中，前后端分离尚未分离
 # ----------------这是分割线------------------------
 class BoardListView(ListView):
     model = Board
