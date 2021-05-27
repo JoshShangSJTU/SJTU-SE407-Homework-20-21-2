@@ -34,6 +34,8 @@ class PostListSerializer(serializers.ModelSerializer):
     '''
     Post序列化
     '''
+    created_at = serializers.DateTimeField(format='%Y-%m-%d %H:%M:%S')
+    updated_at = serializers.DateTimeField(format='%Y-%m-%d %H:%M:%S')
     class Meta:
         model = Post
-        fields = '__all__'
+        fields = ('message', 'topic', 'created_at', 'updated_at', 'created_by', 'updated_by')
