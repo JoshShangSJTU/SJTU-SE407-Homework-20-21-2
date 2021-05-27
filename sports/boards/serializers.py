@@ -16,10 +16,13 @@ class TopicSerializer(serializers.ModelSerializer):
     '''
     Topic序列化
     '''
+    replies = serializers.SerializerMethodField()
     class Meta:
         model = Topic
-        fields = ('id', 'subject', 'last_updated', 'board', 'starter', 'views')
+        fields = ('id', 'subject', 'last_updated', 'board', 'starter', 'views', 'replies')
         
+    def get_replies(self, obj):
+        return obj.posts.count()
 
 class PostListSerializer(serializers.ModelSerializer):
     '''

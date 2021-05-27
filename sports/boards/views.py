@@ -6,6 +6,7 @@ from django.views.generic import UpdateView, ListView
 from django.utils import timezone
 from django.utils.decorators import method_decorator
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.http import HttpResponse, JsonResponse
 
 from rest_framework import viewsets, mixins
 from rest_framework.generics import ListAPIView
@@ -18,12 +19,11 @@ from rest_framework.decorators import action
 from .models import Board, Topic, Post
 from .forms import NewTopicForm, PostForm
 from .serializers import BoardSerializer, TopicSerializer, PostListSerializer
-from . import serializers
 
 
 # Create your views here.
 # 下面是接口
-class BoardViewSet(viewsets.ModelViewSet):
+class BoardViewSet(viewsets.ModelViewSet, mixins.ListModelMixin):
     """
     Board的视图集
     """
@@ -35,8 +35,8 @@ class BoardViewSet(viewsets.ModelViewSet):
     def showTopic(self, request, *args, **kwargs):
         self.board = get_object_or_404(Board, pk=self.kwargs.get('pk'))
         queryset = self.board.topics.order_by('-last_updated').annotate(replies=Count('posts') - 1)
-        serializer = TopicSerializer(queryset, many=True)
-        return Response(serializer.data)
+        serializer = TopicSerializer(queryset, many=True, context={"replies": self.board.topics.annotate(replies=Count('posts') - 1)})
+        return JsonResponse(serializer.data, safe=False)
 
     # 展示Posts
     @action(methods=['get'], pagination_class = LimitOffsetPagination, permission_classes=[AllowAny], detail=True, url_path=r'topics/(?P<topic_pk>\d+)/posts/(?P<post_pk>\d+)')
@@ -44,7 +44,7 @@ class BoardViewSet(viewsets.ModelViewSet):
         self.topic = get_object_or_404(Topic, board__pk=self.kwargs.get('pk'), pk=self.kwargs.get('topic_pk'))
         queryset = self.topic.posts.order_by('created_at')
         serializer = PostListSerializer(queryset, many=True)
-        return Response(serializer.data)
+        return JsonResponse(serializer.data, safe=False)
 
 
 # class TopicViewSet(mixins.ListModelMixin, viewsets.GenericViewSet, viewsets.ViewSet):
