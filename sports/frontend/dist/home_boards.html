@@ -1,49 +1,103 @@
 {% extends 'base_boards.html' %}
 
 {% block breadcrumb %}
-    <li class="breadcrumb-item active">讨论区</li>
+<li class="breadcb-item active">
+    <a href="javascript:location.reload();">
+        讨论区
+    </a>
+</li>
 {% endblock %}
 
 {% block content %}
-    <table class="table">
-        <thead class="thead-inverse">
-            <tr>
-                <th>分区</th>
-                <th>帖子</th>
-                <th>话题</th>
-                <th>最近一次发帖</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for board in boards %}
-            <tr>
-                <td>
-                    <a href="{% url 'board_topics' board.pk %}">{{ board.name }}</a>
-                    <small class="text-muted d-block">{{board.description}}</small>
-                </td>
-                <td class="align-middle">
-                    {{ board.get_posts_count }}
-                </td>
-                <td class="align-middle">
-                    {{ board.topics.count }}
-                </td>
-                <td class="align-middle">
-                    {% with post=board.get_last_post %}
-                      {% if post %}
-                        <small>
-                            <a href="{% url 'topic_posts' board.pk post.topic.pk %}">
-                                By {{ post.created_by.username }} at {{ post.created_at }}
-                            </a>
-                        </small>
-                      {% else %}
-                        <small class="text-muted">
-                            <em>这里空空如也~</em>
-                        </small>
-                      {% endif %}
-                    {% endwith %}
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+<table class="table">
+    <thead class="thead-inverse">
+        <tr>
+            <th>分区</th>
+            <th>帖子</th>
+            <th>话题</th>
+            <th>最近一次发帖</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for board in boards %}
+        <tr>
+            <td>
+                <a href="{% url 'board_topics' board.pk %}">{{ board.name }}</a>
+                <small class="text-muted d-block">{{board.description}}</small>
+            </td>
+            <td class="align-middle">
+                {{ board.get_posts_count }}
+            </td>
+            <td class="align-middle">
+                {{ board.topics.count }}
+            </td>
+            <td class="align-middle">
+                {% with post=board.get_last_post %}
+                {% if post %}
+                <small>
+                    <a href="{% url 'topic_posts' board.pk post.topic.pk %}">
+                        By {{ post.created_by.username }} at {{ post.created_at }}
+                    </a>
+                </small>
+                {% else %}
+                <small class="text-muted">
+                    <em>这里空空如也~</em>
+                </small>
+                {% endif %}
+                {% endwith %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<div id="boards-inform" style="margin-bottom: 30px;">
+    <ul class="list-group">
+        <li v-for="boards in message" class="list-group-item">
+            <div class="item-board clearfix">
+                <a href="#" class="board-img">
+                    <img src="#" width="95" height="95">
+                </a>
+                <div class="board-information">
+                    <a href="#">[[boards.name]]</a>
+                    <p class="board-description">
+                        [[boards.description]]
+                    </p>
+                    <small class="board-topic">
+                        <span>话题：</span>
+                        <span>帖子：</span>
+                    </small>
+                </div>
+                <div class="board-recent">
+                    <small>
+                        最近一次发帖
+                    </small>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>
+
+<script type="text/javascript">
+    var boards = new Vue({
+        delimiters: ['[[', ']]'],
+        el: '#boards-inform',
+        data() {
+            return {
+                message: null
+            }
+        },
+        mounted() {
+            var that = this;
+            axios
+                .get("http://127.0.0.1:8000/talk/api/board/")
+                .then(function (response) {
+                    that.message = response.data;
+                })
+                .catch(function (error) {
+                    console.log(error)
+                })
+        }
+    });
+</script>
 {% endblock %}
