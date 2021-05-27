@@ -1,3 +1,4 @@
+from .models import Topic
 from django.conf.urls import url, include
 from django.urls import path, re_path
 from rest_framework import routers
@@ -5,8 +6,7 @@ from rest_framework import routers
 from . import views
 
 router = routers.DefaultRouter()
-router.register('board', views.BoardViewSet)
-router.register('topic', views.TopicViewSet)
+router.register('boards', views.BoardViewSet)
 router.register('post', views.PostViewSet)
 
 urlpatterns = [

@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
-from django.db.models import Count
+from django.db.models import Count, query
 from django.views.generic import UpdateView, ListView
 from django.utils import timezone
 from django.utils.decorators import method_decorator
@@ -11,6 +11,9 @@ from rest_framework import viewsets, mixins
 from rest_framework.generics import ListAPIView
 from rest_framework.pagination import LimitOffsetPagination, PageNumberPagination
 from rest_framework.permissions import AllowAny
+from rest_framework.response import Response
+from rest_framework.serializers import Serializer
+from rest_framework.decorators import action
 
 from .models import Board, Topic, Post
 from .forms import NewTopicForm, PostForm
@@ -26,14 +29,26 @@ class BoardViewSet(viewsets.ModelViewSet):
     queryset = Board.objects.all()
     serializer_class = BoardSerializer
 
-class TopicViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
-    '''
-    Topic的视图集
-    '''
-    queryset = Topic.objects.all().order_by('-last_updated').annotate(replies=Count('posts') - 1)
-    serializer_class = TopicSerializer
-    pagination_class = LimitOffsetPagination
-    permission_classes = [AllowAny]
+    @action(methods=['get'], detail=True, url_path='topics')
+    def show(self, request, *args, **kwargs):
+        self.board = get_object_or_404(Board, pk=self.kwargs.get('pk'))
+        queryset = self.board.topics.order_by('-last_updated').annotate(replies=Count('posts') - 1)
+        serializer = TopicSerializer(queryset, many=True)
+        return Response(serializer.data)
+
+# class TopicViewSet(mixins.ListModelMixin, viewsets.GenericViewSet, viewsets.ViewSet):
+#     '''
+#     Topic的视图集
+#     '''
+#     def list(self, request, *args, **kwargs):
+#         self.board = get_object_or_404(Board, pk=self.kwargs.get('pk'))
+#         queryset = self.board.topics.order_by('-last_updated').annotate(replies=Count('posts') - 1)
+#         serializer = TopicSerializer(queryset, many=True)
+#         return Response(serializer.data)
+#     # queryset = Topic.objects.all().order_by('-last_updated').annotate(replies=Count('posts') - 1)
+#     # serializer_class = TopicSerializer
+#     pagination_class = LimitOffsetPagination
+#     permission_classes = [AllowAny]
 
 
 class PostViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
