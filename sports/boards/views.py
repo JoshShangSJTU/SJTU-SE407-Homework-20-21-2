@@ -18,6 +18,7 @@ from rest_framework.decorators import action
 from .models import Board, Topic, Post
 from .forms import NewTopicForm, PostForm
 from .serializers import BoardSerializer, TopicSerializer, PostListSerializer
+from . import serializers
 
 
 # Create your views here.
@@ -30,11 +31,19 @@ class BoardViewSet(viewsets.ModelViewSet):
     serializer_class = BoardSerializer
 
     @action(methods=['get'], pagination_class = LimitOffsetPagination, permission_classes=[AllowAny], detail=True, url_path=r'topics/(?P<topic_pk>\d+)')
-    def show(self, request, *args, **kwargs):
+    def showTopic(self, request, *args, **kwargs):
         self.board = get_object_or_404(Board, pk=self.kwargs.get('pk'))
         queryset = self.board.topics.order_by('-last_updated').annotate(replies=Count('posts') - 1)
         serializer = TopicSerializer(queryset, many=True)
         return Response(serializer.data)
+
+    @action(methods=['get'], pagination_class = LimitOffsetPagination, permission_classes=[AllowAny], detail=True, url_path=r'topics/(?P<topic_pk>\d+)/posts/(?P<post_pk>\d+)')
+    def showPost(self, request, *args, **kwargs):
+        self.topic = get_object_or_404(Topic, board__pk=self.kwargs.get('pk'), pk=self.kwargs.get('topic_pk'))
+        queryset = self.topic.posts.order_by('created_at')
+        serializer = PostListSerializer(queryset, many=True)
+        return Response(serializer.data)
+
 
 # class TopicViewSet(mixins.ListModelMixin, viewsets.GenericViewSet, viewsets.ViewSet):
 #     '''
@@ -51,13 +60,13 @@ class BoardViewSet(viewsets.ModelViewSet):
 #     permission_classes = [AllowAny]
 
 
-class PostViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
-    '''
-    Post的视图集
-    '''
-    queryset = Post.objects.all()
-    serializer_class = PostListSerializer
-    permission_classes = [AllowAny]
+# class PostViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
+#     '''
+#     Post的视图集
+#     '''
+#     queryset = Post.objects.all()
+#     serializer_class = PostListSerializer
+#     permission_classes = [AllowAny]
 
 
 
