@@ -29,7 +29,8 @@ class BoardViewSet(viewsets.ModelViewSet):
     """
     queryset = Board.objects.all()
     serializer_class = BoardSerializer
-
+    
+    # 展示Topics
     @action(methods=['get'], pagination_class = LimitOffsetPagination, permission_classes=[AllowAny], detail=True, url_path=r'topics/(?P<topic_pk>\d+)')
     def showTopic(self, request, *args, **kwargs):
         self.board = get_object_or_404(Board, pk=self.kwargs.get('pk'))
@@ -37,6 +38,7 @@ class BoardViewSet(viewsets.ModelViewSet):
         serializer = TopicSerializer(queryset, many=True)
         return Response(serializer.data)
 
+    # 展示Posts
     @action(methods=['get'], pagination_class = LimitOffsetPagination, permission_classes=[AllowAny], detail=True, url_path=r'topics/(?P<topic_pk>\d+)/posts/(?P<post_pk>\d+)')
     def showPost(self, request, *args, **kwargs):
         self.topic = get_object_or_404(Topic, board__pk=self.kwargs.get('pk'), pk=self.kwargs.get('topic_pk'))
