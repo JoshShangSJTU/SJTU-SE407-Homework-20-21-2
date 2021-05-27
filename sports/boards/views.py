@@ -1,43 +1,81 @@
 from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
-from django.db.models import Count
+from django.db.models import Count, query
 from django.views.generic import UpdateView, ListView
 from django.utils import timezone
 from django.utils.decorators import method_decorator
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.http import HttpResponse, JsonResponse
 
 from rest_framework import viewsets, mixins
 from rest_framework.generics import ListAPIView
 from rest_framework.pagination import LimitOffsetPagination, PageNumberPagination
 from rest_framework.permissions import AllowAny
+from rest_framework.response import Response
+from rest_framework.serializers import Serializer
+from rest_framework.decorators import action
 
 from .models import Board, Topic, Post
 from .forms import NewTopicForm, PostForm
-from .serializers import BoardSerializer, TopicSerializer
+from .serializers import BoardSerializer, TopicSerializer, PostListSerializer
 
 
 # Create your views here.
 # 下面是接口
-class BoardViewSet(viewsets.ModelViewSet):
+class BoardViewSet(viewsets.ModelViewSet, mixins.ListModelMixin):
     """
-    Board信息接口
+    Board的视图集
     """
     queryset = Board.objects.all()
     serializer_class = BoardSerializer
+    
+    # 展示Topics
+    @action(methods=['get'], pagination_class = LimitOffsetPagination, permission_classes=[AllowAny], detail=True, url_path=r'topics/(?P<topic_pk>\d+)')
+    def showTopic(self, request, *args, **kwargs):
+        self.board = get_object_or_404(Board, pk=self.kwargs.get('pk'))
+        queryset = self.board.topics.order_by('-last_updated')
+        serializer = TopicSerializer(queryset, many=True)
+        return JsonResponse(serializer.data, safe=False)
 
-class TopicViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
-    '''
-    Topic的接口
-    '''
-    queryset = Topic.objects.all().order_by('-last_updated')
-    serializer_class = TopicSerializer
-    pagination_class = LimitOffsetPagination
-    permission_classes = [AllowAny]
+    # 展示Posts
+    @action(methods=['get'], pagination_class = LimitOffsetPagination, permission_classes=[AllowAny], detail=True, url_path=r'topics/(?P<topic_pk>\d+)/posts/(?P<post_pk>\d+)')
+    def showPost(self, request, *args, **kwargs):
+        self.topic = get_object_or_404(Topic, board__pk=self.kwargs.get('pk'), pk=self.kwargs.get('topic_pk'))
+        queryset = self.topic.posts.order_by('created_at')
+        serializer = PostListSerializer(queryset, many=True)
+        return JsonResponse(serializer.data, safe=False)
+
+
+# class TopicViewSet(mixins.ListModelMixin, viewsets.GenericViewSet, viewsets.ViewSet):
+#     '''
+#     Topic的视图集
+#     '''
+#     def list(self, request, *args, **kwargs):
+#         self.board = get_object_or_404(Board, pk=self.kwargs.get('pk'))
+#         queryset = self.board.topics.order_by('-last_updated').annotate(replies=Count('posts') - 1)
+#         serializer = TopicSerializer(queryset, many=True)
+#         return Response(serializer.data)
+#     # queryset = Topic.objects.all().order_by('-last_updated').annotate(replies=Count('posts') - 1)
+#     # serializer_class = TopicSerializer
+#     pagination_class = LimitOffsetPagination
+#     permission_classes = [AllowAny]
+
+
+# class PostViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
+#     '''
+#     Post的视图集
+#     '''
+#     queryset = Post.objects.all()
+#     serializer_class = PostListSerializer
+#     permission_classes = [AllowAny]
+
 
 
 # -----------------这是分割线-----------------------
-# 下面的是原教程的view函数
+# 下面的是原来的view函数，上面的部分是在返回api，目前
+# 等待前端同学完善
+# 下面的部分目前还在使用中，前后端分离尚未分离
 # ----------------这是分割线------------------------
 class BoardListView(ListView):
     model = Board
