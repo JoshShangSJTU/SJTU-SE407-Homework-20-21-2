@@ -34,8 +34,8 @@ class BoardViewSet(viewsets.ModelViewSet, mixins.ListModelMixin):
     @action(methods=['get'], pagination_class = LimitOffsetPagination, permission_classes=[AllowAny], detail=True, url_path=r'topics/(?P<topic_pk>\d+)')
     def showTopic(self, request, *args, **kwargs):
         self.board = get_object_or_404(Board, pk=self.kwargs.get('pk'))
-        queryset = self.board.topics.order_by('-last_updated').annotate(replies=Count('posts') - 1)
-        serializer = TopicSerializer(queryset, many=True, context={"replies": self.board.topics.annotate(replies=Count('posts') - 1)})
+        queryset = self.board.topics.order_by('-last_updated')
+        serializer = TopicSerializer(queryset, many=True)
         return JsonResponse(serializer.data, safe=False)
 
     # 展示Posts
