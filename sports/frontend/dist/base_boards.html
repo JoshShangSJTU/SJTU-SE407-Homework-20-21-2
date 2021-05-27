@@ -11,6 +11,14 @@
     <link rel="stylesheet" href="{% static 'css/app.css' %}">
     {% block stylesheet %}
     {% endblock %}
+    <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+    <script src="{% static 'js/popper.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="{% static 'js/timeago.js' %}"></script>
+    <script src="{% static 'js/bootstrap-paginator.js' %}"></script>
+    {% block javascript %}{% endblock %}
 </head>
 <body>
     {% block body %}
@@ -46,7 +54,7 @@
         </nav>
 
         <div class="container">
-            <ol class="breadcrumb my-4">
+            <ol class="breadcb">
                 {% block breadcrumb %}
                 {% endblock %}
             </ol>
@@ -55,9 +63,5 @@
         </div>
     {% endblock body %}
     
-    <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
-    <script src="{% static 'js/popper.min.js' %}"></script>
-    <script src="{% static 'js/bootstrap.min.js' %}"></script>
-    {% block javascript %}{% endblock %}
 </body>
 </html>

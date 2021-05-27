@@ -16,10 +16,14 @@
 {% endblock %}
 
 {% block breadcrumb %}
-    <li class="breadcrumb-item"><a href="{% url 'home_boards' %}">讨论区</a></li>
-    <li class="breadcrumb-item"><a href="{% url 'board_topics' topic.board.pk %}">{{ topic.board.name }}</a></li>
-    <li class="breadcrumb-item"><a href="{% url 'topic_posts' topic.board.pk topic.pk %}">{{ topic.subject }}</a></li>
-    <li class="breadcrumb-item" active>回复</li>
+    <li class="breadcb-item"><a href="{% url 'home_boards' %}">讨论区</a></li>
+    <li class="breadcb-item"><a href="{% url 'board_topics' topic.board.pk %}">{{ topic.board.name }}</a></li>
+    <li class="breadcb-item"><a href="{% url 'topic_posts' topic.board.pk topic.pk %}">{{ topic.subject }}</a></li>
+    <li class="breadcb-item active">
+      <a href="javascript:location.reload();">
+        回复
+      </a>
+    </li>
 {% endblock %}
 
 {% block content %}
