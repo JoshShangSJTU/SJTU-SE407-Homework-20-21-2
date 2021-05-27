@@ -50,6 +50,7 @@ class Match(models.Model):
     def __str__(self):
         return str(self.match_no)
 
+
 class News(models.Model):
     # 存储新闻url的模型
     num = models.IntegerField('新闻编号', default=0) # 新闻编号
@@ -57,6 +58,6 @@ class News(models.Model):
 
     class Meta:
         verbose_name_plural = '新闻表'
-
+    
     def __str__(self):
         return str(self.id)

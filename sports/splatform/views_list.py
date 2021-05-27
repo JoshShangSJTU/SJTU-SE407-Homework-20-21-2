@@ -9,7 +9,7 @@ def goal_list(request):
         results = Player.objects.order_by('-goal')
         result_dict = model_to_dict(results)
 
-        return JsonResponse({'status':200})
+        return JsonResponse({'status':200, 'data':result_dict})
 
 
     
