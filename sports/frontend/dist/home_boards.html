@@ -52,25 +52,26 @@
 </table>
 
 <div id="boards-inform" style="margin-bottom: 30px;">
+    [[topicMessage]]
     <ul class="list-group">
-        <li v-for="boards in message" class="list-group-item">
+        <li v-for="boards in boardMessage" class="list-group-item">
             <div class="item-board clearfix">
-                <a href="#" class="board-img">
+                <a v-bind:href="'http://127.0.0.1:8000/talk/boards/'+boards.id" class="board-img">
                     <img src="#" width="95" height="95">
                 </a>
                 <div class="board-information">
-                    <a href="#">[[boards.name]]</a>
+                    <a v-bind:href="'http://127.0.0.1:8000/talk/boards/'+boards.id">[[boards.name]]</a>
                     <p class="board-description">
                         [[boards.description]]
                     </p>
-                    <small class="board-topic">
-                        <span>话题：</span>
+                    <small v-for="(count, index) in topicCount" class="board-topic">
+                        <span v-if="index == boards.id">[[count]]</span>
                         <span>帖子：</span>
                     </small>
                 </div>
                 <div class="board-recent">
                     <small>
-                        最近一次发帖
+                        最近一次发帖:
                     </small>
                 </div>
             </div>
@@ -82,17 +83,44 @@
     var boards = new Vue({
         delimiters: ['[[', ']]'],
         el: '#boards-inform',
-        data() {
-            return {
-                message: null
-            }
+        data: {
+            boardMessage: '',
+            boardCount: 0,
+            topicMessage: new Array(),
+            topicCount: new Array()
         },
         mounted() {
             var that = this;
             axios
-                .get("http://127.0.0.1:8000/talk/api/board/")
+                .get("http://127.0.0.1:8000/talk/api/boards/")
                 .then(function (response) {
-                    that.message = response.data;
+                    var boards = response.data;
+                    that.boardCount = boards.length;
+                    console.log("讨论区数：" + that.boardCount);
+                    if (that.boardCount != 0) {
+                        that.boardMessage = response.data;
+                        console.log(that.boardMessage);
+                    }
+                    function getK(i) {
+                        axios
+                            .get("http://127.0.0.1:8000/talk/api/boards/" + (i + 1) + "/topics/1/")
+                            .then(function (response) {
+                                var topics = response.data;
+                                that.topicCount[i] = topics.length;
+                                if (that.topicCount[i] != 0) {
+                                    that.topicMessage[i] = response.data[0].last_updated;
+                                    console.log(that.topicMessage[i]);
+                                }
+                                console.log(that.topicCount[i]);
+                                if (i < that.boardCount - 1) {
+                                    getK(i + 1);
+                                }
+                            })
+                            .catch(function (error) {
+                                console.log(error)
+                            })
+                    }
+                    getK(0);
                 })
                 .catch(function (error) {
                     console.log(error)
