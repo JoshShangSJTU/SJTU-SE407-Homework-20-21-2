@@ -68,7 +68,8 @@
                     </div>
                     <div class="item-topic-right">
                         <div class="clearfix">
-                            <a class="top-title" v-bind:href="'http://127.0.0.1:8000/talk/boards/1/topics/'+topic.id">
+                            <a class="top-title"
+                                v-bind:href="'http://127.0.0.1:8000/talk/boards/'+board+'/topics/'+topic.id">
                                 [[topic.subject]]
                             </a>
                             <div class="body-inform">
@@ -118,6 +119,7 @@
         delimiters: ['[[', ']]'],
         el: '#topics',
         data: {
+            board: 1,
             topicMessage: ''
         },
         mounted() {
@@ -126,6 +128,7 @@
                 .get("http://127.0.0.1:8000/talk/api/boards/" + boardPath + "/topics/1/")
                 .then(function (response) {
                     that.topicMessage = response.data;
+                    that.board = boardPath;
                     console.log(that.topicMessage);
                 })
                 .catch(function (error) {
