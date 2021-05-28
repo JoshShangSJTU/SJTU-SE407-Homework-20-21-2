@@ -3,56 +3,139 @@
 {% load humanize %}
 
 {% block title%}
-    {{board.name}}-{{block.super}}
+{{board.name}}-{{block.super}}
 {% endblock %}
 
 {% block breadcrumb %}
-    <li class="breadcrumb-item"><a href="{% url 'home_boards' %}">讨论区</a></li>
-    <li class="breadcrumb-item active">{{ board.name }}</li>
+<li class="breadcb-item"><a href="{% url 'home_boards' %}">讨论区</a></li>
+<li class="breadcb-item active">
+    <a href="javascript:location.reload();">
+        {{ board.name }}
+    </a>
+</li>
 {% endblock %}
 
 {% block content %}
-    <div class="mb-4">
-        <a href="{% url 'new_topic' board.pk %}" class="btn btn-primary">发起新话题</a>
-    </div>
-    
-    <table class="table table-striped mb-4">
-        <thead class="thead-inverse">
-            <tr>
-                <th>话题</th>
-                <th>发起人</th>
-                <th>回复</th>
-                <th>浏览次数</th>
-                <th>最近一次更新</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for topic in topics %}
-                {% url 'topic_posts' board.pk topic.pk as topic_url %}
-                <tr>
-                    <td>
-                        <p class="mb-0">
-                            <a href="{{ topic_url }}">{{ topic.subject }}</a>
-                        </p>
-                        <small class="text-muted">
-                            Pages:
-                            {% for i in topic.get_page_range %}
-                              <a href="{{ topic_url }}?page={{ i }}">{{ i }}</a>
-                            {% endfor %}
-                            {% if topic.has_many_pages %}
-                            ...<a href="{{ topic_url }}?page={{ topic.get_page_count }}">Last Page</a>
-                            {% endif %}
-                        </small>
-                    </td>
-                    <td>{{ topic.starter.username }}</td>
-                    <td>{{ topic.replies }}</td>
-                    <td>{{ topic.views }}</td>
-                    <td>{{ topic.last_updated|naturaltime }}</td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+<div class="mb-4" style="float: right;">
+    <a href="{% url 'new_topic' board.pk %}" class="btn">发起新话题</a>
+</div>
 
-    {% include 'includes/pagination.html' %}
+<table class="table table-striped mb-4">
+    <thead class="thead-inverse">
+        <tr>
+            <th>话题</th>
+            <th>发起人</th>
+            <th>回复</th>
+            <th>浏览次数</th>
+            <th>最近一次更新</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for topic in topics %}
+        {% url 'topic_posts' board.pk topic.pk as topic_url %}
+        <tr>
+            <td>
+                <p class="mb-0">
+                    <a href="{{ topic_url }}">{{ topic.subject }}</a>
+                </p>
+                <small class="text-muted">
+                    Pages:
+                    {% for i in topic.get_page_range %}
+                    <a href="{{ topic_url }}?page={{ i }}">{{ i }}</a>
+                    {% endfor %}
+                    {% if topic.has_many_pages %}
+                    ...<a href="{{ topic_url }}?page={{ topic.get_page_count }}">Last Page</a>
+                    {% endif %}
+                </small>
+            </td>
+            <td>{{ topic.starter.username }}</td>
+            <td>{{ topic.replies }}</td>
+            <td>{{ topic.views }}</td>
+            <td>{{ topic.last_updated|naturaltime }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<div id="topics">
+    <div class="container" style="margin-bottom: 30px;">
+        <ul v-for="topic in topicMessage" class="list-group">
+            <li class="list-group-item">
+                <div class="clearfix item-topic">
+                    <div class="item-topic-left">
+                        <span class="reply-number">
+                            [[topic.replies]]
+                        </span>
+                    </div>
+                    <div class="item-topic-right">
+                        <div class="clearfix">
+                            <a class="top-title" v-bind:href="'http://127.0.0.1:8000/talk/boards/1/topics/'+topic.id">
+                                [[topic.subject]]
+                            </a>
+                            <div class="body-inform">
+                                <span>
+                                    <i class="usr-img"></i>
+                                    <span class="usr-inform">
+                                        [[topic.starter]]
+                                    </span>
+                                </span>
+                                <span>
+                                    <i class="view-img"></i>
+                                    <span class="view-inform">
+                                        [[topic.views]]
+                                    </span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="clearfix topic-right-body">
+                            <div class="body-content">
+                                <div class="content-text">
+                                    文字内容
+                                </div>
+                                <div class="content-img">
+                                    图片内容
+                                </div>
+                            </div>
+                            <div class="body-inform">
+                                <span class="post-date">[[topic.last_updated]]</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div style="float: right;">
+        <ul class="pagination" id="pageSort">
+        </ul>
+    </div>
+</div>
+<script type="text/javascript">
+    var url = window.location.pathname;
+    console.log(url);
+    var boardPath = url[url.length - 2];
+    console.log(boardPath);
+    var topic = new Vue({
+        delimiters: ['[[', ']]'],
+        el: '#topics',
+        data: {
+            topicMessage: ''
+        },
+        mounted() {
+            var that = this;
+            axios
+                .get("http://127.0.0.1:8000/talk/api/boards/" + boardPath + "/topics/1/")
+                .then(function (response) {
+                    that.topicMessage = response.data;
+                    console.log(that.topicMessage);
+                })
+                .catch(function (error) {
+                    console.log(error)
+                })
+        }
+    })
+</script>
+{% block javascript %}{% endblock %}
+
+{% include 'includes/pagination.html' %}
 
 {% endblock %}
