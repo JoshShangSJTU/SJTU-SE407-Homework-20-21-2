@@ -53,6 +53,7 @@
 
 <div id="boards-inform" style="margin-bottom: 30px;">
     [[topicMessage]]
+    [[topicCount]]
     <ul class="list-group">
         <li v-for="boards in boardMessage" class="list-group-item">
             <div class="item-board clearfix">
@@ -92,27 +93,27 @@
         mounted() {
             var that = this;
             axios
-                .get("http://127.0.0.1:8000/talk/api/boards/")
+                .get("http://127.0.0.1:8000/talk/api/boards/")      //第一次请求获取讨论区的信息
                 .then(function (response) {
                     var boards = response.data;
-                    that.boardCount = boards.length;
-                    console.log("讨论区数：" + that.boardCount);
+                    that.boardCount = boards.length;                //计算讨论区的个数，保存到boardCount
+                    console.log("讨论区数：" + that.boardCount);    //检查得到的讨论区个数
                     if (that.boardCount != 0) {
-                        that.boardMessage = response.data;
-                        console.log(that.boardMessage);
+                        that.boardMessage = response.data;          //保存讨论区信息到boardMessage
+                        console.log(that.boardMessage);             //检查得到的讨论区信息
                     }
-                    function getK(i) {
+                    function getK(i) {                                                              //定义方法，请求第i个讨论区中帖子的信息
                         axios
                             .get("http://127.0.0.1:8000/talk/api/boards/" + (i + 1) + "/topics/1/")
                             .then(function (response) {
                                 var topics = response.data;
-                                that.topicCount[i] = topics.length;
+                                that.topicCount[i] = topics.length;                                 //计算帖子数量，保存到topicCount[i]
                                 if (that.topicCount[i] != 0) {
-                                    that.topicMessage[i] = response.data[0].last_updated;
-                                    console.log(that.topicMessage[i]);
-                                }
-                                console.log(that.topicCount[i]);
-                                if (i < that.boardCount - 1) {
+                                    that.topicMessage[i] = response.data[0].last_updated;           //获取最新一个帖子的信息,保存到topicMessage[i]
+                                    console.log(that.topicMessage[i]);                              //检查得到的帖子信息
+                                }                                                                   
+                                console.log(that.topicCount[i]);                                    //检查得到的帖子数量
+                                if (i < that.boardCount - 1) {                                      //如果i小于讨论区个数，递归，请求下一个讨论区中帖子信息
                                     getK(i + 1);
                                 }
                             })
@@ -120,7 +121,7 @@
                                 console.log(error)
                             })
                     }
-                    getK(0);
+                    getK(0);                                                                        //调用上面定义的方法，从第一个讨论区开始请求
                 })
                 .catch(function (error) {
                     console.log(error)
