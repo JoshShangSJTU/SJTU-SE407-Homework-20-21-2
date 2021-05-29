@@ -46,4 +46,4 @@ def QueryPlayers(request):
     
     print (package)
 
-    return HttpResponse("<p>查找成功！</p>")
+    return HttpResponse("<p>查找成功！</p>"+str(package))
