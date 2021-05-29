@@ -38,9 +38,16 @@ def QueryPlayers(request):
 
    
     for player in models.Player.objects.all():
+        #exec('player{}={‘name’：{}}'.format(player.pk,player.pk))
         exec('player{}={}'.format(player.pk, player.pk))
-        exec('print(player{})'.format(player.pk))
-        exec('package.append(player{})'.format(player.pk))
-        print(package)
+        exec('print("player:"+str(player{}))'.format(player.pk))
+        print (player.player_name)
+        name=player.player_name
+        playerinfo={'id':player.pk,'name':name}
+        package.append(playerinfo)
+        #exec('package.append(player{})'.format(player.pk))
+        #print(package)
     
+    print (package)
+
     return HttpResponse("<p>查找成功！</p>")
