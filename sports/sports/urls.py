@@ -43,6 +43,7 @@ urlpatterns = [
     path('talk/', include('boards.urls')), # 讨论区页面
 
     path('api/mgr/', include('mgr.urls')), # 登录登出
+    path('api/usr/', include('usr.urls')), # 注册登录登出
 
 
     # 文档

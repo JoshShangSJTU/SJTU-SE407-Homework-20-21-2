@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'mgr',
     'splatform',
     'boards',
+    'usr',
 ]
 
 MIDDLEWARE = [
