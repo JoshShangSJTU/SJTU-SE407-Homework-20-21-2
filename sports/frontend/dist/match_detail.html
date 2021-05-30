@@ -60,7 +60,7 @@
         </div>
     </nav>
 
-    <div class="backgrd">
+    <div id="details" class="backgrd">
         <div class="match-point">
             <div class="match-title">
                 <div class="title-name">比赛名称</div>
@@ -236,5 +236,24 @@
         </div>
     </div>
 </body>
+
+<script>
+    var detail = new Vue({
+        delimiters: ['[[', ']]'],
+        el: "#details",
+        data: {
+            matchMessage: ''
+        },
+        mounted() {
+            var that = this;
+            axios
+                .get("http://127.0.0.1:8000/matchinfo/api/homedata/")
+                .then(function (response) {
+                    that.matchMessage = response.data;
+                    console.log(that.matchMessage)
+                })
+        }
+    })
+</script>
 
 </html>
