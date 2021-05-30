@@ -53,12 +53,20 @@ def Homedata(request):
     
     for match in models.Match.objects.all():
 
-        teamh = models.Team.objects.get(pk=match.h_team_name_id)
-        teama = models.Team.objects.get(pk=match.a_team_name_id)            
-        info={'比赛编号':match.match_no,'主队队名':teamh.team_name,'客队队名':teama.team_name,'比赛地点':match.match_loc,'比赛时间':match.match_time}
+        teamh = models.Team.objects.get(pk=match.h_team_name_id)    #获取比赛的两支队伍信息
+        teama = models.Team.objects.get(pk=match.a_team_name_id)  
+
+        timeinfo = str(match.match_time)    #调整时间格式
+        date = timeinfo[0:10]    
+        hour = (int(timeinfo[11:13])+8)%24
+        minute = int(timeinfo[14:16])
+
+        info={'比赛编号':match.match_no,'主队队名':teamh.team_name,'客队队名':teama.team_name,'比赛地点':match.match_loc,'比赛时间':(date,hour,minute)}      
+
         package.append(info)
 
     return JsonResponse(package,safe=False,json_dumps_params={'ensure_ascii':False})
+
 
 def Detaildata(request):
    
@@ -79,11 +87,15 @@ def Detaildata(request):
         for player in playera:
             playeraset.append(player.player_name)
 
+        timeinfo = str(match.match_time)    #调整时间格式
+        date = timeinfo[0:10]    
+        hour = (int(timeinfo[11:13])+8)%24
+        minute = int(timeinfo[14:16])
+
         H_info = {'主队队名':teamh.team_name,'主队得分':match.h_score,'队员表':playerhset}
-        print (H_info)
         A_info = {'客队队名':teama.team_name,'客队得分':match.a_score,'队员表':playeraset}
-        print (A_info)
-        baseinfo= {'比赛编号':match.match_no,'比赛地点':match.match_loc,'比赛时间':match.match_time}
+        baseinfo= {'比赛编号':match.match_no,'比赛地点':match.match_loc,'比赛时间':(date,hour,minute)}
         info = {'比赛信息':baseinfo,'主队信息':H_info,'客队信息':A_info}
+
         package.append(info)
     return JsonResponse(package,safe=False,json_dumps_params={'ensure_ascii':False})
