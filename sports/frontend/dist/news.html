@@ -27,12 +27,13 @@
               <span>某某</span> 发表于 <span>2021-07-20 18:07:10</span>
             </div>
             <div class="news-des">
-              <h3 class="news-title"><i></i><a href="#">东皇太一</a></h3>
+              <h3 class="news-title"><i></i><a href="[[num]]">东皇太一</a></h3>
               <div class="news-content-des">
                 吉日兮辰良，穆将愉兮上皇；抚长剑兮玉珥，璆锵鸣兮琳琅；
 				瑶席兮玉瑱，盍将把兮琼芳；蕙肴蒸兮兰藉，奠桂酒兮椒浆；
 				扬枹兮拊鼓，疏缓节兮安歌；陈竽瑟兮浩倡；
 				灵偃蹇兮姣服，芳菲菲兮满堂；五音纷兮繁会，君欣欣兮乐康。
+			
               </div>
             </div>
           </div>
@@ -107,4 +108,28 @@
       </div>
     </div>
   </body>
+
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<script>
+	new Vue({
+	   delimiters:['[[', ']]'],
+       el: '#newsdb',
+       data () {
+	   num;
+
+    return {
+      info: null
+    }
+  },
+  mounted () {
+    axios
+      .get('http://127.0.0.1:8000/news/detail/?num=3')
+      .then(response => (console.log(response)),
+	  
+	  error => {
+	  alert("错误")}
+  }
+})
+</script>
 </html>
