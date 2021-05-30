@@ -1,8 +1,6 @@
 from django.shortcuts import render
 from django.http.response import HttpResponse
 
-
-
 from splatform import models
 # Create your views here.
 
@@ -24,13 +22,6 @@ count() 方法用于查询数据的数量，返回的数据是整数
 
 '''
 
-def Login(request):
-    #输入用户名提交后返回"hello,用户名"
-    if request.method == "POST":
-        username = request.POST.get('username')
-        return HttpResponse("hello,"+username)
-    else:#初始登录时返回一个静态登录页面
-        return render(request,'home.html')
 
 def QueryPlayers(request):
     package = []
@@ -46,4 +37,5 @@ def QueryPlayers(request):
     
     print (package)
 
-    return HttpResponse("<p>查找成功！</p>"+str(package))
+    # return HttpResponse("<p>查找成功！</p>"+str(package))
+    return render(request, 'match_detail.html', {'Player_package':package})
