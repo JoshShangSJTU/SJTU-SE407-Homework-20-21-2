@@ -47,7 +47,7 @@ def Homedata(request):
     return JsonResponse(package,safe=False,json_dumps_params={'ensure_ascii':False})
 '''
 
-def Homedata(request):
+def Homedata(request):  #向赛事信息列表发送数据的视图
     
     package=[]
     
@@ -68,7 +68,7 @@ def Homedata(request):
     return JsonResponse(package,safe=False,json_dumps_params={'ensure_ascii':False})
 
 
-def Detaildata(request):
+def Detaildata(request):    #向详情页发送数据的视图
    
     package=[]
 
