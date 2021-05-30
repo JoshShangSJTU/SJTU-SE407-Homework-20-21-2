@@ -5,11 +5,10 @@ from django.shortcuts import render
 from django.forms.models import model_to_dict  
 
 def goal_list(request):
-    if request.method() == "GET":
-        results = Player.objects.order_by('-goal')
-        result_dict = model_to_dict(results)
-
-        return JsonResponse({'status':200, 'data':result_dict})
+    
+   results = Player.objects.order_by('-goal')
+   dict_test = {'status': 'test'}
+   return render(request, 'home.html', context=dict_test)
 
 
     
