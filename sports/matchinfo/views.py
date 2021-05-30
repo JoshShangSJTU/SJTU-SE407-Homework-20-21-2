@@ -23,19 +23,27 @@ count() 方法用于查询数据的数量，返回的数据是整数
 '''
 
 
-def QueryPlayers(request):
-    package = []
+def Query(request):
+    match_package = []
+    player_package = []
+    team_package = []
     #player_count = models.Player.objects.all().count() 
 
-   
-    for player in models.Player.objects.all():
-        exec('player{}={}'.format(player.pk, player.pk))
-        exec('print("player:"+str(player{}))'.format(player.pk))
-        print (player.player_name)
+    for match in models.Match.objects.all():
+        matchinfo={'id':match.pk,'match_no':match.match_no,'h_score':match.h_score,'a_score':match.a_score,'match_loc':match.match_loc,'a_team_name_id':match.a_team_name_id,'h_team_name_id':match.h_team_name_id,'match_time':match.match_time}
+        match_package.append(matchinfo)
+
+    for player in models.Player.objects.all():       
         playerinfo={'id':player.pk,'name':player.player_name,'goal':player.goal,'assist':player.assist,'r_card':player.r_card,'team_id':player.team_id,'y_card':player.y_card}
-        package.append(playerinfo)
+        player_package.append(playerinfo)
+
+    for team in models.Team.objects.all():       
+        teaminfo={'id':team.pk,'team_name':team.team_name,'coach':team.coach,'group':team.group,'point':team.point}
+        team_package.append(teaminfo)
     
-    print (package)
+    print (match_package)
+    print (player_package)
+    print (team_package)
 
     # return HttpResponse("<p>查找成功！</p>"+str(package))
-    return render(request, 'match_detail.html', {'Player_package':package})
+    return render(request, 'match_detail.html', {'Match_package':match_package,'Player_package':player_package,'Team_package':team_package})
