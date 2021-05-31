@@ -154,6 +154,11 @@ h1 {
     color: black;
 }
 
+.match-detail a:hover{
+    text-decoration: none;
+    opacity: 0.7;
+}
+
 #navbar2 {
     right: 25px; 
     top: 360px
