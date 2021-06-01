@@ -10,6 +10,7 @@ from django.http import HttpResponse, JsonResponse
 
 from rest_framework import viewsets, mixins
 from rest_framework import generics
+from rest_framework import pagination
 from rest_framework.generics import ListAPIView
 from rest_framework.pagination import LimitOffsetPagination, PageNumberPagination
 from rest_framework.permissions import AllowAny
@@ -31,6 +32,12 @@ class BoardList(generics.ListAPIView):
     queryset = Board.objects.all()
     serializer_class = BoardSerializer
 
+class CustomPagination(PageNumberPagination):
+    page_size = 2
+    page_size_query_param = 'page_size'
+    max_page_size = 10000
+    page_query_param = 'p'
+
 class TopicList(generics.ListAPIView):
     """
     Topic展示
@@ -38,9 +45,24 @@ class TopicList(generics.ListAPIView):
     def get(self, request, *args, **kwargs):
         self.board = get_object_or_404(Board, pk=self.kwargs.get('pk'))
         queryset = self.board.topics.order_by('-last_updated')
-        serializer = TopicSerializer(queryset, many=True)
+        paginator = CustomPagination()
+        result = paginator.paginate_queryset(queryset, request)
+        serializer = TopicSerializer(result, many=True)
         return JsonResponse(serializer.data, safe=False)
+    
+# class TopicViewSet(viewsets.ModelViewSet):
+#     serializer_class = TopicSerializer
+#     pagination_class = CustomPagination
 
+#     def get_object(self):
+#         return get_object_or_404(Board, pk=self.request.query_params.get('pk'))
+
+#     def get_queryset(self):
+#         return Board.topics.order_by('-last_updated')
+
+#     def perform_destroy(self, instance):
+#         instance.is_active = False
+#         instance.save()
 
 # class BoardViewSet(viewsets.ModelViewSet, mixins.ListModelMixin):
 #     """
