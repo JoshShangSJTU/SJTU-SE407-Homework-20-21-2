@@ -38,7 +38,7 @@
           <a class="navbar-brand" href="javascript:location.reload();">首页</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="../matchinfo/home/">赛事</a>
+          <a class="nav-link" href="\matchinfo/home/">赛事</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">榜单</a>
@@ -120,239 +120,299 @@
     <h1 class="font-weight-bold text-center">赛事信息</h1>
     <hr class="style1" />
     <!--container,卡片可重复添加-->
-    <div class="container" style="text-align: center">
-      <div id="matches" style="text-align: center;">
-        <div v-for="mth in matchMessage" class="match-card">
-          <p class="match-bottom"></p>
-          <a href="../matchinfo/home/match-detail" target="_blank" class="match-img" style="background-image: url(#);"></a>
-          <a href="../matchinfo/home/match-detail" target="_blank" class="match-text">
-            <span class="match-text-style">
-              <span class="match-name">[[mth.主队队名]]vs[[mth.客队队名]]</span>
-              <span class="match-place">[[mth.比赛地点]]</span>
-            </span>
-            <span class="match-date">[[mth.比赛时间]]</span>
-          </a>
-          <span class="match-label">
-            <span class="match-detail" style="margin: 0px 10px;">
-              <a href="../matchinfo/home/match-detail" target="_blank" style="background: #F5F5F5">
-                详情
+    <div class="container" style="text-align: center" id="match">
+      <div class="card mb-3">
+        <div class="row no-gutters">
+          <div class="col-md-8">
+            <a href="#">
+              <img src="http://5b0988e595225.cdn.sohucs.com/images/20200502/791db1af5862438298d98a7134e598cf.jpeg" class="card-img" alt="...">
+            </a>
+          </div>
+
+          <div class="col-md-4">
+            <div class="card-body">
+              <a href="#">
+                <h5 class="card-title">比赛名称</h5>
               </a>
-            </span>
-          </span>
+              <p class="card-text">比赛信息</p>
+              <p class="card-text"><small class="text-muted"></small></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card mb-3">
+        <div class="row no-gutters">
+          <div class="col-md-8">
+            <a href="#">
+              <img src="https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1161591332,1616831420&fm=11&gp=0.jpg" class="card-img" alt="...">
+            </a>
+          </div>
+
+          <div class="col-md-4">
+            <div class="card-body">
+              <a href="#">
+                <h5 class="card-title">比赛名称</h5>
+              </a>
+              <p class="card-text">比赛信息</p>
+              <p class="card-text"><small class="text-muted"></small></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card mb-3">
+        <div class="row no-gutters">
+          <div class="col-md-8">
+            <a href="#">
+              <img src="..." class="card-img" alt="...">
+            </a>
+          </div>
+
+          <div class="col-md-4">
+            <div class="card-body">
+              <a href="#">
+                <h5 class="card-title">比赛名称</h5>
+              </a>
+              <p class="card-text">比赛信息</p>
+              <p class="card-text"><small class="text-muted"></small></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card mb-3">
+        <div class="row no-gutters">
+          <div class="col-md-8">
+            <a href="#">
+              <img src="..." class="card-img" alt="...">
+            </a>
+          </div>
+
+          <div class="col-md-4">
+            <div class="card-body">
+              <a href="#">
+                <h5 class="card-title">比赛名称</h5>
+              </a>
+              <p class="card-text">比赛信息</p>
+              <p class="card-text"><small class="text-muted"></small></p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-    <!--主体二-->
-    <div id="section2">
-      <h1 class="font-weight-bold text-center">数据榜单</h1>
-      <hr class="style1" />
-      <!--表格，行列可重复添加-->
-      <table class="table table-hover tablesorter" id="table1">
-        <thead class="thead-light">
-          <tr>
-            <th scope="row" class="header">#</th>
-            <th scope="row" class="header">User_Name</th>
-            <th scope="row" class="header">指标一</th>
-            <th scope="row" class="header">指标二</th>
-            <th scope="row" class="header">指标三</th>
-            <th scope="row" class="header">指标四</th>
-            <th scope="row" class="header">指标五</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>1</td>
-            <td>User1</td>
-            <td>1</td>
-            <td>2</td>
-            <td>3</td>
-            <td>4</td>
-            <td>5</td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>User2</td>
-            <td>2</td>
-            <td>3</td>
-            <td>4</td>
-            <td>5</td>
-            <td>1</td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td>User3</td>
-            <td>3</td>
-            <td>4</td>
-            <td>5</td>
-            <td>1</td>
-            <td>2</td>
-          </tr>
-          <tr>
-            <td>4</td>
-            <td>User4</td>
-            <td>4</td>
-            <td>5</td>
-            <td>1</td>
-            <td>2</td>
-            <td>3</td>
-          </tr>
-          <tr>
-            <td>5</td>
-            <td>User5</td>
-            <td>5</td>
-            <td>1</td>
-            <td>2</td>
-            <td>3</td>
-            <td>4</td>
-          </tr>
-        </tbody>
-      </table>
+  </div>
+  <!--主体二-->
+  <div id="section2">
+    <h1 class="font-weight-bold text-center">数据榜单</h1>
+    <hr class="style1" />
+    <!--表格，行列可重复添加-->
+    <table class="table table-hover tablesorter" id="table1">
+      <thead class="thead-light">
+        <tr>
+          <th scope="row" class="header">#</th>
+          <th scope="row" class="header">User_Name</th>
+          <th scope="row" class="header">指标一</th>
+          <th scope="row" class="header">指标二</th>
+          <th scope="row" class="header">指标三</th>
+          <th scope="row" class="header">指标四</th>
+          <th scope="row" class="header">指标五</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>User1</td>
+          <td>1</td>
+          <td>2</td>
+          <td>3</td>
+          <td>4</td>
+          <td>5</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>User2</td>
+          <td>2</td>
+          <td>3</td>
+          <td>4</td>
+          <td>5</td>
+          <td>1</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>User3</td>
+          <td>3</td>
+          <td>4</td>
+          <td>5</td>
+          <td>1</td>
+          <td>2</td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>User4</td>
+          <td>4</td>
+          <td>5</td>
+          <td>1</td>
+          <td>2</td>
+          <td>3</td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td>User5</td>
+          <td>5</td>
+          <td>1</td>
+          <td>2</td>
+          <td>3</td>
+          <td>4</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!--主体三，当前内容用于测试滚动监听效果用，后续可添加实际内容-->
+  <div id="section3">
+    <h1 class="font-weight-bold text-center">赛事资讯</h1>
+    <div class="container" style="text-align: right;">
+      <a href="#" target="_blank" class="btn more">
+        更多
+      </a>
     </div>
+    <hr class="style1" />
+    <div style="text-align: center;" id="news">
+      <div class="card mb-3">
+        <div class="row no-gutters">
+          <div class="col-md-10">
+            <div class="card-body">
+              <a href="#">
+                <h5 class="card-title">标题</h5>
+              </a>
+              <p class="card-text">内容</p>
+              <p class="card-text" style="text-align: right;">
+                <small class="text-muted">xxxx/xx/xx</small>
+              </p>
+            </div>
+          </div>
 
-    <!--主体三，当前内容用于测试滚动监听效果用，后续可添加实际内容-->
-    <div id="section3">
-      <h1 class="font-weight-bold text-center">赛事资讯</h1>
-      <div class="container" style="text-align: right;">
-        <a href="#" target="_blank" class="btn more">
-          更多
-        </a>
+          <div class="col-md-2">
+            <img src="..." class="card-img" alt="...">
+          </div>
+        </div>
       </div>
-      <hr class="style1" />
-      <div style="text-align: center;" id="news">
-        <div class="card mb-3">
-          <div class="row no-gutters">
-            <div class="col-md-10">
-              <div class="card-body">
-                <a href="#">
-                  <h5 class="card-title">标题</h5>
-                </a>
-                <p class="card-text">内容</p>
-                <p class="card-text" style="text-align: right;">
-                  <small class="text-muted">xxxx/xx/xx</small>
-                </p>
-              </div>
-            </div>
-
-            <div class="col-md-2">
-              <img src="..." class="card-img" alt="...">
+      <hr class="style2" />
+      <div class="card mb-3">
+        <div class="row no-gutters">
+          <div class="col-md-10">
+            <div class="card-body">
+              <a href="#">
+                <h5 class="card-title">标题</h5>
+              </a>
+              <p class="card-text">内容</p>
+              <p class="card-text" style="text-align: right;">
+                <small class="text-muted">xxxx/xx/xx</small>
+              </p>
             </div>
           </div>
-        </div>
-        <hr class="style2" />
-        <div class="card mb-3">
-          <div class="row no-gutters">
-            <div class="col-md-10">
-              <div class="card-body">
-                <a href="#">
-                  <h5 class="card-title">标题</h5>
-                </a>
-                <p class="card-text">内容</p>
-                <p class="card-text" style="text-align: right;">
-                  <small class="text-muted">xxxx/xx/xx</small>
-                </p>
-              </div>
-            </div>
 
-            <div class="col-md-2">
-              <img src="..." class="card-img" alt="...">
-            </div>
+          <div class="col-md-2">
+            <img src="..." class="card-img" alt="...">
           </div>
         </div>
-        <hr class="style2" />
-        <div class="card mb-3">
-          <div class="row no-gutters">
-            <div class="col-md-10">
-              <div class="card-body">
-                <a href="#">
-                  <h5 class="card-title">标题</h5>
-                </a>
-                <p class="card-text">内容</p>
-                <p class="card-text" style="text-align: right;">
-                  <small class="text-muted">xxxx/xx/xx</small>
-                </p>
-              </div>
-            </div>
-
-            <div class="col-md-2">
-              <img src="..." class="card-img" alt="...">
-            </div>
-          </div>
-        </div>
-        <hr class="style2" />
-        <div class="card mb-3">
-          <div class="row no-gutters">
-            <div class="col-md-10">
-              <div class="card-body">
-                <a href="#">
-                  <h5 class="card-title">标题</h5>
-                </a>
-                <p class="card-text">内容</p>
-                <p class="card-text" style="text-align: right;">
-                  <small class="text-muted">xxxx/xx/xx</small>
-                </p>
-              </div>
-            </div>
-
-            <div class="col-md-2">
-              <img src="..." class="card-img" alt="...">
-            </div>
-          </div>
-        </div>
-        <hr class="style2" />
-        <div class="card mb-3">
-          <div class="row no-gutters">
-            <div class="col-md-10">
-              <div class="card-body">
-                <a href="#">
-                  <h5 class="card-title">标题</h5>
-                </a>
-                <p class="card-text">内容</p>
-                <p class="card-text" style="text-align: right;">
-                  <small class="text-muted">xxxx/xx/xx</small>
-                </p>
-              </div>
-            </div>
-
-            <div class="col-md-2">
-              <img src="..." class="card-img" alt="...">
-            </div>
-          </div>
-        </div>
-        <hr class="style2" />
       </div>
+      <hr class="style2" />
+      <div class="card mb-3">
+        <div class="row no-gutters">
+          <div class="col-md-10">
+            <div class="card-body">
+              <a href="#">
+                <h5 class="card-title">标题</h5>
+              </a>
+              <p class="card-text">内容</p>
+              <p class="card-text" style="text-align: right;">
+                <small class="text-muted">xxxx/xx/xx</small>
+              </p>
+            </div>
+          </div>
+
+          <div class="col-md-2">
+            <img src="..." class="card-img" alt="...">
+          </div>
+        </div>
+      </div>
+      <hr class="style2" />
+      <div class="card mb-3">
+        <div class="row no-gutters">
+          <div class="col-md-10">
+            <div class="card-body">
+              <a href="#">
+                <h5 class="card-title">标题</h5>
+              </a>
+              <p class="card-text">内容</p>
+              <p class="card-text" style="text-align: right;">
+                <small class="text-muted">xxxx/xx/xx</small>
+              </p>
+            </div>
+          </div>
+
+          <div class="col-md-2">
+            <img src="..." class="card-img" alt="...">
+          </div>
+        </div>
+      </div>
+      <hr class="style2" />
+      <div class="card mb-3">
+        <div class="row no-gutters">
+          <div class="col-md-10">
+            <div class="card-body">
+              <a href="#">
+                <h5 class="card-title">标题</h5>
+              </a>
+              <p class="card-text">内容</p>
+              <p class="card-text" style="text-align: right;">
+                <small class="text-muted">xxxx/xx/xx</small>
+              </p>
+            </div>
+          </div>
+
+          <div class="col-md-2">
+            <img src="..." class="card-img" alt="...">
+          </div>
+        </div>
+      </div>
+      <hr class="style2" />
     </div>
+  </div>
 
-    <!--主体四，说明同主体三-->
-    <div id="section4">
-      <h1 class="font-weight-bold text-center">赛事讨论区</h1>
-      <hr class="style1" />
-      <div class="container">
-        <p>
-          测试用
-        </p>
-        <p>
-          首先来考察其某些性质：1，在这一微分方程组中，有不同n和m的未知函数Unm，Vnm，Wnm，Pnm和Ψnm是互相耦合的。且容易看出，具有m为偶数的未知量相互耦合，具有m为奇数的未知量也相互耦合。但具有m为奇数的未知量是独立于m为偶数的未知量的。以后仅讨论m为偶数的情形，对m为奇数情形是不难同样讨论的。
-          2．科里奥利力的出现使方程(5)和(6)不再恒等。Wnm≠0的引入解决了这一问题。并且，如果变形的平衡状态（即基本态）是不对称的话，容易看出，在周向两方向传播的波也是耦合的。
-          特别在m=0情形，扰动量必须取如下形式：
-          这样在方程(12)-(18)中，当n=0时，为应用表达式(19)，应该把m和mwπ0分别用0和wπ0来替代。
-          这是不同于旋转星的振动稳定性情形。但相似于既考虑自转又考虑潮汐的振动稳定性情形。
-          3．因为f02和f2在均匀不可压情形为常数，所以整个微分方程是欧拉型的，这些微分方程的解可表为α^α，其中α为特征值。
-        </p>
-        <p>
-          从上面的讨论可知，最后归结为解在一定边界条件下的无穷个未知函数的相互耦合的无穷个微分方程。为实际计算，可以限于讨论到n=2的情形，这时共有十九个未知量：1．从四个方程(12)-(15)可得以u，v，w和p为未知函数的常微分方程组。其非线性项系以毋来表示的。
-          2．分别利用球心处有限与无穷远处趋于零的条件，由方程(17)求得内、外扰动引力势的表达式。并利用条件(25)，把内、外扰动引力势的某些待定常数先确定
-          3．把解得的内部扰动引力势的表达式代入由步骤1所得的微分方程的右边。这样可以利用边界条件(20)和(22)求得u，v，w和p的表达式
-          4．把所求得的u，Ψ+和Ψ-代入边界条件(23)，就可得到决定四个待定常数的齐次线性方程组。为了得到不全为0的解，其充要条件是其系数行列式为0，这样就得到决定特征频率σ的方程，这一特征频率可以是实数，也可以是复数，主要决定于g02和g2的取值。当频率为实数时，这一原先的平衡状态为稳定的；而当频率为复数时，主要决定于其虚部。当虚部由正变负时，原先的平衡状态也就变成不稳定的了。所以频率的虚部为0的状态为临界状态。洛希极限就由这临界状态求得。
-          像已经知道的那样，在上面求解常微分方程时都需先解特征方程。而恰恰这些特征方程的系数包含有洛希极限项（即g02和g2）。因此要用直接方法来解这特征方程是非常困难的。
-          我们提出一间接方法：首先，任选M/(πR³ρ)的值。这样就可向上面所描述的过程进行求解，因为M/(πR³ρ)的任意性，一般来说特征频率σ为复数。从而改变M/(πR³ρ)的值，就可以得到不同的特征频率。这样的过程一直持续到特征频率的虚部接近于0。在这一间接方法中，重要的是初值的选取。整个过程可由计算机来实现。
-        </p>
-        <p>
-          除原点之外，λ＜λc对应曲线与横轴有二个交点A、B，由图可见，曲线在点A的斜率大于0，即W″(e0)＞0，函数W(e)在此点有极小值，故点A是平衡状态。在点B的斜率小于0，即W″(e0)＜0，函数W(e)在此点有极大值，故点B不是平衡状态。所以有结论:λ＜λc时存在平衡状态;除原点之外，λ=λc对应曲线与横轴仅有一个交点———切点C;除原点之外，λ＞λc对应曲线与横轴无交点，故此时不满足平衡条件。所以λ=λc确实是系统有无平衡状态的分界点。
-          至于λ=λc时是否有平衡状态，由于对应曲线在点C与横轴相切，即W'(ec)=0，W″(ec)=0，需要看W(e)在点C的三阶导数是否等于0和四阶导数是否大于0。经数值计算，发现三阶导数不等于0，故此点不存在极值，更谈不上有极小值，所以此时不存在平衡状态。综上所述，λ≥λc时系统是不稳定的。由此不等式和如下关系:λ=(m1/m)(R/r)³、m1=ρ4πR³/3、m=ρ'4πR³/3、式(42)，可得洛希极限：
-        </p>
-      </div>
+  <!--主体四，说明同主体三-->
+  <div id="section4">
+    <h1 class="font-weight-bold text-center">赛事讨论区</h1>
+    <hr class="style1" />
+    <div class="container">
+      <p>
+        测试用
+      </p>
+      <p>
+        首先来考察其某些性质：1，在这一微分方程组中，有不同n和m的未知函数Unm，Vnm，Wnm，Pnm和Ψnm是互相耦合的。且容易看出，具有m为偶数的未知量相互耦合，具有m为奇数的未知量也相互耦合。但具有m为奇数的未知量是独立于m为偶数的未知量的。以后仅讨论m为偶数的情形，对m为奇数情形是不难同样讨论的。
+        2．科里奥利力的出现使方程(5)和(6)不再恒等。Wnm≠0的引入解决了这一问题。并且，如果变形的平衡状态（即基本态）是不对称的话，容易看出，在周向两方向传播的波也是耦合的。
+        特别在m=0情形，扰动量必须取如下形式：
+        这样在方程(12)-(18)中，当n=0时，为应用表达式(19)，应该把m和mwπ0分别用0和wπ0来替代。
+        这是不同于旋转星的振动稳定性情形。但相似于既考虑自转又考虑潮汐的振动稳定性情形。
+        3．因为f02和f2在均匀不可压情形为常数，所以整个微分方程是欧拉型的，这些微分方程的解可表为α^α，其中α为特征值。
+      </p>
+      <p>
+        从上面的讨论可知，最后归结为解在一定边界条件下的无穷个未知函数的相互耦合的无穷个微分方程。为实际计算，可以限于讨论到n=2的情形，这时共有十九个未知量：1．从四个方程(12)-(15)可得以u，v，w和p为未知函数的常微分方程组。其非线性项系以毋来表示的。
+        2．分别利用球心处有限与无穷远处趋于零的条件，由方程(17)求得内、外扰动引力势的表达式。并利用条件(25)，把内、外扰动引力势的某些待定常数先确定
+        3．把解得的内部扰动引力势的表达式代入由步骤1所得的微分方程的右边。这样可以利用边界条件(20)和(22)求得u，v，w和p的表达式
+        4．把所求得的u，Ψ+和Ψ-代入边界条件(23)，就可得到决定四个待定常数的齐次线性方程组。为了得到不全为0的解，其充要条件是其系数行列式为0，这样就得到决定特征频率σ的方程，这一特征频率可以是实数，也可以是复数，主要决定于g02和g2的取值。当频率为实数时，这一原先的平衡状态为稳定的；而当频率为复数时，主要决定于其虚部。当虚部由正变负时，原先的平衡状态也就变成不稳定的了。所以频率的虚部为0的状态为临界状态。洛希极限就由这临界状态求得。
+        像已经知道的那样，在上面求解常微分方程时都需先解特征方程。而恰恰这些特征方程的系数包含有洛希极限项（即g02和g2）。因此要用直接方法来解这特征方程是非常困难的。
+        我们提出一间接方法：首先，任选M/(πR³ρ)的值。这样就可向上面所描述的过程进行求解，因为M/(πR³ρ)的任意性，一般来说特征频率σ为复数。从而改变M/(πR³ρ)的值，就可以得到不同的特征频率。这样的过程一直持续到特征频率的虚部接近于0。在这一间接方法中，重要的是初值的选取。整个过程可由计算机来实现。
+      </p>
+      <p>
+        除原点之外，λ＜λc对应曲线与横轴有二个交点A、B，由图可见，曲线在点A的斜率大于0，即W″(e0)＞0，函数W(e)在此点有极小值，故点A是平衡状态。在点B的斜率小于0，即W″(e0)＜0，函数W(e)在此点有极大值，故点B不是平衡状态。所以有结论:λ＜λc时存在平衡状态;除原点之外，λ=λc对应曲线与横轴仅有一个交点———切点C;除原点之外，λ＞λc对应曲线与横轴无交点，故此时不满足平衡条件。所以λ=λc确实是系统有无平衡状态的分界点。
+        至于λ=λc时是否有平衡状态，由于对应曲线在点C与横轴相切，即W'(ec)=0，W″(ec)=0，需要看W(e)在点C的三阶导数是否等于0和四阶导数是否大于0。经数值计算，发现三阶导数不等于0，故此点不存在极值，更谈不上有极小值，所以此时不存在平衡状态。综上所述，λ≥λc时系统是不稳定的。由此不等式和如下关系:λ=(m1/m)(R/r)³、m1=ρ4πR³/3、m=ρ'4πR³/3、式(42)，可得洛希极限：
+      </p>
     </div>
-    <br>
+  </div>
+  <br>
 </body>
 
 </html>
