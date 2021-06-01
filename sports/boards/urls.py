@@ -5,8 +5,8 @@ from rest_framework import routers
 
 from . import views
 
-router = routers.DefaultRouter()
-router.register('boards', views.BoardViewSet)
+# router = routers.DefaultRouter()
+# router.register('boards', views.BoardViewSet)
 
 urlpatterns = [
     path('', views.BoardListView.as_view(), name='home_boards'),
@@ -17,6 +17,7 @@ urlpatterns = [
     re_path(r'^boards/(?P<pk>\d+)/topics/(?P<topic_pk>\d+)/posts/(?P<post_pk>\d+)/edit/$', views.PostUpdateView.as_view(), name='edit_post'),
     
     # 这是boards的api接口
-    path('api/', include(router.urls)),
+    # path('api/', include(router.urls)),
+    re_path(r'^api/boards$', views.BoardList.as_view()),
     path("api/auth/", include("rest_framework.urls", namespace="rest_framework")),
 ]

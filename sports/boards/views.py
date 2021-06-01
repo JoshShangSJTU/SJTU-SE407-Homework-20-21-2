@@ -9,6 +9,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import HttpResponse, JsonResponse
 
 from rest_framework import viewsets, mixins
+from rest_framework import generics
 from rest_framework.generics import ListAPIView
 from rest_framework.pagination import LimitOffsetPagination, PageNumberPagination
 from rest_framework.permissions import AllowAny
@@ -23,28 +24,35 @@ from .serializers import BoardSerializer, TopicSerializer, PostListSerializer
 
 # Create your views here.
 # 下面是接口
-class BoardViewSet(viewsets.ModelViewSet, mixins.ListModelMixin):
+class BoardList(generics.ListAPIView):
     """
-    Board的视图集
+    Board展示
     """
     queryset = Board.objects.all()
     serializer_class = BoardSerializer
-    
-    # 展示Topics
-    @action(methods=['get'], pagination_class = LimitOffsetPagination, permission_classes=[AllowAny], detail=True, url_path=r'topics/(?P<topic_pk>\d+)')
-    def showTopic(self, request, *args, **kwargs):
-        self.board = get_object_or_404(Board, pk=self.kwargs.get('pk'))
-        queryset = self.board.topics.order_by('-last_updated')
-        serializer = TopicSerializer(queryset, many=True)
-        return JsonResponse(serializer.data, safe=False)
 
-    # 展示Posts
-    @action(methods=['get'], pagination_class = LimitOffsetPagination, permission_classes=[AllowAny], detail=True, url_path=r'topics/(?P<topic_pk>\d+)/posts/(?P<post_pk>\d+)')
-    def showPost(self, request, *args, **kwargs):
-        self.topic = get_object_or_404(Topic, board__pk=self.kwargs.get('pk'), pk=self.kwargs.get('topic_pk'))
-        queryset = self.topic.posts.order_by('created_at')
-        serializer = PostListSerializer(queryset, many=True)
-        return JsonResponse(serializer.data, safe=False)
+# class BoardViewSet(viewsets.ModelViewSet, mixins.ListModelMixin):
+#     """
+#     Board的视图集
+#     """
+#     queryset = Board.objects.all()
+#     serializer_class = BoardSerializer
+    
+#     # 展示Topics
+#     @action(methods=['get'], pagination_class = LimitOffsetPagination, permission_classes=[AllowAny], detail=True, url_path=r'topics/(?P<topic_pk>\d+)')
+#     def showTopic(self, request, *args, **kwargs):
+#         self.board = get_object_or_404(Board, pk=self.kwargs.get('pk'))
+#         queryset = self.board.topics.order_by('-last_updated')
+#         serializer = TopicSerializer(queryset, many=True)
+#         return JsonResponse(serializer.data, safe=False)
+
+#     # 展示Posts
+#     @action(methods=['get'], pagination_class = LimitOffsetPagination, permission_classes=[AllowAny], detail=True, url_path=r'topics/(?P<topic_pk>\d+)/posts/(?P<post_pk>\d+)')
+#     def showPost(self, request, *args, **kwargs):
+#         self.topic = get_object_or_404(Topic, board__pk=self.kwargs.get('pk'), pk=self.kwargs.get('topic_pk'))
+#         queryset = self.topic.posts.order_by('created_at')
+#         serializer = PostListSerializer(queryset, many=True)
+#         return JsonResponse(serializer.data, safe=False)
 
 
 # class TopicViewSet(mixins.ListModelMixin, viewsets.GenericViewSet, viewsets.ViewSet):
