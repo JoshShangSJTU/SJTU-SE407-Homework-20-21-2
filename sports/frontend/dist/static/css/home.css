@@ -18,20 +18,145 @@ h1 {
     text-decoration: none;
 }
 
-a>img{
-    height: 276px;
-}
+.match-card{
+    background: #F5F5F5;
+    color: black;
 
-#match .card{
     margin: 10px;
-    width: 480px;
     position: relative;
-    background-origin: border-box;
+    max-height: 270px;
+    height: 270px;
+    width: 70%;
+    max-width: 480px;
+    background-origin: border-box !important;
     display: inline-block;
+
+    border-radius: 5px;
+    box-sizing: border-box;
+    box-shadow: 0 5px 5px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 20%), 0 1px 5px 0 rgb(0 0 0 / 12%);
 }
 
-#match .row {
-    height: 276px;
+.match-card > * {
+    margin: 3px 10px;
+}
+.match-img{
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-image: url(http://www.twtaiyi.com/upload/20180530/e676f667c4cdfc7e074898adab2622f2.jpg);
+    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    left: 5px;
+    bottom: 80px;
+    right: 210px;
+    z-index: 0;
+    padding: 2px 5px;
+    overflow: hidden;
+    border: 12px solid;
+    border-image: url(../border01.png) 12;
+    border-radius: 5px;
+    box-sizing: border-box;
+    box-shadow: 0 4px 4px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 20%), 0 1px 5px 0 rgb(0 0 0 / 12%)
+}
+
+.match-img:hover{
+    opacity: 0.7;
+}
+
+.match-text{
+    background-color: #EEEEEE;
+    font-size: 12px;
+    position: absolute;
+    width: 170px;
+    top: 10px;
+    bottom: 50px;
+    right: 10px;
+    padding: 2px 5px;
+    overflow: hidden;
+    border: 5px solid #CCCCCC;
+    border-radius: 5px;
+    box-sizing: border-box;
+    box-shadow: 0 4px 4px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 20%), 0 1px 5px 0 rgb(0 0 0 / 12%);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+
+.match-text-style{
+    position: absolute;
+    left: 0px;
+    top: 5px;
+    width: 100%;
+}
+
+.match-text:hover{
+    opacity: 0.7;
+}
+
+.match-name{
+    text-align: center;
+    display: block;
+    font-size: 20px;
+    color: #000;
+}
+
+.match-place{
+    text-align: center;
+    display: block;
+    font-size: 20px;
+    color: #333;
+}
+
+.match-date{
+    color: #333;
+    position: absolute;
+    right: 0px;
+    bottom: 2%;
+    width: 100%;
+    margin-right: 10px;
+    text-align: right;
+    font-size: 18px
+}
+
+.match-bottom{
+    background-color: #CCCCCC;
+    position: absolute;
+    margin: 0;
+    bottom: 0;
+    height: 40px;
+    width: 100%;
+}
+
+.match-label{
+    position: absolute;
+    width: 100%;
+    text-align: left;
+    left: 0px;
+    bottom: 3px;
+    margin-right: 0px !important;
+    margin-left: 0px !important;
+}
+
+.match-detail{
+    position: absolute;
+    right: 5px;
+    bottom: 3px;
+    padding: 0px 5px;
+    text-align: right;
+    font-size: 16px;
+    text-shadow: 0px 0px 1px rgb(128 128 128 / 70%);
+    background-color: #FFFFFF;
+    border-radius: 5px;
+    box-sizing: border-box;
+    box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 20%), 0 1px 5px 0 rgb(0 0 0 / 12%);
+}
+
+.match-detail a{
+    color: black;
+}
+
+.match-detail a:hover{
+    text-decoration: none;
+    opacity: 0.7;
 }
 
 #navbar2 {
