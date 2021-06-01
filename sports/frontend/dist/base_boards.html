@@ -24,6 +24,7 @@
     {% block body %}
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container">
+                <a href="{% url 'home' %}" class="btn btn-outline-secondary">返回</a>
                 <a class="navbar-brand" href="{% url 'home_boards' %}">体育赛事讨论区</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainMenu" aria-controls="mainMenu" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
