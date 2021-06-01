@@ -4,8 +4,7 @@ from django.forms.models import model_to_dict
 from rest_framework import serializers
 
 from .models import Board, Topic, Post
-
-import time, datetime
+from .forms import NewTopicForm
 
 
 class BoardSerializer(serializers.ModelSerializer):

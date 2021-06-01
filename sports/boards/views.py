@@ -61,7 +61,7 @@ class PostList(generics.ListAPIView):
         result = paginator.paginate_queryset(queryset, request)
         serializer = PostListSerializer(result, many=True)
         return JsonResponse(serializer.data, safe=False)
-        
+
 # class TopicViewSet(viewsets.ModelViewSet):
 #     serializer_class = TopicSerializer
 #     pagination_class = CustomPagination
