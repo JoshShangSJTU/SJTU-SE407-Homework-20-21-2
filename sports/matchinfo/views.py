@@ -1,6 +1,6 @@
 from django.shortcuts import render
-from django.http.response import HttpResponse, JsonResponse
-from django.core.serializers.json import DjangoJSONEncoder
+from django.http.response import JsonResponse
+from django.views.generic import ListView
 
 from splatform import models
 # Create your views here.
@@ -47,6 +47,10 @@ def Homedata(request):
     return JsonResponse(package,safe=False,json_dumps_params={'ensure_ascii':False})
 '''
 
+class DetailListView(ListView):
+    context_object_name = 'match'
+    template_name = 'match_detail.html'
+
 def Homedata(request):  #向赛事信息列表发送数据的视图
     
     package=[]
@@ -58,8 +62,8 @@ def Homedata(request):  #向赛事信息列表发送数据的视图
 
         timeinfo = str(match.match_time)    #调整时间格式
         date = timeinfo[0:10]    
-        hour = (int(timeinfo[11:13])+8)%24
-        minute = int(timeinfo[14:16])
+        hour = str((int(timeinfo[11:13])+8)%24)
+        minute = timeinfo[14:16]
 
         info={'比赛编号':match.match_no,'主队队名':teamh.team_name,'客队队名':teama.team_name,'比赛地点':match.match_loc,'比赛时间':(date,hour,minute)}      
 
@@ -90,7 +94,11 @@ def Detaildata(request):    #向详情页发送数据的视图
         timeinfo = str(match.match_time)    #调整时间格式
         date = timeinfo[0:10]    
         hour = (int(timeinfo[11:13])+8)%24
-        minute = int(timeinfo[14:16])
+        if hour < 10:
+            hour = '0'+str(hour)
+        else:
+            hour = str(hour)
+        minute = timeinfo[14:16]
 
         H_info = {'主队队名':teamh.team_name,'主队得分':match.h_score,'队员表':playerhset}
         A_info = {'客队队名':teama.team_name,'客队得分':match.a_score,'队员表':playeraset}
