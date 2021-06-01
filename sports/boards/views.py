@@ -31,6 +31,17 @@ class BoardList(generics.ListAPIView):
     queryset = Board.objects.all()
     serializer_class = BoardSerializer
 
+class TopicList(generics.ListAPIView):
+    """
+    Topic展示
+    """
+    def get(self, request, *args, **kwargs):
+        self.board = get_object_or_404(Board, pk=self.kwargs.get('pk'))
+        queryset = self.board.topics.order_by('-last_updated')
+        serializer = TopicSerializer(queryset, many=True)
+        return JsonResponse(serializer.data, safe=False)
+
+
 # class BoardViewSet(viewsets.ModelViewSet, mixins.ListModelMixin):
 #     """
 #     Board的视图集

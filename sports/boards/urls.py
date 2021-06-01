@@ -19,5 +19,6 @@ urlpatterns = [
     # 这是boards的api接口
     # path('api/', include(router.urls)),
     re_path(r'^api/boards$', views.BoardList.as_view()),
+    re_path(r'^api/boards/(?P<pk>\d+)/topics/(?P<topic_pk>\d+)/$', views.TopicList.as_view()),
     path("api/auth/", include("rest_framework.urls", namespace="rest_framework")),
 ]
