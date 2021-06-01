@@ -140,7 +140,23 @@
                         .get("http://127.0.0.1:8000/matchinfo/api/homedata/")
                         .then(function (response) {
                             that.matchMessage = response.data;
-                            console.log(that.matchMessage)
+                            var time = new Array();
+                            for (i = 0; i < response.data.length; i++) {
+                                for (j = 0; j < 3; j++) {
+                                    if (j == 0) {
+                                        time[i] = response.data[i].比赛时间[j] + ' ';
+                                    }
+                                    else if (j == 1) {
+                                        time[i] = time[i] + response.data[i].比赛时间[j] + ':';
+                                    }
+                                    else {
+                                        time[i] += response.data[i].比赛时间[j];
+                                    }
+                                }
+                                that.matchMessage[i].比赛时间 = time[i];
+                            };
+                            console.log(response.data);
+                            console.log(that.matchMessage);
                         })
                 }
             })

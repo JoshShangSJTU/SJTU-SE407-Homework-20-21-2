@@ -75,7 +75,19 @@
                         <p class="team-name">[[teamMessageLeft.主队队名]]</p>
                     </div>
                 </div>
-                <div class="match-result">
+                <div v-if="teamMessageLeft.主队得分>=teamMessageRight.客队得分" class="match-result">
+                    <div class="result-left">
+                        <div class="score-top"></div>
+                        <div class="score-bottom"></div>
+                        <span class="score win">[[teamMessageLeft.主队得分]]</span>
+                    </div>
+                    <div class="result-right">
+                        <div class="score-top"></div>
+                        <div class="score-bottom"></div>
+                        <span class="score">[[teamMessageRight.客队得分]]</span>
+                    </div>
+                </div>
+                <div v-else class="match-result">
                     <div class="result-left">
                         <div class="score-top"></div>
                         <div class="score-bottom"></div>
@@ -119,11 +131,16 @@
                 </div>
                 <div class="member-information">
                     <div class="member-list">
-                        <span v-for="playersLeft in teamMessageLeft.队员表" class="member-list-item">
-                            <img class="usr-img">
-                            <div class="usr-name">[[playersLeft]]</div>
-                            <div class="member-pos">选手</div>
-                        </span>
+                        <div v-if="teamMessageRight.队员表.length!=0" class="member-list">
+                            <span v-for="playersRight in teamMessageRight.队员表" class="member-list-item">
+                                <img class="usr-img">
+                                <div class="usr-name">[[playersRight]]</div>
+                                <div class="member-pos">选手</div>
+                            </span>
+                        </div>
+                        <div v-else class="member-list">
+                            <div class="usr-name">暂无信息~</div>
+                        </div>
                     </div>
                 </div>
 
@@ -218,7 +235,21 @@
                 .then(function (response) {
                     that.teamMessageLeft = response.data[0].主队信息;
                     that.teamMessageRight = response.data[0].客队信息;
-                    that.matchMessage = response.data[0].比赛信息
+                    that.matchMessage = response.data[0].比赛信息;
+                    var time = '';
+                    for (j = 0; j < 3; j++) {
+                        if (j == 0) {
+                            time = that.matchMessage.比赛时间[j] + ' ';
+                        }
+                        else if (j == 1) {
+                            time = time + that.matchMessage.比赛时间[j] + ':';
+                        }
+                        else {
+                            time += that.matchMessage.比赛时间[j];
+                        }
+                    }
+                    that.matchMessage.比赛时间 = time;
+                    console.log(that.matchMessage);
                     console.log(response.data)
                 })
         }
