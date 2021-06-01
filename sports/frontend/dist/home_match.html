@@ -132,16 +132,14 @@
                 delimiters: ['[[', ']]'],
                 el: "#matches",
                 data: {
-                    matchMessage: '',
-                    teamMessage: ''
+                    matchMessage: ''
                 },
                 mounted() {
                     var that = this;
                     axios
-                        .get("http://127.0.0.1:8000/matchinfo/api/detaildata/")
+                        .get("http://127.0.0.1:8000/matchinfo/api/homedata/")
                         .then(function (response) {
                             that.matchMessage = response.data;
-                            that.teamMessage = response.data;
                             console.log(that.matchMessage)
                         })
                 }
