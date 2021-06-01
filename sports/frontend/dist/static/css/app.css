@@ -210,6 +210,7 @@
 
 .body-inform{
     float: right!important;
+    text-align: center;
     width: 160px;
     color: #999;
 }
@@ -238,6 +239,7 @@
 
 .post-date{
     float: right!important;
+    white-space: nowrap;
     color: #999;
     padding-left: 21px;
     background: url(//tb2.bdstatic.com/tb/static-spage/img/time-bg_d0a7921.png) no-repeat -10px -9px;
