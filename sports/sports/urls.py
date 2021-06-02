@@ -23,10 +23,9 @@ from splatform import views_news
 urlpatterns = [
     path('admin/', admin.site.urls), # 管理员
     path('', TemplateView.as_view(template_name='index.html')), # vue主页
-    path('home/', TemplateView.as_view(template_name='home.html')), # 赛事主页
+    path('home/',views_list.goal_list), # 赛事主页
     path('login/', TemplateView.as_view(template_name='login.html')), # 登录界面
     path('talk/', include('boards.urls')), # 讨论区页面
-    path('api/goal_list/', views_list.goal_list), # 数据榜单射手榜接口
     path('news/',TemplateView.as_view(template_name='news.html') ), # 赛事新闻区页面
     path('news/detail/', views_news.news_list), # 赛事新闻区子页面
     path('api/mgr/', include('mgr.urls')),
