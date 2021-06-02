@@ -1,0 +1,10 @@
+#把这段放在需要验证普通用户登陆的地方
+
+if 'usertype' not in request.session:
+    return JsonResponse(
+        {
+            'ret': 302,
+            'msg': '未登录',
+            'redirect': '/usr/signin.html'
+        },
+        status=302)
