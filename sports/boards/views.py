@@ -39,18 +39,18 @@ class BoardViewSet(viewsets.ModelViewSet, mixins.ListModelMixin):
     queryset = Board.objects.all()
     serializer_class = BoardSerializer
 
-# class CustomPagination(PageNumberPagination):
-#     page_size = 5
-#     page_size_query_param = 'page_size'
-#     max_page_size = 10000
-#     page_query_param = 'p'
+class MyPagination(PageNumberPagination):
+    page_size = 4                        # 每页4条（默认）
+    max_page_size = 50                    # 最大每页条数（根据传入的值分页）
+    page_query_param = "page"             # 前端url中传入的‘页数’名字
+    page_size_query_param = "page_size"   # 前端url中传入的每页的数据条数
 
 class TopicListAPIView(generics.ListAPIView):
     """
     Topic展示
     """
     # serializer_class = ListSerializer
-    pagination_class = PageNumberPagination
+    # pagination_class = MyPagination
     
     def get_queryset(self, *args, **kwargs):
          self.board = get_object_or_404(Board, pk=self.kwargs.get('pk'))
@@ -60,11 +60,17 @@ class TopicListAPIView(generics.ListAPIView):
     def get(self, request, *args, **kwargs):
         # self.board = get_object_or_404(Board, pk=self.kwargs.get('pk'))
         # queryset = self.board.topics.order_by('-last_updated')
-        result = self.get_queryset()
-        # paginator = CustomPagination()
-        # result = paginator.paginate_queryset(queryset, request)
+        queryset = self.get_queryset()
+        paginator = MyPagination()
+        result = paginator.paginate_queryset(queryset, request, self)
         serializer = TopicSerializer(result, many=True)
-        return Response(serializer.data)
+        data = {
+            'count': queryset.count(),  # 获取数据总数
+            'previous': paginator.get_previous_link(),  # 获取上一页链接，如果没有则是None
+            'next': paginator.get_next_link(),  # 获取下一页链接，如果没有则是None
+            'results': serializer.data,  # 当前页的序列化数据
+        }
+        return Response(data)
     
 class PostListAPIView(generics.ListAPIView):
     """
