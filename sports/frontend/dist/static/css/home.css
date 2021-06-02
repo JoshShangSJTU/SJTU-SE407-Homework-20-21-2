@@ -45,7 +45,6 @@ hr.style1{
     border-radius: 2px;
     font-size: 16px;
     color: #505050;
-    width: 58px;
     line-height: 16px;
 }
 
@@ -112,7 +111,13 @@ hr.style2{
 }
 
 .board-topic{
-    margin-top: 6px;
+    margin-top: 4px;
+    background-position: 0 -33px;
+    background-image: url(//tb2.bdstatic.com/tb/static-spage/img/new_index_yao/day_rcmd_88b8992.png);
+}
+
+.board-topic span{
+    padding-left: 20px;
 }
 
 .board-recent{

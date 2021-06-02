@@ -388,14 +388,19 @@
 
   <!--主体四，说明同主体三-->
   <div id="section4">
-    <h1 class="font-weight-bold text-center"><a href="{% url 'home_boards' %}">赛事讨论区</a></h1>
+    <h1 class="font-weight-bold text-center" style="margin-bottom: 0;">赛事讨论区</h1>
+    <div class="container" style="text-align: right;">
+      <a href="/../talk" class="btn more">
+        全部讨论区 &gt
+      </a>
+    </div>
     <hr class="style1" />
     <div id="boards-inform" class="container" style="margin-bottom: 30px;">
       <ul class="list-group">
         <li v-for="boards in boardMessage" class="list-group-item">
           <div class="item-board clearfix">
             <a v-bind:href="'http://127.0.0.1:8000/talk/boards/'+boards.id" class="board-img">
-              <img src="#" width="95" height="95">
+              <img src="{% static 'img/boards.jpg' %}" width="95" height="95">
             </a>
             <div class="board-information">
               <a v-bind:href="'http://127.0.0.1:8000/talk/boards/'+boards.id">[[boards.name]]</a>
@@ -403,8 +408,7 @@
                 [[boards.description]]
               </p>
               <small v-for="(count, index) in topicCount" class="board-topic">
-                <span v-if="index == boards.id-1">话题:[[count]]</span>
-                <span v-if="index == boards.id-1">帖子:</span>
+                <span v-if="index == boards.id-1">[[count]]</span>
               </small>
             </div>
             <div v-for="(lastupdated, index) in topicMessage" class="board-recent">

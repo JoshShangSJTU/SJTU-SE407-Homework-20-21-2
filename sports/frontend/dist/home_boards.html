@@ -1,5 +1,6 @@
 {% extends 'base_boards.html' %}
 
+{% load static %}
 {% block breadcrumb %}
 <li class="breadcb-item active">
     <a href="javascript:location.reload();">
@@ -56,7 +57,7 @@
         <li v-for="boards in boardMessage" class="list-group-item">
             <div class="item-board clearfix">
                 <a v-bind:href="'http://127.0.0.1:8000/talk/boards/'+boards.id" class="board-img">
-                    <img src="#" width="95" height="95">
+                    <img src="{% static 'img/boards.jpg' %}" width="95" height="95">
                 </a>
                 <div class="board-information">
                     <a v-bind:href="'http://127.0.0.1:8000/talk/boards/'+boards.id">[[boards.name]]</a>
@@ -64,8 +65,7 @@
                         [[boards.description]]
                     </p>
                     <small v-for="(count, index) in topicCount" class="board-topic">
-                        <span v-if="index == boards.id-1">话题:[[count]]</span>
-                        <span v-if="index == boards.id-1">帖子:</span>
+                        <span v-if="index == boards.id-1">[[count]]</span>
                     </small>
                 </div>
                 <div v-for="(lastupdated, index) in topicMessage" class="board-recent">
