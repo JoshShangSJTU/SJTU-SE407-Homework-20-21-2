@@ -15,7 +15,7 @@ from rest_framework.generics import ListAPIView
 from rest_framework.pagination import LimitOffsetPagination, PageNumberPagination
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
-from rest_framework.serializers import Serializer
+from rest_framework.serializers import ListSerializer, Serializer
 from rest_framework.decorators import action
 
 from .models import Board, Topic, Post
@@ -39,35 +39,51 @@ class BoardViewSet(viewsets.ModelViewSet, mixins.ListModelMixin):
     queryset = Board.objects.all()
     serializer_class = BoardSerializer
 
-class CustomPagination(PageNumberPagination):
-    page_size = 5
-    page_size_query_param = 'page_size'
-    max_page_size = 10000
-    page_query_param = 'p'
+# class CustomPagination(PageNumberPagination):
+#     page_size = 5
+#     page_size_query_param = 'page_size'
+#     max_page_size = 10000
+#     page_query_param = 'p'
 
 class TopicListAPIView(generics.ListAPIView):
     """
     Topic展示
     """
+    # serializer_class = ListSerializer
+    pagination_class = PageNumberPagination
+    
+    def get_queryset(self, *args, **kwargs):
+         self.board = get_object_or_404(Board, pk=self.kwargs.get('pk'))
+         queryset_list = self.board.topics.order_by('-last_updated')
+         return queryset_list
+
     def get(self, request, *args, **kwargs):
-        self.board = get_object_or_404(Board, pk=self.kwargs.get('pk'))
-        queryset = self.board.topics.order_by('-last_updated')
-        paginator = CustomPagination()
-        result = paginator.paginate_queryset(queryset, request)
+        # self.board = get_object_or_404(Board, pk=self.kwargs.get('pk'))
+        # queryset = self.board.topics.order_by('-last_updated')
+        result = self.get_queryset()
+        # paginator = CustomPagination()
+        # result = paginator.paginate_queryset(queryset, request)
         serializer = TopicSerializer(result, many=True)
-        return JsonResponse(serializer.data, safe=False)
+        return Response(serializer.data)
     
 class PostListAPIView(generics.ListAPIView):
     """
     Post展示
     """
-    def get(self, request, *args, **kwargs):
+    pagination_class = PageNumberPagination
+
+    def get_queryset(self, *args, **kwargs):
         self.topic = get_object_or_404(Topic, board__pk=self.kwargs.get('pk'), pk=self.kwargs.get('topic_pk'))
-        queryset = self.topic.posts.order_by('created_at')
-        paginator = CustomPagination()
-        result = paginator.paginate_queryset(queryset, request)
+        queryset_list = self.topic.posts.order_by('created_at')
+        return queryset_list
+
+    def get(self, request, *args, **kwargs):
+        # self.topic = get_object_or_404(Topic, board__pk=self.kwargs.get('pk'), pk=self.kwargs.get('topic_pk'))
+        # queryset = self.topic.posts.order_by('created_at')
+        # paginator = CustomPagination()
+        result = self.get_queryset()
         serializer = PostListSerializer(result, many=True)
-        return JsonResponse(serializer.data, safe=False)
+        return Response(serializer.data)
 
 
 class PostUpadateAPIView(generics.UpdateAPIView):
