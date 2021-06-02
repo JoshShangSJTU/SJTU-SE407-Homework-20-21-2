@@ -25,9 +25,16 @@ from .serializers import BoardSerializer, TopicSerializer, PostListSerializer
 
 # Create your views here.
 # 下面是接口
-class BoardList(generics.ListAPIView):
+# class BoardList(generics.ListAPIView):
+#     """
+#     Board展示
+#     """
+#     queryset = Board.objects.all()
+#     serializer_class = BoardSerializer
+
+class BoardViewSet(viewsets.ModelViewSet, mixins.ListModelMixin):
     """
-    Board展示
+    Board的视图集
     """
     queryset = Board.objects.all()
     serializer_class = BoardSerializer
