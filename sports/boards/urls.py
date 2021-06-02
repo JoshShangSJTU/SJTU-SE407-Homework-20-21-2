@@ -18,9 +18,11 @@ urlpatterns = [
     
     
     # 这是boards的api接口
-    path('api/', include(router.urls)),
+    url('api/', include(router.urls)),
     # re_path('api/boards/', views.BoardList.as_view()),
-    re_path(r'^api/boards/(?P<pk>\d+)/topics/(?P<topic_pk>\d+)/$', views.TopicList.as_view()),
-    re_path(r'^api/boards/(?P<pk>\d+)/topics/(?P<topic_pk>\d+)/posts/(?P<post_pk>\d+)$', views.PostList.as_view()),
+    url(r'^api/boards/(?P<pk>\d+)/topics/(?P<topic_pk>\d+)/$', views.TopicListAPIView.as_view()),
+    url(r'^api/boards/(?P<pk>\d+)/topics/(?P<topic_pk>\d+)/posts/(?P<post_pk>\d+)/$', views.PostListAPIView.as_view()),
+    url(r'^api/boards/(?P<pk>\d+)/topics/(?P<topic_pk>\d+)/posts/(?P<post_pk>\d+)/edit/$', views.PostUpadateAPIView.as_view(), name='update'),
+    url(r'^api/boards/(?P<pk>\d+)/topics/(?P<topic_pk>\d+)/posts/(?P<post_pk>\d+)/delete/$', views.PostDeleteAPIView.as_view(), name='delete'),
     path("api/auth/", include("rest_framework.urls", namespace="rest_framework")),
 ]

@@ -45,7 +45,7 @@ class CustomPagination(PageNumberPagination):
     max_page_size = 10000
     page_query_param = 'p'
 
-class TopicList(generics.ListAPIView):
+class TopicListAPIView(generics.ListAPIView):
     """
     Topic展示
     """
@@ -57,7 +57,7 @@ class TopicList(generics.ListAPIView):
         serializer = TopicSerializer(result, many=True)
         return JsonResponse(serializer.data, safe=False)
     
-class PostList(generics.ListAPIView):
+class PostListAPIView(generics.ListAPIView):
     """
     Post展示
     """
@@ -68,6 +68,21 @@ class PostList(generics.ListAPIView):
         result = paginator.paginate_queryset(queryset, request)
         serializer = PostListSerializer(result, many=True)
         return JsonResponse(serializer.data, safe=False)
+
+
+class PostUpadateAPIView(generics.UpdateAPIView):
+    '''
+    编辑post
+    '''
+    queryset = Post.objects.all()
+    serializer_class = PostListSerializer
+
+class PostDeleteAPIView(generics.DestroyAPIView):
+    '''
+    删除post
+    '''
+    queryset = Post.objects.all()
+    serializer_class = PostListSerializer
 
 # class TopicViewSet(viewsets.ModelViewSet):
 #     serializer_class = TopicSerializer
