@@ -40,7 +40,7 @@ class BoardViewSet(viewsets.ModelViewSet, mixins.ListModelMixin):
     serializer_class = BoardSerializer
 
 class CustomPagination(PageNumberPagination):
-    page_size = 2
+    page_size = 5
     page_size_query_param = 'page_size'
     max_page_size = 10000
     page_query_param = 'p'
