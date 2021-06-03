@@ -72,7 +72,20 @@ def Homedata(request):  #向赛事信息列表发送数据的视图
 
     return JsonResponse(package,safe=False,json_dumps_params={'ensure_ascii':False})
 
+
+
 def Detaildata(request,para):    #向详情页发送数据的视图
+
+    para=int(para)
+    checklist = []
+    for match in models.Match.objects.all():
+        checklist.append(match.match_no)
+    print (para)
+    print (checklist)
+    
+    if para not in checklist:
+        return JsonResponse("没有该比赛编号！",safe=False,json_dumps_params={'ensure_ascii':False})
+        
 
     for match in models.Match.objects.all():
 
