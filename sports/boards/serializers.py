@@ -1,12 +1,13 @@
 # 这是序列化文件
 from django.db.models import fields
 from django.forms.models import model_to_dict
+from django.utils import timezone
+
 from rest_framework import serializers
 
 from .models import Board, Topic, Post
 from .forms import NewTopicForm
 
-from time import timezone
 
 
 class BoardSerializer(serializers.ModelSerializer):
@@ -53,8 +54,8 @@ class PostSerializer(serializers.ModelSerializer):
                                                  instance.created_at)
         instance.created_by = validated_data.get('created_by',
                                                  instance.created_by)
-        instance.updated_at = timezone.now()
-        instance.updated_by = self.request.user
+        # instance.updated_at = timezone.now()
+        # instance.updated_by = self.request.user
         instance.save()
 
         return instance

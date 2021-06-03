@@ -105,18 +105,34 @@ class PostUpadateAPIView(generics.UpdateAPIView):
                                        board__pk=self.kwargs.get('pk'),
                                        pk=self.kwargs.get('topic_pk'))
         queryset_list = self.topic.posts.order_by('created_at')
-        serializered_queryset = PostSerializer(queryset_list, many=True)
-        return serializered_queryset
+        return queryset_list
 
+    def patch(self, request, *args, **kwargs):
+        post = get_object_or_404(Post, pk=kwargs['post_pk'])
+        serializer = PostSerializer(data=request.data, instance=post, partial=True)
+        if serializer.is_valid():
+            serializer.updated_at = timezone.now()
+            serializer.updated_by = self.request.user
+            post = serializer.save()
+            return Response(PostSerializer(post).data)
+        return Response(serializer.errors)
+
+        # post_obj = self.get_queryset()
+        # validated_data = PostSerializer(data=request.data, instance=post_obj)
+        # if validated_data.is_valid():
+        #     validated_data.save()
+        #     return Response(validated_data.data)
+        # else:
+        #     return Response(validated_data.errors)
     # def get_queryset(self, request, *args, **kwargs):
     #     # self.topic = get_object_or_404(Topic,
     #     #                                board__pk=self.kwargs.get('pk'),
     #     #                                pk=self.kwargs.get('topic_pk'))
-    # self.board_pk = request.GET.get('pk')
-    # self.topic_pk = request.GET.get('topic_pk')
-    # self.post_pk = request.GET.get('post_pk')
-    # queryset_list = Topic.objects.get(pk=self.topic_pk).posts.filter(pk=self.post_pk)
-    # return queryset_list
+        # self.board_pk = request.GET.get('pk')
+        # self.topic_pk = request.GET.get('topic_pk')
+        # self.post_pk = request.GET.get('post_pk')
+        # queryset_list = Topic.objects.get(pk=self.topic_pk).posts.filter(pk=self.post_pk)
+        # return queryset_list
 
     # def get(self, request, *args, **kwargs):
     #     self.post = get_object_or_404(Post, pk=self.kwargs.get('pk'), topic__pk=self.kwargs.get('topic_pk'), pk=self.kwargs.get('post_pk'))
@@ -126,15 +142,6 @@ class PostUpadateAPIView(generics.UpdateAPIView):
     #     queryset_list = self.post.get(pk='post_pk')
     #     serializer = PostSerializer(queryset_list, many=True)
     #     return Response(serializer.data)
-
-    def put(self, request, *args, **kwargs):
-        post_obj = self.get_queryset()
-        validated_data = PostSerializer(data=request.data, instance=post_obj)
-        if validated_data.is_valid():
-            validated_data.save()
-            return Response(validated_data.data)
-        else:
-            return Response(validated_data.errors)
 
 
 class PostDeleteAPIView(generics.DestroyAPIView):
