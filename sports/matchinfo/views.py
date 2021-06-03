@@ -48,12 +48,9 @@ def Homedata(request):
     return JsonResponse(package,safe=False,json_dumps_params={'ensure_ascii':False})
 '''
 
-class DetailListView(ListView):
-    context_object_name = 'match'
-    template_name = 'match_detail.html'
-
-def Homedata(request):  #向赛事信息列表发送数据的视图
+def Homedata(request,page):  #向赛事信息列表发送数据的视图
     
+    page=int(page)
     package=[]
     
     for match in models.Match.objects.all():
@@ -70,7 +67,10 @@ def Homedata(request):  #向赛事信息列表发送数据的视图
 
         package.append(info)
 
-    return JsonResponse(package,safe=False,json_dumps_params={'ensure_ascii':False})
+    split_package = package[6*(page-1):6*page]
+
+
+    return JsonResponse(split_package,safe=False,json_dumps_params={'ensure_ascii':False})
 
 
 

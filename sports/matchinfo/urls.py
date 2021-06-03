@@ -13,6 +13,7 @@ urlpatterns = [
 
     #api路径
     path('api/homedata/',views.Homedata),
+    re_path(r'api/homedata/(?P<page>\d+)/$',views.Homedata),
     path('api/detaildata/',views.Detaildata),
     re_path(r'^api/detaildata/(?P<para>\d+)/$', views.Detaildata)
 
