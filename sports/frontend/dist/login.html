@@ -80,6 +80,9 @@
 							 if(res.data.ret==1) { 
 								  alert(res.data.msg)
 							    };
+							if(res.data.ret==0) { 
+								window.location.href = '/home'
+							    };
 							 
                         },
                             error => {
