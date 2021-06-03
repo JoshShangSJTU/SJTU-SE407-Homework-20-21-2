@@ -21,6 +21,5 @@ def register(request):
     userlogin = authenticate(username=userName, password=passWord)
     login(request,userlogin)
     request.session['usertype'] = 'usr'
-    request.session['username'] = userName
     return JsonResponse({'ret': 0})
 

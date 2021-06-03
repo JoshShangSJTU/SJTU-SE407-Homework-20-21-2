@@ -17,7 +17,6 @@ def signin(request):
             # 在session中存入用户类型
             login(request, user)
             request.session['usertype'] = 'usr'
-            request.session['username'] = userName
             return JsonResponse({'ret': 0})
         else:
             return JsonResponse({'ret': 0, 'msg': '用户已经被禁用'})
