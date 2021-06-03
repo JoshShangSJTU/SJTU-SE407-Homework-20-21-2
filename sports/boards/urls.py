@@ -22,7 +22,7 @@ urlpatterns = [
     # re_path('api/boards/', views.BoardList.as_view()),
     url(r'^api/boards/(?P<pk>\d+)/topics/$', views.TopicListAPIView.as_view()),
     url(r'^api/boards/(?P<pk>\d+)/topics/(?P<topic_pk>\d+)/$', views.PostListAPIView.as_view(), name='detail'),
-    url(r'^api/boards/(?P<pk>\d+)/topics/(?P<topic_pk>\d+)/posts/(?P<post_pk>\d+)/edit/$', views.PostUpadateAPIView.as_view(), name='update'),
+    url(r'^api/boards/(?P<pk>\d+)/topics/(?P<topic_pk>\d+)/posts/(?P<post_pk>\d+)/edit/$', views.PostUpdateAPIView.as_view(), name='update'),
     url(r'^api/boards/(?P<pk>\d+)/topics/(?P<topic_pk>\d+)/posts/(?P<post_pk>\d+)/delete/$', views.PostDeleteAPIView.as_view(), name='delete'),
     path("api/auth/", include("rest_framework.urls", namespace="rest_framework")),
 ]
