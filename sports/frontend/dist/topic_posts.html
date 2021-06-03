@@ -84,10 +84,21 @@
 </div>
 <script type="text/javascript">
   var url = window.location.pathname;
-  var topicPath = url[url.length - 2];
-  console.log(topicPath);
-  var boardPath = url[url.length - 11];
+  console.log(url);
+  var pathStart = 13;
+  var boardPath = url[pathStart];
+  while (url[pathStart + 1] != '/') {
+    pathStart++;
+    boardPath += url[pathStart];
+  }
   console.log(boardPath);
+  pathStart += 9;
+  var topicPath = url[pathStart];
+  while (url[pathStart + 1] != '/') {
+    pathStart++;
+    topicPath += url[pathStart];
+  }
+  console.log(topicPath);
   var topicPost = new Vue({
     delimiters: ['[[', ']]'],
     el: '#topicsP',
@@ -101,11 +112,24 @@
       axios
         .get("http://127.0.0.1:8000/talk/api/boards/" + boardPath + "/topics/")
         .then(function (response) {
-          var topicMessage = response.data.results;
-          for (i = 0; i < topicMessage.length; i++) {
-            if (topicMessage[i].id == topicPath)
-              that.topicHead = topicMessage[i].subject;
+          function getK(page) {
+            axios
+              .get("http://127.0.0.1:8000/talk/api/boards/" + boardPath + "/topics/?page=" + page)
+              .then(function (response) {
+                var count = response.data.results.length;
+                for (i = 0; i < count; i++) {
+                  if (response.data.results[i].id == topicPath) {
+                    that.topicHead = response.data.results[i].subject;
+                    return;
+                  }
+                }
+                getK(page + 1);
+              })
+              .catch(function (error) {
+                console.log(error)
+              })
           }
+          getK(1);
           console.log(that.topicHead);
         })
         .catch(function (error) {
@@ -123,6 +147,5 @@
     }
   })
 </script>
-{% include 'includes/pagination.html' %}
 
 {% endblock %}

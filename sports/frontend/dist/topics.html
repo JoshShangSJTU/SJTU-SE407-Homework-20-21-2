@@ -111,7 +111,13 @@
 </div>
 <script type="text/javascript">
     var url = window.location.pathname;
-    var boardPath = url[url.length - 2];
+    var pathStart = 13;
+    var boardPath = url[pathStart];
+    while (url[pathStart + 1] != '/') {
+        pathStart++;
+        boardPath += url[pathStart];
+    }
+    console.log(boardPath)
     var topic = new Vue({
         delimiters: ['[[', ']]'],
         el: '#topics',
