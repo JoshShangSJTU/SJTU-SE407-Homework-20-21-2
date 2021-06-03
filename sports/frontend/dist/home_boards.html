@@ -103,12 +103,12 @@
                     }
                     function getK(i) {                                                              //定义方法，请求第i个讨论区中帖子的信息
                         axios
-                            .get("http://127.0.0.1:8000/talk/api/boards/" + (i + 1) + "/topics/1/")
+                            .get("http://127.0.0.1:8000/talk/api/boards/" + (i + 1) + "/topics/")
                             .then(function (response) {
-                                var topics = response.data;
+                                var topics = response.data.results;
                                 that.topicCount.push(topics.length);                                 //计算帖子数量，保存到topicCount[i]
                                 if (that.topicCount[i] != 0) {
-                                    that.topicMessage.push(response.data[0].last_updated);           //获取最新一个帖子的信息,保存到topicMessage[i]
+                                    that.topicMessage.push(response.data.results[0].last_updated);           //获取最新一个帖子的信息,保存到topicMessage[i]
                                     console.log(that.topicMessage[i]);                              //检查得到的帖子信息
                                 }
                                 else {

@@ -449,12 +449,12 @@
           }
           function getK(i) {
             axios
-              .get("http://127.0.0.1:8000/talk/api/boards/" + (i + 1) + "/topics/1/")
+              .get("http://127.0.0.1:8000/talk/api/boards/" + (i + 1) + "/topics/")
               .then(function (response) {
-                var topics = response.data;
+                var topics = response.data.results;
                 that.topicCount.push(topics.length);
                 if (that.topicCount[i] != 0) {
-                  that.topicMessage.push(response.data[0].last_updated);
+                  that.topicMessage.push(response.data.results[0].last_updated);
                   console.log(that.topicMessage[i]);
                 }
                 else {

@@ -73,7 +73,7 @@
         </div>
         <p>[[posts.message]]</p>
         <div class="mt-3" style="float: right;">
-          <a href="#" class="btn btn-primary btn-sm" role="button">编辑</a>
+          <a v-bind:href="'posts/'+posts.id+'/edit/'" class="btn btn-primary btn-sm" role="button">编辑</a>
         </div>
       </div>
     </div>
@@ -99,9 +99,9 @@
     mounted() {
       var that = this;
       axios
-        .get("http://127.0.0.1:8000/talk/api/boards/" + boardPath + "/topics/1/")
+        .get("http://127.0.0.1:8000/talk/api/boards/" + boardPath + "/topics/")
         .then(function (response) {
-          var topicMessage = response.data;
+          var topicMessage = response.data.results;
           for (i = 0; i < topicMessage.length; i++) {
             if (topicMessage[i].id == topicPath)
               that.topicHead = topicMessage[i].subject;
@@ -112,7 +112,7 @@
           console.log(error)
         })
       axios
-        .get("http://127.0.0.1:8000/talk/api/boards/" + boardPath + "/topics/" + topicPath + "/posts/1")
+        .get("http://127.0.0.1:8000/talk/api/boards/" + boardPath + "/topics/" + topicPath)
         .then(function (response) {
           that.postMessage = response.data;
           console.log(that.postMessage);
