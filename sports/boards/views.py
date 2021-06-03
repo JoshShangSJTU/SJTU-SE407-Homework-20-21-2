@@ -20,8 +20,7 @@ from rest_framework.decorators import action
 
 from .models import Board, Topic, Post
 from .forms import NewTopicForm, PostForm
-from .serializers import BoardSerializer, TopicSerializer, PostListSerializer
-
+from .serializers import BoardSerializer, TopicSerializer, PostSerializer
 
 # Create your views here.
 # 下面是接口
@@ -32,6 +31,7 @@ from .serializers import BoardSerializer, TopicSerializer, PostListSerializer
 #     queryset = Board.objects.all()
 #     serializer_class = BoardSerializer
 
+
 class BoardViewSet(viewsets.ModelViewSet, mixins.ListModelMixin):
     """
     Board的视图集
@@ -39,27 +39,28 @@ class BoardViewSet(viewsets.ModelViewSet, mixins.ListModelMixin):
     queryset = Board.objects.all()
     serializer_class = BoardSerializer
 
+
 class MyPagination(PageNumberPagination):
-    page_size = 4                        # 每页4条（默认）
-    max_page_size = 50                    # 最大每页条数（根据传入的值分页）
-    page_query_param = "page"             # 前端url中传入的‘页数’名字
-    page_size_query_param = "page_size"   # 前端url中传入的每页的数据条数
+    page_size = 4  # 每页4条（默认）
+    max_page_size = 50  # 最大每页条数（根据传入的值分页）
+    page_query_param = "page"  # 前端url中传入的‘页数’名字
+    page_size_query_param = "page_size"  # 前端url中传入的每页的数据条数
+
 
 class TopicListAPIView(generics.ListAPIView):
     """
     Topic展示
     """
+
     # serializer_class = ListSerializer
     # pagination_class = MyPagination
-    
+
     def get_queryset(self, *args, **kwargs):
-         self.board = get_object_or_404(Board, pk=self.kwargs.get('pk'))
-         queryset_list = self.board.topics.order_by('-last_updated')
-         return queryset_list
+        self.board = get_object_or_404(Board, pk=self.kwargs.get('pk'))
+        queryset_list = self.board.topics.order_by('-last_updated')
+        return queryset_list
 
     def get(self, request, *args, **kwargs):
-        # self.board = get_object_or_404(Board, pk=self.kwargs.get('pk'))
-        # queryset = self.board.topics.order_by('-last_updated')
         queryset = self.get_queryset()
         paginator = MyPagination()
         result = paginator.paginate_queryset(queryset, request, self)
@@ -71,7 +72,8 @@ class TopicListAPIView(generics.ListAPIView):
             'results': serializer.data,  # 当前页的序列化数据
         }
         return Response(data)
-    
+
+
 class PostListAPIView(generics.ListAPIView):
     """
     Post展示
@@ -79,16 +81,15 @@ class PostListAPIView(generics.ListAPIView):
     pagination_class = PageNumberPagination
 
     def get_queryset(self, *args, **kwargs):
-        self.topic = get_object_or_404(Topic, board__pk=self.kwargs.get('pk'), pk=self.kwargs.get('topic_pk'))
+        self.topic = get_object_or_404(Topic,
+                                       board__pk=self.kwargs.get('pk'),
+                                       pk=self.kwargs.get('topic_pk'))
         queryset_list = self.topic.posts.order_by('created_at')
         return queryset_list
 
     def get(self, request, *args, **kwargs):
-        # self.topic = get_object_or_404(Topic, board__pk=self.kwargs.get('pk'), pk=self.kwargs.get('topic_pk'))
-        # queryset = self.topic.posts.order_by('created_at')
-        # paginator = CustomPagination()
         result = self.get_queryset()
-        serializer = PostListSerializer(result, many=True)
+        serializer = PostSerializer(result, many=True)
         return Response(serializer.data)
 
 
@@ -96,15 +97,53 @@ class PostUpadateAPIView(generics.UpdateAPIView):
     '''
     编辑post
     '''
-    queryset = Post.objects.all()
-    serializer_class = PostListSerializer
+    # queryset = Post.objects.all()
+    serializer_class = PostSerializer
+
+    def get_queryset(self, *args, **kwargs):
+        self.topic = get_object_or_404(Topic,
+                                       board__pk=self.kwargs.get('pk'),
+                                       pk=self.kwargs.get('topic_pk'))
+        queryset_list = self.topic.posts.order_by('created_at')
+        serializered_queryset = PostSerializer(queryset_list, many=True)
+        return serializered_queryset
+
+    # def get_queryset(self, request, *args, **kwargs):
+    #     # self.topic = get_object_or_404(Topic,
+    #     #                                board__pk=self.kwargs.get('pk'),
+    #     #                                pk=self.kwargs.get('topic_pk'))
+    # self.board_pk = request.GET.get('pk')
+    # self.topic_pk = request.GET.get('topic_pk')
+    # self.post_pk = request.GET.get('post_pk')
+    # queryset_list = Topic.objects.get(pk=self.topic_pk).posts.filter(pk=self.post_pk)
+    # return queryset_list
+
+    # def get(self, request, *args, **kwargs):
+    #     self.post = get_object_or_404(Post, pk=self.kwargs.get('pk'), topic__pk=self.kwargs.get('topic_pk'), pk=self.kwargs.get('post_pk'))
+    #     # self.board_pk = request.GET.get('pk')
+    #     # self.topic_pk = request.GET.get('topic_pk')
+    #     # self.post_pk = request.GET.get('post_pk')
+    #     queryset_list = self.post.get(pk='post_pk')
+    #     serializer = PostSerializer(queryset_list, many=True)
+    #     return Response(serializer.data)
+
+    def put(self, request, *args, **kwargs):
+        post_obj = self.get_queryset()
+        validated_data = PostSerializer(data=request.data, instance=post_obj)
+        if validated_data.is_valid():
+            validated_data.save()
+            return Response(validated_data.data)
+        else:
+            return Response(validated_data.errors)
+
 
 class PostDeleteAPIView(generics.DestroyAPIView):
     '''
     删除post
     '''
     queryset = Post.objects.all()
-    serializer_class = PostListSerializer
+    serializer_class = PostSerializer
+
 
 # class TopicViewSet(viewsets.ModelViewSet):
 #     serializer_class = TopicSerializer
@@ -126,7 +165,7 @@ class PostDeleteAPIView(generics.DestroyAPIView):
 #     """
 #     queryset = Board.objects.all()
 #     serializer_class = BoardSerializer
-    
+
 #     # 展示Topics
 #     @action(methods=['get'], pagination_class = LimitOffsetPagination, permission_classes=[AllowAny], detail=True, url_path=r'topics/(?P<topic_pk>\d+)')
 #     def showTopic(self, request, *args, **kwargs):
@@ -143,7 +182,6 @@ class PostDeleteAPIView(generics.DestroyAPIView):
 #         serializer = PostListSerializer(queryset, many=True)
 #         return JsonResponse(serializer.data, safe=False)
 
-
 # class TopicViewSet(mixins.ListModelMixin, viewsets.GenericViewSet, viewsets.ViewSet):
 #     '''
 #     Topic的视图集
@@ -158,7 +196,6 @@ class PostDeleteAPIView(generics.DestroyAPIView):
 #     pagination_class = LimitOffsetPagination
 #     permission_classes = [AllowAny]
 
-
 # class PostViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
 #     '''
 #     Post的视图集
@@ -166,7 +203,6 @@ class PostDeleteAPIView(generics.DestroyAPIView):
 #     queryset = Post.objects.all()
 #     serializer_class = PostListSerializer
 #     permission_classes = [AllowAny]
-
 
 
 # -----------------这是分割线-----------------------
@@ -259,12 +295,13 @@ def reply_topic(request, pk, topic_pk):
             topic.last_updated = timezone.now()
             topic.save()
 
-            topic_url = reverse('topic_posts', kwargs={'pk': pk, 'topic_pk': topic_pk})
+            topic_url = reverse('topic_posts',
+                                kwargs={
+                                    'pk': pk,
+                                    'topic_pk': topic_pk
+                                })
             topic_post_url = '{url}?page={page}#{id}'.format(
-                url=topic_url,
-                id=post.pk,
-                page=topic.get_page_count()
-            )
+                url=topic_url, id=post.pk, page=topic.get_page_count())
 
             return redirect(topic_post_url)
     else:
