@@ -111,11 +111,10 @@
                     <li v-if="cur>1"><a v-on:click="cur--,pageClick()">上一页</a></li>
                     <li v-if="cur==1"><a class="banclick">上一页</a></li>
                     <li v-for="index in indexs" v-bind:class="{ 'active': cur == index}">
-                        <a v-on:click="btnClick(index)">{{ index }}</a>
+                        <a v-on:click="btnClick(index)">[[index]]</a>
                     </li>
-                    <li v-if="cur!=all"><a v-on:click="cur++,pageClick()">下一页</a></li>
-                    <li v-if="cur == all"><a class="banclick">下一页</a></li>
-                    <li><a>共<i>{{all}}</i>页</a></li>
+                    <li v-if="cur!=totalPage"><a v-on:click="cur++,pageClick()">下一页</a></li>
+                    <li v-if="cur == totalPage"><a class="banclick">下一页</a></li>
                 </ul>
             </div>
         </div>
@@ -125,33 +124,80 @@
                 delimiters: ['[[', ']]'],
                 el: "#matches",
                 data: {
+                    cur: 1,
+                    totalPage: 0,
                     matchMessage: ''
                 },
+                methods: {
+                    getPageNum() {
+                        var that = this;
+                        axios
+                            .get("http://127.0.0.1:8000/matchinfo/api/homedata/1/")
+                            .then(function (response) {
+                                that.cur = 1;
+                                that.totalPage = Math.ceil(response.data[0].COUNT / 6);
+                            })
+                            .catch(function (error) {
+                                console.log(error)
+                            })
+                    },
+                    getMatchPage(page) {
+                        var that = this;
+                        axios
+                            .get("http://127.0.0.1:8000/matchinfo/api/homedata/" + page)
+                            .then(function (response) {
+                                console.log(response);
+                                that.matchMessage = response.data[1].本页比赛;
+                                var time = new Array();
+                                for (i = 0; i < response.data[1].本页比赛.length; i++) {
+                                    for (j = 0; j < 3; j++) {
+                                        if (j == 0) {
+                                            time[i] = response.data[1].本页比赛[i].比赛时间[j] + ' ';
+                                        }
+                                        else if (j == 1) {
+                                            time[i] = time[i] + response.data[1].本页比赛[i].比赛时间[j] + ':';
+                                        }
+                                        else {
+                                            time[i] += response.data[1].本页比赛[i].比赛时间[j];
+                                        }
+                                    }
+                                    that.matchMessage[i].比赛时间 = time[i];
+                                };
+                                console.log(response.data);
+                                console.log(that.matchMessage);
+                            })
+                            .catch(function (error) {
+                                console.log(error)
+                            })
+                    },
+                    btnClick: function (data) {
+                        var that = this;
+                        if (data != that.cur) {
+                            that.cur = data;
+                        }
+                        that.getMatchPage(that.cur.toString());
+                    },
+                    pageClick: function () {
+                        var that = this;
+                        that.getMatchPage(that.cur.toString());
+                    }
+                },
+                computed: {
+                    indexs: function () {
+                        var that = this
+                        var left = 1;
+                        var right = that.totalPage;
+                        var ar = [];
+                        while (left <= right) {
+                            ar.push(left)
+                            left++
+                        }
+                        return ar
+                    }
+                },
                 mounted() {
-                    var that = this;
-                    axios
-                        .get("http://127.0.0.1:8000/matchinfo/api/homedata/1/")
-                        .then(function (response) {
-                            console.log(response);
-                            that.matchMessage = response.data[1].本页比赛;
-                            var time = new Array();
-                            for (i = 0; i < response.data[1].本页比赛.length; i++) {
-                                for (j = 0; j < 3; j++) {
-                                    if (j == 0) {
-                                        time[i] = response.data[1].本页比赛[i].比赛时间[j] + ' ';
-                                    }
-                                    else if (j == 1) {
-                                        time[i] = time[i] + response.data[1].本页比赛[i].比赛时间[j] + ':';
-                                    }
-                                    else {
-                                        time[i] += response.data[1].本页比赛[i].比赛时间[j];
-                                    }
-                                }
-                                that.matchMessage[i].比赛时间 = time[i];
-                            };
-                            console.log(response.data);
-                            console.log(that.matchMessage);
-                        })
+                    this.getPageNum();
+                    this.getMatchPage(1);
                 }
             })
         </script>
