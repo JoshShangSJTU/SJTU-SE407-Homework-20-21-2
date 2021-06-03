@@ -14,7 +14,7 @@ def register(request):
     
     if not passWord == passWord2:
         return JsonResponse({'ret': 1, 'msg': '两次密码不一致'})
-    user = User.objects.create_user(userName, Email, passWord)
+    user = User.objects.create_user(username=userName, password=passWord, email=Email)
     user.save()
     userlogin = authenticate(username=userName, password=passWord)
     login(request,userlogin)
