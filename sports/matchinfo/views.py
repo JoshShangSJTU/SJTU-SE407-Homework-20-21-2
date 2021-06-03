@@ -52,8 +52,9 @@ def Homedata(request,page):  #向赛事信息列表发送数据的视图
     
     page=int(page)
     package=[]
-    
+    count = 0
     for match in models.Match.objects.all():
+        count += 1
 
         teamh = models.Team.objects.get(pk=match.h_team_name_id)    #获取比赛的两支队伍信息
         teama = models.Team.objects.get(pk=match.a_team_name_id)  
@@ -67,7 +68,9 @@ def Homedata(request,page):  #向赛事信息列表发送数据的视图
 
         package.append(info)
 
-    split_package = package[6*(page-1):6*page]
+    num = [count]
+
+    split_package = num+package[6*(page-1):6*page]
 
 
     return JsonResponse(split_package,safe=False,json_dumps_params={'ensure_ascii':False})
