@@ -97,35 +97,83 @@
             </li>
         </ul>
     </div>
-    <div style="float: right;">
-        <ul class="pagination" id="pageSort">
+    <div class="page-bar">
+        <ul>
+            <li v-if="cur>1"><a v-on:click="cur--,pageClick()">上一页</a></li>
+            <li v-if="cur==1"><a class="banclick">上一页</a></li>
+            <li v-for="index in indexs" v-bind:class="{ 'active': cur == index}">
+                <a v-on:click="btnClick(index)">[[index]]</a>
+            </li>
+            <li v-if="cur!=totalPage"><a v-on:click="cur++,pageClick()">下一页</a></li>
+            <li v-if="cur == totalPage"><a class="banclick">下一页</a></li>
         </ul>
     </div>
 </div>
 <script type="text/javascript">
     var url = window.location.pathname;
-    console.log(url);
     var boardPath = url[url.length - 2];
-    console.log(boardPath);
     var topic = new Vue({
         delimiters: ['[[', ']]'],
         el: '#topics',
         data: {
-            board: 1,
+            board: boardPath,
+            cur: 1,
+            totalPage: 0,
             topicMessage: ''
         },
+        methods: {
+            getTotalPage() {
+                var that = this;
+                axios
+                    .get("http://127.0.0.1:8000/talk/api/boards/" + boardPath + "/topics/")
+                    .then(function (response) {
+                        that.totalPage = Math.ceil(response.data.count / 4);
+                        console.log(that.totalPage)
+                    })
+                    .catch(function (error) {
+                        console.log(error)
+                    })
+            },
+            getTopicMessage(index) {
+                var that = this;
+                axios
+                    .get("http://127.0.0.1:8000/talk/api/boards/" + boardPath + "/topics/?page=" + index)
+                    .then(function (response) {
+                        that.topicMessage = response.data.results;
+                        console.log(that.topicMessage)
+                    })
+                    .catch(function (error) {
+                        console.log(error)
+                    })
+            },
+            btnClick(data) {
+                var that = this;
+                if (data != that.cur) {
+                    that.cur = data
+                }
+                this.getTopicMessage(that.cur.toString());
+            },
+            pageClick() {
+                var that = this;
+                this.getTopicMessage(that.cur.toString());
+            }
+        },
+        computed: {
+            indexs: function () {
+                var that = this;
+                var left = 1;
+                var right = that.totalPage;
+                var ar = [];
+                while (left <= right) {
+                    ar.push(left)
+                    left++
+                }
+                return ar
+            }
+        },
         mounted() {
-            var that = this;
-            axios
-                .get("http://127.0.0.1:8000/talk/api/boards/" + boardPath + "/topics/1/")
-                .then(function (response) {
-                    that.topicMessage = response.data;
-                    that.board = boardPath;
-                    console.log(that.topicMessage);
-                })
-                .catch(function (error) {
-                    console.log(error)
-                })
+            this.getTotalPage();
+            this.getTopicMessage(1);
         }
     })
 </script>

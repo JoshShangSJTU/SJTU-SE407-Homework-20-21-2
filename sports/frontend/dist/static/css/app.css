@@ -255,56 +255,56 @@
     background: url(//tb2.bdstatic.com/tb/static-spage/img/time-bg_d0a7921.png) no-repeat -10px -9px;
 }
 
-.pagination ul{
-    border: 0;
-    margin: 0;
-    padding: 0;
+/*分页*/
+.page-bar{
+    margin: 40px auto;
+    margin-top: 150px;
 }
 
-.pagination li{
-    border: 0; 
-    margin: 0;
-    padding: 0;
-    font-size: 16px;
-    list-style: none;
-    margin-right: 2px;
+ul, li{
+    margin: 0px;
+    padding: 0px;
 }
 
-.pagination a{
-    border: solid 1px #9aafe5;
-    margin-right: 2px;
+li{
+    list-style: none
 }
 
-.previous-off,.next-off {
-    border: solid 1px #DEDEDE;
-    color: #888888;
-    display: block;
-    float: left;
-    font-weight: bold;
-    margin-right: 2px;
-    padding: 3px 4px;
+.page-bar li:first-child>a {
+    margin-left: 0px
 }
 
-.pagination-next a,.pagination-prev a {
-    font-weight: bold;
-}
-
-.pagination-active{
-    background: #2e6ab1;
-    color: #FFFFFF;
-    font-weight: bold;
-    display: block;
-    float: left;
-    padding: 4px 6px;
-}
-.pagination a:link,.pagination a:visited {
-    color:#0e509e;
-    display: block;
-    float: left;
-    padding: 3px 6px;
+.page-bar a{
+    border: 1px solid #ddd;
     text-decoration: none;
+    position: relative;
+    float: left;
+    padding: 6px 12px;
+    margin-left: -1px;
+    line-height: 1.42857143;
+    color: #5D6062;
+    cursor: pointer;
+    margin-right: 20px;
 }
 
-.pagination a:hover{
-    border: solid 1px #0e509e
+.page-bar a:hover{
+    background-color: #eee;
+}
+
+.page-bar a.banclick{
+    cursor: not-allowed;
+}
+
+.page-bar .active a{
+    color: #fff;
+    cursor: default;
+    background-color: #E96463;
+    border-color: #E96463;
+}
+
+.page-bar i{
+    font-style: normal;
+    color: #d44950;
+    margin: 0px 4px;
+    font-size: 12px;
 }
