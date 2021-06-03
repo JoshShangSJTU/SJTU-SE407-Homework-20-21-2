@@ -44,7 +44,7 @@ class PostSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Post
-        fields = ('message', 'topic', 'created_at', 'updated_at', 'created_by',
+        fields = ('id', 'message', 'topic', 'created_at', 'updated_at', 'created_by',
                   'updated_by')
 
     def update(self, instance, validated_data):
