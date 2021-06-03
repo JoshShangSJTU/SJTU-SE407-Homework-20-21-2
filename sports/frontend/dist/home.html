@@ -126,9 +126,8 @@
       <div id="matches" style="text-align: center;">
         <div v-for="mth in matchMessage" class="match-card">
           <p class="match-bottom"></p>
-          <a href="../matchinfo/home/match-detail" target="_blank" class="match-img"
-            style="background-image: url(#);"></a>
-          <a href="../matchinfo/home/match-detail" target="_blank" class="match-text">
+          <a href="../matchinfo/home/match-detail" class="match-img"></a>
+          <a href="../matchinfo/home/match-detail" class="match-text">
             <span class="match-text-style">
               <span class="match-name">[[mth.主队队名]]vs[[mth.客队队名]]</span>
               <span class="match-place">[[mth.比赛地点]]</span>
@@ -137,7 +136,7 @@
           </a>
           <span class="match-label">
             <span class="match-detail" style="margin: 0px 10px;">
-              <a href="../matchinfo/home/match-detail" target="_blank" style="background: #F5F5F5">
+              <a v-bind:href="'../matchinfo/home/match-detail/'+mth.比赛编号" style="background: #F5F5F5">
                 详情
               </a>
             </span>

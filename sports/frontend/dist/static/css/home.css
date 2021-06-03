@@ -41,7 +41,7 @@ h1 {
 .match-img{
     background-repeat: no-repeat;
     background-size: 100% 100%;
-    background-image: url(http://www.twtaiyi.com/upload/20180530/e676f667c4cdfc7e074898adab2622f2.jpg);
+    background-image: url(../img/match.jpg);
     cursor: pointer;
     position: absolute;
     top: 10px;
@@ -52,7 +52,7 @@ h1 {
     padding: 2px 5px;
     overflow: hidden;
     border: 12px solid;
-    border-image: url(../border01.png) 12;
+    border-image: url(../img/border01.png) 12;
     border-radius: 5px;
     box-sizing: border-box;
     box-shadow: 0 4px 4px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 20%), 0 1px 5px 0 rgb(0 0 0 / 12%)
