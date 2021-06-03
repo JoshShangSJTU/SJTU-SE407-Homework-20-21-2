@@ -24,15 +24,15 @@
 					<br/>
 					<input type="submit" value="登录" @click="matchin"  />
 				</div>
-				<div>
+				<div id="register">
 					
-					<input type="text" placeholder="username" />
+					<input type="text" placeholder="username" v-model="username"/>
 					
-					<input type="password" placeholder="password" />
-					<input type="password" placeholder="password again" />
-					<input type="text" placeholder="email" />
+					<input type="password" placeholder="password" v-model="password"/>
+					<input type="password" placeholder="password again" v-model="password2"/>
+					<input type="text" placeholder="email" v-model="email"/>
 					<br/>
-					<input type="submit" value="注册" />
+					<input type="submit" value="注册" @click="addusr"/>
 				</div>
 			</div>
 		</div>
@@ -61,6 +61,34 @@
                     }
                 }
             })
+
+        </script>
+        <script>
+            var register = new Vue ({
+                el:"#register",
+                data:{
+                    username:"",
+                    password:"",
+					password2:"",
+					email:"",
+                },
+                methods:{
+                    addusr:function(){
+                        axios.post("http://127.0.0.1:8000/api/usr/register",{username: this.username, password: this.password,password2: this.password2,email: this.email,}).then(
+                            res => {
+							  console.log(res);
+							 if(res.data.ret==1) { 
+								  alert(res.data.msg)
+							    };
+							 
+                        },
+                            error => {
+							  alert('注册失败')
+							})
+                    }
+                }
+            })
+			
         </script>
 	</body>
 </html>
