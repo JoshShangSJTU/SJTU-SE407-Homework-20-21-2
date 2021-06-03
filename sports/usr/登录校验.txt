@@ -8,3 +8,5 @@ if 'usertype' not in request.session:
             'redirect': '/usr/signin.html'
         },
         status=302)
+
+request.session['username']

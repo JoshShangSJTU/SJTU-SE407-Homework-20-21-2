@@ -89,7 +89,7 @@ def modifyplayer(request):
     try:
         # 根据 id 从数据库中找到相应的队员记录
         player = Player.objects.get(id=playerid)
-    except player.DoesNotExist:
+    except Player.DoesNotExist:
         return {'ret': 1, 'msg': f'id 为`{playerid}`的队员不存在'}
 
     if 'player_name' in newdata:
@@ -118,7 +118,7 @@ def deleteplayer(request):
     try:
         # 根据 id 从数据库中找到相应的队员记录
         player = Player.objects.get(id=playerid)
-    except player.DoesNotExist:
+    except Player.DoesNotExist:
         return {
                 'ret': 1,
                 'msg': f'id 为`{playerid}`的队员不存在'
