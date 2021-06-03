@@ -68,12 +68,13 @@ def Homedata(request,page):  #向赛事信息列表发送数据的视图
 
         package.append(info)
 
-    num = [count]
+    split_package = package[6*(page-1):6*page]
 
-    split_package = num+package[6*(page-1):6*page]
+    dict1={'COUNT':count}
+    dict2={'本页比赛':split_package}
+    PACKAGE = [dict1,dict2]
 
-
-    return JsonResponse(split_package,safe=False,json_dumps_params={'ensure_ascii':False})
+    return JsonResponse(PACKAGE,safe=False,json_dumps_params={'ensure_ascii':False})
 
 
 
