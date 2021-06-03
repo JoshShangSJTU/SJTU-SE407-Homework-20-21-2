@@ -22,7 +22,8 @@
 					
 					<input type="password" v-model="password" />
 					<br/>
-					<input type="submit" value="登录" @click="matchin"  />
+					<input type="submit" value="管理员登陆" @click="matchin"  />
+					<input type="submit" value="登陆" @click="matchin1"  />
 				</div>
 				<div id="register">
 					
@@ -46,6 +47,21 @@
                 methods:{
                     matchin:function(){
                         axios.post("http://127.0.0.1:8000/api/mgr/signin",{username: this.username, password: this.password,}).then(
+                            res => {
+							  console.log(res);
+							 if(res.data.ret==1) { 
+								  alert(res.data.msg)
+							    };
+							 if(res.data.ret==0) { 
+								window.location.href = '/home'
+							    };
+                        },
+                            error => {
+							  alert('登陆失败')
+							})
+                    },
+					matchin1:function(){
+                        axios.post("http://127.0.0.1:8000/api/usr/signin",{username: this.username, password: this.password,}).then(
                             res => {
 							  console.log(res);
 							 if(res.data.ret==1) { 
