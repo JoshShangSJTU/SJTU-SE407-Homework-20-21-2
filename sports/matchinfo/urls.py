@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, re_path
 from django.views.generic.base import TemplateView
 
 from . import views
@@ -8,9 +8,12 @@ urlpatterns = [
     path('home/',TemplateView.as_view(template_name='home_match.html')),
     path('home/login/', TemplateView.as_view(template_name='login.html')),
     path('home/match-detail',TemplateView.as_view(template_name='match_detail.html')),
+    re_path(r'^home/match-detail/(\d+)/$', TemplateView.as_view(template_name='match_detail.html')),
+    
 
     #api路径
     path('api/homedata/',views.Homedata),
-    path('api/detaildata/',views.Detaildata)
+    path('api/detaildata/',views.Detaildata),
+    re_path(r'^api/detaildata/(?P<para>\d+)/$', views.Detaildata)
 
 ]
