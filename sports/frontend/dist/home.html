@@ -25,7 +25,10 @@
 <body data-spy="scroll" data-target="#navbar2" data-offset="30">
   <!--导航栏-->
   <nav class="navbar navbar-expand-md bg-light navbar-light">
-
+    
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+		<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
     <!--缩放时用于包裹的按钮-->
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar1">
       <span class="navbar-toggler-icon"></span>
@@ -60,10 +63,32 @@
       </form>
     </div>
 
-    <div>
-      <a class="nav-link text-primary" href="\login">登录</a>
+    <div id="login">
+      <a class="nav-link text-primary" href="\login">[[message]]</a>
     </div>
+    
   </nav>
+  <script>
+      var login = new Vue ({
+                delimiters:['[[',']]'],
+                el:"#login",
+                data:{message:"登录",} ,
+                mounted:function(){
+                        
+                        axios
+                        .post("http://127.0.0.1:8000/api/usr/data")
+                        .then(function(response){
+                            
+                            this.message = response;
+                            console.log(this.message);
+
+                        })
+                        .catch(function (error) { // 请求失败处理
+                            console.log(error);
+                        })
+                  }
+      })
+    </script>
 
   <!--轮播-->
   <div class="container carousel slide carousel-fade" data-ride="carousel" id="shuff">
