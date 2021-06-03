@@ -3,6 +3,7 @@ from django.http.response import JsonResponse
 from django.views.generic import ListView
 
 from splatform import models
+from .models import Package
 # Create your views here.
 
 '''
@@ -71,7 +72,66 @@ def Homedata(request):  #向赛事信息列表发送数据的视图
 
     return JsonResponse(package,safe=False,json_dumps_params={'ensure_ascii':False})
 
+def Detaildata(request,para):    #向详情页发送数据的视图
 
+    for match in models.Match.objects.all():
+
+        teamh = models.Team.objects.get(pk=match.h_team_name_id)
+        teama = models.Team.objects.get(pk=match.a_team_name_id)  
+
+        playerh = models.Player.objects.filter(team_id=match.h_team_name_id)
+        playerhset = []
+        for player in playerh:
+            playerhset.append(player.player_name) 
+                               
+        playera = models.Player.objects.filter(team_id=match.a_team_name_id)
+        playeraset = []
+        for player in playera:
+            playeraset.append(player.player_name)
+        
+        timeinfo = str(match.match_time)    #调整时间格式
+        date = timeinfo[0:10]    
+        hour = (int(timeinfo[11:13])+8)%24
+        if hour < 10:
+            hour = '0'+str(hour)
+        else:
+            hour = str(hour)
+        minute = timeinfo[14:16]
+
+        timepack=(date,hour,minute)
+
+        Flag_not_in = True
+
+        for i in Package.objects.filter(match_no=match.match_no):
+            Flag_not_in =False
+        
+
+        if Flag_not_in:   
+            Package.objects.create(
+                match_no = match.match_no,
+                match_loc = match.match_loc,
+                match_time = str(timepack),
+
+                h_team_name = teamh.team_name,
+                h_match_score = match.h_score,
+                h_player_set = str(playerhset),
+
+                a_team_name = teama.team_name,
+                a_match_score = match.a_score,
+                a_player_set = str(playeraset),
+            )
+        
+    info = Package.objects.all().get(match_no=para)
+    H_info = {'主队队名':info.h_team_name,'主队得分':info.h_match_score,'队员表':info.h_player_set}
+    A_info = {'客队队名':info.a_team_name,'客队得分':info.a_match_score,'队员表':info.a_player_set}
+    baseinfo= {'比赛编号':info.match_no,'比赛地点':info.match_loc,'比赛时间':info.match_loc}
+    info = {'比赛信息':baseinfo,'主队信息':H_info,'客队信息':A_info}
+    
+    return JsonResponse(info,safe=False,json_dumps_params={'ensure_ascii':False})
+
+
+
+'''
 def Detaildata(request):    #向详情页发送数据的视图
    
     package=[]
@@ -107,3 +167,4 @@ def Detaildata(request):    #向详情页发送数据的视图
 
         package.append(info)
     return JsonResponse(package,safe=False,json_dumps_params={'ensure_ascii':False})
+'''

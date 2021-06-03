@@ -31,7 +31,7 @@
         <div class="collapse navbar-collapse" id="navbar1">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="../../home">首页</a>
+                    <a class="nav-link" href="\..\home">首页</a>
                 </li>
                 <li class="nav-item">
                     <a class="navbar-brand" href="javascript:location.reload();">赛事</a>
@@ -90,8 +90,8 @@
         <div id="matches" style="text-align: center;">
             <div v-for="mth in matchMessage" class="match-card">
                 <p class="match-bottom"></p>
-                <a href="match-detail" target="_blank" class="match-img" style="background-image: url(#);"></a>
-                <a href="match-detail" target="_blank" class="match-text">
+                <a href="#" target="_blank" class="match-img" style="background-image: url(#);"></a>
+                <a href="#" target="_blank" class="match-text">
                     <span class="match-text-style">
                         <span class="match-name">[[mth.主队队名]]vs[[mth.客队队名]]</span>
                         <span class="match-place">[[mth.比赛地点]]</span>
@@ -105,6 +105,7 @@
                         </a>
                     </span>
                 </span>
+
             </div>
         </div>
 
@@ -132,31 +133,17 @@
                 delimiters: ['[[', ']]'],
                 el: "#matches",
                 data: {
-                    matchMessage: ''
+                    matchMessage: '',
+                    teamMessage: ''
                 },
                 mounted() {
                     var that = this;
                     axios
-                        .get("http://127.0.0.1:8000/matchinfo/api/homedata/")
+                        .get("http://127.0.0.1:8000/matchinfo/api/detaildata/")
                         .then(function (response) {
                             that.matchMessage = response.data;
-                            var time = new Array();
-                            for (i = 0; i < response.data.length; i++) {
-                                for (j = 0; j < 3; j++) {
-                                    if (j == 0) {
-                                        time[i] = response.data[i].比赛时间[j] + ' ';
-                                    }
-                                    else if (j == 1) {
-                                        time[i] = time[i] + response.data[i].比赛时间[j] + ':';
-                                    }
-                                    else {
-                                        time[i] += response.data[i].比赛时间[j];
-                                    }
-                                }
-                                that.matchMessage[i].比赛时间 = time[i];
-                            };
-                            console.log(response.data);
-                            console.log(that.matchMessage);
+                            that.teamMessage = response.data;
+                            console.log(that.matchMessage)
                         })
                 }
             })

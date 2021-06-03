@@ -15,8 +15,6 @@
 
     <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
 </head>
 
@@ -32,10 +30,10 @@
         <div class="collapse navbar-collapse" id="navbar1">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="../../home">首页</a>
+                    <a class="nav-link" href="#">首页</a>
                 </li>
                 <li class="nav-item">
-                    <a class="navbar-brand" href="../home">赛事</a>
+                    <a class="navbar-brand" href="home-match">赛事</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">榜单</a>
@@ -65,43 +63,31 @@
     <div id="details" class="backgrd">
         <div class="match-point">
             <div class="match-title">
-                <div class="title-name">[[teamMessageLeft.主队队名]]VS[[teamMessageRight.客队队名]]</div>
-                <div class="title-place">[[matchMessage.比赛地点]]</div>
-                <div class="title-time">[[matchMessage.比赛时间]]</div>
+                <div class="title-name">比赛名称</div>
+                <div class="title-place">比赛地点</div>
+                <div class="title-time">05-14 21:51</div>
             </div>
             <div class="match-team">
                 <div class="team-left">
                     <div class="ln">
-                        <p class="team-name">[[teamMessageLeft.主队队名]]</p>
+                        <p class="team-name">队伍名称-左</p>
                     </div>
                 </div>
-                <div v-if="teamMessageLeft.主队得分>=teamMessageRight.客队得分" class="match-result">
+                <div class="match-result">
                     <div class="result-left">
                         <div class="score-top"></div>
                         <div class="score-bottom"></div>
-                        <span class="score win">[[teamMessageLeft.主队得分]]</span>
+                        <span class="score">0</span>
                     </div>
                     <div class="result-right">
                         <div class="score-top"></div>
                         <div class="score-bottom"></div>
-                        <span class="score">[[teamMessageRight.客队得分]]</span>
-                    </div>
-                </div>
-                <div v-else class="match-result">
-                    <div class="result-left">
-                        <div class="score-top"></div>
-                        <div class="score-bottom"></div>
-                        <span class="score">[[teamMessageLeft.主队得分]]</span>
-                    </div>
-                    <div class="result-right">
-                        <div class="score-top"></div>
-                        <div class="score-bottom"></div>
-                        <span class="score win">[[teamMessageRight.客队得分]]</span>
+                        <span class="score win">1</span>
                     </div>
                 </div>
                 <div class="team-right">
                     <div class="rn">
-                        <p class="team-name">[[teamMessageRight.客队队名]]</p>
+                        <p class="team-name">队伍名称-右</p>
                     </div>
                 </div>
             </div>
@@ -131,16 +117,31 @@
                 </div>
                 <div class="member-information">
                     <div class="member-list">
-                        <div v-if="teamMessageRight.队员表.length!=0" class="member-list">
-                            <span v-for="playersRight in teamMessageRight.队员表" class="member-list-item">
-                                <img class="usr-img">
-                                <div class="usr-name">[[playersRight]]</div>
-                                <div class="member-pos">选手</div>
-                            </span>
-                        </div>
-                        <div v-else class="member-list">
-                            <div class="usr-name">暂无信息~</div>
-                        </div>
+                        <span class="member-list-item">
+                            <img class="usr-img">
+                            <div class="usr-name">姓名1</div>
+                            <div class="member-pos">位置1</div>
+                        </span>
+                        <span class="member-list-item">
+                            <img class="usr-img">
+                            <div class="usr-name">姓名2</div>
+                            <div class="member-pos">位置2</div>
+                        </span>
+                        <span class="member-list-item">
+                            <img class="usr-img">
+                            <div class="usr-name">姓名3</div>
+                            <div class="member-pos">位置3</div>
+                        </span>
+                        <span class="member-list-item">
+                            <img class="usr-img">
+                            <div class="usr-name">姓名4</div>
+                            <div class="member-pos">位置4</div>
+                        </span>
+                        <span class="member-list-item">
+                            <img class="usr-img">
+                            <div class="usr-name">姓名5</div>
+                            <div class="member-pos">位置5</div>
+                        </span>
                     </div>
                 </div>
 
@@ -185,15 +186,32 @@
                     <div class="member-type">选手</div>
                 </div>
                 <div class="member-information">
-                    <div v-if="teamMessageRight.队员表.length!=0" class="member-list">
-                        <span v-for="playersRight in teamMessageRight.队员表" class="member-list-item">
+                    <div class="member-list">
+                        <span class="member-list-item">
                             <img class="usr-img">
-                            <div class="usr-name">[[playersRight]]</div>
-                            <div class="member-pos">选手</div>
+                            <div class="usr-name">姓名1</div>
+                            <div class="member-pos">位置1</div>
                         </span>
-                    </div>
-                    <div v-else class="member-list">
-                        <div class="usr-name">暂无信息~</div>
+                        <span class="member-list-item">
+                            <img class="usr-img">
+                            <div class="usr-name">姓名2</div>
+                            <div class="member-pos">位置2</div>
+                        </span>
+                        <span class="member-list-item">
+                            <img class="usr-img">
+                            <div class="usr-name">姓名3</div>
+                            <div class="member-pos">位置3</div>
+                        </span>
+                        <span class="member-list-item">
+                            <img class="usr-img">
+                            <div class="usr-name">姓名4</div>
+                            <div class="member-pos">位置4</div>
+                        </span>
+                        <span class="member-list-item">
+                            <img class="usr-img">
+                            <div class="usr-name">姓名5</div>
+                            <div class="member-pos">位置5</div>
+                        </span>
                     </div>
                 </div>
 
@@ -224,33 +242,15 @@
         delimiters: ['[[', ']]'],
         el: "#details",
         data: {
-            teamMessageLeft: '',
-            teamMessageRight: '',
             matchMessage: ''
         },
         mounted() {
             var that = this;
             axios
-                .get("http://127.0.0.1:8000/matchinfo/api/detaildata/")
+                .get("http://127.0.0.1:8000/matchinfo/api/homedata/")
                 .then(function (response) {
-                    that.teamMessageLeft = response.data[0].主队信息;
-                    that.teamMessageRight = response.data[0].客队信息;
-                    that.matchMessage = response.data[0].比赛信息;
-                    var time = '';
-                    for (j = 0; j < 3; j++) {
-                        if (j == 0) {
-                            time = that.matchMessage.比赛时间[j] + ' ';
-                        }
-                        else if (j == 1) {
-                            time = time + that.matchMessage.比赛时间[j] + ':';
-                        }
-                        else {
-                            time += that.matchMessage.比赛时间[j];
-                        }
-                    }
-                    that.matchMessage.比赛时间 = time;
-                    console.log(that.matchMessage);
-                    console.log(response.data)
+                    that.matchMessage = response.data;
+                    console.log(that.matchMessage)
                 })
         }
     })
