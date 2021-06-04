@@ -27,10 +27,10 @@
 <body data-spy="scroll" data-target="#navbar2" data-offset="30">
   <!--导航栏-->
   <nav class="navbar navbar-expand-md bg-light navbar-light">
-    
+
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-		<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
     <!--缩放时用于包裹的按钮-->
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar1">
       <span class="navbar-toggler-icon"></span>
@@ -40,10 +40,10 @@
     <div class="collapse navbar-collapse" id="navbar1">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="navbar-brand" href="#">首页</a>
+          <a class="navbar-brand" href="javascript:location.reload();">首页</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">赛事</a>
+          <a class="nav-link" href="../matchinfo/home/">赛事</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">榜单</a>
@@ -72,32 +72,32 @@
 
   </nav>
   <script>
-      var login = new Vue ({
-                delimiters:['[[',']]'],
-                el:"#login",
-                data:{message:"登录",seen:false,} ,
-                created:function(){
-                        var that=this
-                        axios
-                        .post("http://127.0.0.1:8000/api/usr/data")
-                        .then(function(response){
-                            if(response.data.ret==1){
-                               alert(response.data.msg)
-                              };
-                            if(response.data.ret==0){
-                            that.message = response.data.username;
-                            console.log(that.message);
-                            that.seen = 1;
-                          };
+    var login = new Vue({
+      delimiters: ['[[', ']]'],
+      el: "#login",
+      data: { message: "登录", seen: false, },
+      created: function () {
+        var that = this
+        axios
+          .post("http://127.0.0.1:8000/api/usr/data")
+          .then(function (response) {
+            if (response.data.ret == 1) {
+              alert(response.data.msg)
+            };
+            if (response.data.ret == 0) {
+              that.message = response.data.username;
+              console.log(that.message);
+              that.seen = 1;
+            };
 
 
-                        })
-                        .catch(function (error) { // 请求失败处理
-                            console.log(error);
-                        })
-                  }
-      })
-    </script>
+          })
+          .catch(function (error) { // 请求失败处理
+            console.log(error);
+          })
+      }
+    })
+  </script>
 
   <!--轮播-->
   <div class="container carousel slide carousel-fade" data-ride="carousel" id="shuff">
@@ -154,90 +154,30 @@
     <h1 class="font-weight-bold text-center">赛事信息</h1>
     <hr class="style1" />
     <!--container,卡片可重复添加-->
-    <div class="container" style="text-align: center" id="match">
-      <div class="card mb-3">
-        <div class="row no-gutters">
-          <div class="col-md-8">
-            <a href="#">
-              <img src="http://5b0988e595225.cdn.sohucs.com/images/20200502/791db1af5862438298d98a7134e598cf.jpeg"
-                class="card-img" alt="...">
-            </a>
-          </div>
-
-          <div class="col-md-4">
-            <div class="card-body">
-              <a href="#">
-                <h5 class="card-title">比赛名称</h5>
+    <div class="container" style="text-align: center">
+      <div id="matches" style="text-align: center;">
+        <div v-for="mth in matchMessage" class="match-card">
+          <p class="match-bottom"></p>
+          <a v-bind:href="'../matchinfo/home/match-detail/'+mth.比赛编号+'/'" class="match-img"></a>
+          <a v-bind:href="'../matchinfo/home/match-detail/'+mth.比赛编号+'/'" class="match-text">
+            <span class="match-text-style">
+              <span class="match-name">[[mth.主队队名]]vs[[mth.客队队名]]</span>
+              <span class="match-place">[[mth.比赛地点]]</span>
+            </span>
+            <span class="match-date">[[mth.比赛时间]]</span>
+          </a>
+          <span class="match-label">
+            <span class="match-detail" style="margin: 0px 10px;">
+              <a v-bind:href="'../matchinfo/home/match-detail/'+mth.比赛编号+'/'" style="background: #F5F5F5">
+                详情
               </a>
-              <p class="card-text">比赛信息</p>
-              <p class="card-text"><small class="text-muted"></small></p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="card mb-3">
-        <div class="row no-gutters">
-          <div class="col-md-8">
-            <a href="#">
-              <img src="https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1161591332,1616831420&fm=11&gp=0.jpg"
-                class="card-img" alt="...">
-            </a>
-          </div>
-
-          <div class="col-md-4">
-            <div class="card-body">
-              <a href="#">
-                <h5 class="card-title">比赛名称</h5>
-              </a>
-              <p class="card-text">比赛信息</p>
-              <p class="card-text"><small class="text-muted"></small></p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="card mb-3">
-        <div class="row no-gutters">
-          <div class="col-md-8">
-            <a href="#">
-              <img src="..." class="card-img" alt="...">
-            </a>
-          </div>
-
-          <div class="col-md-4">
-            <div class="card-body">
-              <a href="#">
-                <h5 class="card-title">比赛名称</h5>
-              </a>
-              <p class="card-text">比赛信息</p>
-              <p class="card-text"><small class="text-muted"></small></p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="card mb-3">
-        <div class="row no-gutters">
-          <div class="col-md-8">
-            <a href="#">
-              <img src="..." class="card-img" alt="...">
-            </a>
-          </div>
-
-          <div class="col-md-4">
-            <div class="card-body">
-              <a href="#">
-                <h5 class="card-title">比赛名称</h5>
-              </a>
-              <p class="card-text">比赛信息</p>
-              <p class="card-text"><small class="text-muted"></small></p>
-            </div>
-          </div>
+            </span>
+          </span>
         </div>
       </div>
     </div>
   </div>
+
   <!--主体二-->
   <div id="section2">
     <h1 class="font-weight-bold text-center">数据榜单</h1>
@@ -256,31 +196,31 @@
           <td>1</td>
           <td>{{name1}}</td>
           <td>{{goal1}}</td>
-          
+
         </tr>
         <tr>
           <td>2</td>
           <td>{{name2}}</td>
           <td>{{goal2}}</td>
-          
+
         </tr>
         <tr>
           <td>3</td>
           <td>{{name3}}</td>
           <td>{{goal3}}</td>
-         
+
         </tr>
         <tr>
           <td>4</td>
           <td>{{name4}}</td>
           <td>{{goal4}}</td>
-          
+
         </tr>
         <tr>
           <td>5</td>
           <td>{{name5}}</td>
           <td>{{goal5}}</td>
-          
+
         </tr>
       </tbody>
     </table>
@@ -308,94 +248,54 @@
                 <small class="text-muted">xxxx/xx/xx</small>
               </p>
             </div>
-          </div>
 
-          <div class="col-md-2">
-            <img src="..." class="card-img" alt="...">
-          </div>
-        </div>
-      </div>
-      <hr class="style2" />
-      <div class="card mb-3">
-        <div class="row no-gutters">
-          <div class="col-md-10">
-            <div class="card-body">
-              <a href="#">
-                <h5 class="card-title">标题</h5>
-              </a>
-              <p class="card-text">内容</p>
-              <p class="card-text" style="text-align: right;">
-                <small class="text-muted">xxxx/xx/xx</small>
-              </p>
+            <div class="col-md-2">
+              <img src="..." class="card-img" alt="...">
             </div>
           </div>
-
-          <div class="col-md-2">
-            <img src="..." class="card-img" alt="...">
-          </div>
         </div>
-      </div>
-      <hr class="style2" />
-      <div class="card mb-3">
-        <div class="row no-gutters">
-          <div class="col-md-10">
-            <div class="card-body">
-              <a href="#">
-                <h5 class="card-title">标题</h5>
-              </a>
-              <p class="card-text">内容</p>
-              <p class="card-text" style="text-align: right;">
-                <small class="text-muted">xxxx/xx/xx</small>
-              </p>
+        <hr class="style2" />
+        <div class="card mb-3">
+          <div class="row no-gutters">
+            <div class="col-md-10">
+              <div class="card-body">
+                <a href="#">
+                  <h5 class="card-title">标题</h5>
+                </a>
+                <p class="card-text">内容</p>
+                <p class="card-text" style="text-align: right;">
+                  <small class="text-muted">xxxx/xx/xx</small>
+                </p>
+              </div>
+            </div>
+
+            <div class="col-md-2">
+              <img src="..." class="card-img" alt="...">
             </div>
           </div>
-
-          <div class="col-md-2">
-            <img src="..." class="card-img" alt="...">
-          </div>
         </div>
-      </div>
-      <hr class="style2" />
-      <div class="card mb-3">
-        <div class="row no-gutters">
-          <div class="col-md-10">
-            <div class="card-body">
-              <a href="#">
-                <h5 class="card-title">标题</h5>
-              </a>
-              <p class="card-text">内容</p>
-              <p class="card-text" style="text-align: right;">
-                <small class="text-muted">xxxx/xx/xx</small>
-              </p>
+        <hr class="style2" />
+        <div class="card mb-3">
+          <div class="row no-gutters">
+            <div class="col-md-10">
+              <div class="card-body">
+                <a href="#">
+                  <h5 class="card-title">标题</h5>
+                </a>
+                <p class="card-text">内容</p>
+                <p class="card-text" style="text-align: right;">
+                  <small class="text-muted">xxxx/xx/xx</small>
+                </p>
+              </div>
+            </div>
+
+            <div class="col-md-2">
+              <img src="..." class="card-img" alt="...">
             </div>
           </div>
-
-          <div class="col-md-2">
-            <img src="..." class="card-img" alt="...">
-          </div>
         </div>
+        <hr class="style2" />
       </div>
-      <hr class="style2" />
-      <div class="card mb-3">
-        <div class="row no-gutters">
-          <div class="col-md-10">
-            <div class="card-body">
-              <a href="#">
-                <h5 class="card-title">标题</h5>
-              </a>
-              <p class="card-text">内容</p>
-              <p class="card-text" style="text-align: right;">
-                <small class="text-muted">xxxx/xx/xx</small>
-              </p>
-            </div>
-          </div>
-
-          <div class="col-md-2">
-            <img src="..." class="card-img" alt="...">
-          </div>
-        </div>
-      </div>
-      <hr class="style2" />
     </div>
   </div>
 
@@ -434,8 +334,8 @@
         </li>
       </ul>
     </div>
+    <br>
   </div>
-  <br>
 </body>
 
 <script>
@@ -489,6 +389,41 @@
         })
     }
   });
+  var match = new Vue({
+    delimiters: ['[[', ']]'],
+    el: "#matches",
+    data: {
+      matchMessage: ''
+    },
+    mounted() {
+      axios
+        .get("http://127.0.0.1:8000/matchinfo/api/homedata/1/")
+        .then(function (response) {
+          console.log(response);
+          that.matchMessage = response.data[1].本页比赛;
+          var time = new Array();
+          for (i = 0; i < response.data[1].本页比赛.length; i++) {
+            for (j = 0; j < 3; j++) {
+              if (j == 0) {
+                time[i] = response.data[1].本页比赛[i].比赛时间[j] + ' ';
+              }
+              else if (j == 1) {
+                time[i] = time[i] + response.data[1].本页比赛[i].比赛时间[j] + ':';
+              }
+              else {
+                time[i] += response.data[1].本页比赛[i].比赛时间[j];
+              }
+            }
+            that.matchMessage[i].比赛时间 = time[i];
+          };
+          console.log(response.data);
+          console.log(that.matchMessage);
+        })
+        .catch(function (error) {
+          console.log(error)
+        })
+    }
+  })
 </script>
 
 </html>

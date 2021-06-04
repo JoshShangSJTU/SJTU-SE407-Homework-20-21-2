@@ -44,6 +44,7 @@ urlpatterns = [
     path('login/', TemplateView.as_view(template_name='login.html')), # 赛事主页
     path('talk/', include('boards.urls')), # 讨论区页面
     path('user/', TemplateView.as_view(template_name='user.html')), # 赛事主页
+    path('matchinfo/',include('matchinfo.urls')), # 赛事信息页
     path('news/',TemplateView.as_view(template_name='news.html') ), # 赛事新闻区页面
     path('news/detail/', views_news.news_list), # 赛事新闻区子页面
     path('api/mgr/', include('mgr.urls')), # 登录登出
