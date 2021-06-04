@@ -1,0 +1,118 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>个人中心</title>
+<link href="../static/css/base.css" rel="stylesheet">
+<link href="../static/css/about.css" rel="stylesheet">
+<link href="../static/css/m.css" rel="stylesheet">
+
+<script src="../static/js/jquery.min.js" ></script>
+<script src="../static/js/ab.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+<!--[if lt IE 9]>
+<script src="js/modernizr.js"></script>
+<![endif]-->
+</head>
+<body>
+<header class="header-navigation" id="header">
+  <nav>
+    
+    <h2 id="mnavh"><span class="navicon"></span></h2>
+    <ul id="starlist">
+      <li><a href="/home">首页</a></li>
+      <li><a href="write-article.html">赛事</a></li>
+      <li><a href="share.html">榜单</a></li>
+      <li><a href="list.html">资讯</a></li>
+      <li><a href="time.html">交流区</a></li>
+	  <li><a href="/user">个人中心</a></li>
+    </ul>
+    <div class="searchbox">
+    <div id="search_bar" class="search_bar">
+      <form  id="searchform" action="[!--news.url--]e/search/index.php" method="post" name="searchform">
+        <input class="input" placeholder="想搜点什么呢.." type="text" name="keyboard" id="keyboard">
+        <input type="hidden" name="show" value="title" />
+        <input type="hidden" name="tempid" value="1" />
+        <input type="hidden" name="tbname" value="news">
+        <input type="hidden" name="Submit" value="搜索" />
+        <p class="search_ico"> <span></span></p>
+      </form>
+     </div> 
+    </div>
+  </nav>
+</header>
+<article>
+  <div class="abox">
+  <h2>用户简介</h2>
+  <div class="biji-content" id="content"> 这个人很懒什么也没留下。 </div>
+  <div class="navlist">
+    <ul>
+      <li class="navcurrent"><a href="#top1">基本信息</a> </li>
+      <li> <a href="#top2" >实名认证</a> </li>
+      <li> <a href="#top3" >我的赛事</a> </li>
+
+    </ul>
+  </div>
+  <div class="navtab">
+    <div class="navitem" style="display: block;" name = "top1">
+      <div class="content" id="login">
+        <p>用户名 : [[id]]</p>
+        <p>邮箱 : [[email]]</p>
+
+      </div>
+    </div>
+    <script>
+        var login = new Vue ({
+                  delimiters:['[[',']]'],
+                  el:"#login",
+                  data:{id:"",email:"",} ,
+                  created:function(){
+                          var that=this
+                          axios
+                          .post("http://127.0.0.1:8000/api/usr/data")
+                          .then(function(response){
+                              if(response.data.ret==1){
+                                 alert(response.data.mgr)
+                                };
+                              if(response.data.ret==0){
+                              that.id = response.data.username;
+                              that.email = response.data.useremail;
+                              console.log(that.id);
+                              that.seen = 1;
+                            };
+  
+  
+                          })
+                          .catch(function (error) { // 请求失败处理
+                              console.log(error);
+                          })
+                    }
+        })
+      </script>
+    <div class="navitem" name = "top2">
+      <div class="content">
+        <p class="ab_t">实名认证</p>
+        <p>未实名认证</p>
+        <p>实名认证</p>
+      </div>
+    </div>
+    <div class="navitem" name = "top3">
+      <div class="content">
+        <p class="ab_t">我的赛事</p>
+        <p><a href="http://www.wbyweb.com/news/life/2018-04-27/816.html" target="_blank">1</a></p>
+        <p><a href="http://www.wbyweb.com/news/life/2018-06-17/873.html" target="_blank">2</a></p>
+        <p><a href="http://www.wbyweb.com/jstt/bj/2015-01-09/740.html" target="_blank">3</a></p>
+        <p><a href="http://www.wbyweb.com/jstt/bj/2014-11-06/732.html" target="_blank">4</a></p>
+        <p><a href="http://www.wbyweb.com/news/s/2014-01-08/635.html" target="_blank">5</a></p>
+        <p><a href="http://www.wbyweb.com/jstt/bj/2013-06-18/285.html" target="_blank">6</a></p>
+        <p><a href="http://www.wbyweb.com/news/life/2013-06-06/68.html" target="_blank">7</a></p>
+      </div>
+    </div>
+  </div>
+ </div>
+</article>
+
+</body>
+</html>
