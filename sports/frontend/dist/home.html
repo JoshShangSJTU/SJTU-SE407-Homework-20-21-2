@@ -65,22 +65,29 @@
 
     <div id="login">
       <a class="nav-link text-primary" href="\login">[[message]]</a>
+      <a class="nav-link text-primary" v-show="seen" href="\">个人中心</a>
     </div>
-    
+
   </nav>
   <script>
       var login = new Vue ({
                 delimiters:['[[',']]'],
                 el:"#login",
-                data:{message:"登录",} ,
-                mounted:function(){
-                        
+                data:{message:"登录",seen:false,} ,
+                created:function(){
+                        var that=this
                         axios
                         .post("http://127.0.0.1:8000/api/usr/data")
                         .then(function(response){
-                            
-                            this.message = response;
-                            console.log(this.message);
+                            if(response.data.ret==1){
+                               alert(response.data.mgr)
+                              };
+                            if(response.data.ret==0){
+                            that.message = response.data.username;
+                            console.log(that.message);
+                            that.seen = 1;
+                          };
+
 
                         })
                         .catch(function (error) { // 请求失败处理
