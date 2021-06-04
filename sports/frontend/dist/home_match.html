@@ -61,6 +61,7 @@
         </div>
     </nav>
 
+<!--
     <span class="label" style="transform: translateY(80px);">
         <p>全部</p>
     </span>
@@ -76,6 +77,7 @@
     <span class="label" style="transform: translateY(320px);">
         <p>排球</p>
     </span>
+-->
 
     <div class="backgrd">
         <div class="body-top">
@@ -90,8 +92,8 @@
         <div id="matches" style="text-align: center;">
             <div v-for="mth in matchMessage" class="match-card">
                 <p class="match-bottom"></p>
-                <a v-bind:href="'match-detail/'+mth.比赛编号" class="match-img"></a>
-                <a v-bind:href="'match-detail/'+mth.比赛编号" class="match-text">
+                <a v-bind:href="'match-detail/'+mth.比赛编号+'/'" class="match-img"></a>
+                <a v-bind:href="'match-detail/'+mth.比赛编号+'/'" class="match-text">
                     <span class="match-text-style">
                         <span class="match-name">[[mth.主队队名]]vs[[mth.客队队名]]</span>
                         <span class="match-place">[[mth.比赛地点]]</span>
@@ -100,7 +102,7 @@
                 </a>
                 <span class="match-label">
                     <span class="match-detail" style="margin: 0px 10px;">
-                        <a v-bind:href="'match-detail/'+mth.比赛编号" style="background: #FFFFFF">
+                        <a v-bind:href="'match-detail/'+mth.比赛编号+'/'" style="background: #FFFFFF">
                             详情
                         </a>
                     </span>
