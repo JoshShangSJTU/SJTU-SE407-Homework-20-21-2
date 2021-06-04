@@ -49,6 +49,7 @@ urlpatterns = [
     path('news/detail/', views_news.news_list), # 赛事新闻区子页面
     path('api/mgr/', include('mgr.urls')), # 登录登出
     path('api/usr/', include('usr.urls')), # 注册登录登出
+    url('api/info/', include('splatform.urls')), # 数据榜单
 
     # 接口文档
     re_path(
