@@ -5,28 +5,201 @@
 {% block title %}Edit post{% endblock %}
 
 {% block stylesheet %}
-  <link rel="stylesheet" href="{% static 'css/simplemde.min.css' %}">
+<link rel="stylesheet" href="{% static 'css/simplemde.min.css' %}">
 {% endblock %}
 
 {% block javascript %}
-  <script src="{% static 'js/simplemde.min.js' %}"></script>
-  <script>
-      var simplemde = new SimpleMDE();
-  </script>
+<script src="{% static 'js/simplemde.min.js' %}"></script>
+<script>
+  var simplemde = new SimpleMDE();
+</script>
 {% endblock %}
 
-{% block breadcrumb %} 
-  <li class="breadcrumb-item"><a href="{% url 'home_boards' %}">讨论区</a></li>
-  <li class="breadcrumb-item"><a href="{% url 'board_topics' post.topic.board.pk %}">{{ post.topic.board.name }}</a></li>
-  <li class="breadcrumb-item"><a href="{% url 'topic_posts' post.topic.board.pk post.topic.pk %}">{{ post.topic.subject }}</a></li>
-  <li class="breadcrumb-item active">编辑帖子</li>
+{% block breadcrumb %}
+<li class="breadcb-item"><a href="http://127.0.0.1:8000/talk/">讨论区</a></li>
+<li id="boardName" class="breadcb-item"><a v-bind:href="'http://127.0.0.1:8000/talk/boards/'+boardID">[[boardName]]</a>
+</li>
+<li id="topicSubject" class="breadcb-item"><a href="../../../">[[topicHead]]</a></li>
+<li class="breadcb-item active">
+  <a href="javascript:location.reload();">
+    编辑帖子
+  </a>
+</li>
 {% endblock %}
 
 {% block content %}
-  <form method="POST" class="mb-4" novalidate>
-      {% csrf_token %}
-      {% include 'includes/form.html' %} 
-      <button type="submit" class="btn btn-success">保存修改</button>
-      <a href="{% url 'topic_posts' post.topic.board.pk post.topic.pk %}" class="btn btn-outline-secondary" role="button">取消</a>
-  </form>
+<form method="POST" class="mb-4" novalidate>
+  {% csrf_token %}
+  {% include 'includes/form.html' %}
+  <button type="submit" class="btn btn-success">保存修改</button>
+  <a href="{% url 'topic_posts' post.topic.board.pk post.topic.pk %}" class="btn btn-outline-secondary"
+    role="button">取消</a>
+</form>
+
+<form id="posts" method="POST" class="mb-4" novalidate>
+  <div class="form-group">
+    <label>Message:</label>
+    <textarea v-model="postMessage" cols="40" rows="10" maxlength="4000" class="form-control"></textarea>
+  </div>
+  <a href="../../../" class="btn btn-success" style="background-color: #28a745" role="button"
+    onclick="post.updatePost()">提交修改</a>
+  <a href="../../../" class="btn btn-outline-secondary" role="button">取消</a>
+  <a href="../../../" class="btn btn-danger" style="background-color: #dc3545" role="button"
+    onclick="post.deletePost()">删除回复</a>
+</form>
+<script>
+  var url = window.location.pathname;
+  console.log(url);
+  var pathStart = 13;
+  var boardPath = url[pathStart];
+  while (url[pathStart + 1] != '/') {
+    pathStart++;
+    boardPath += url[pathStart];
+  }
+  console.log(boardPath)
+  pathStart += 9;
+  var topicPath = url[pathStart];
+  while (url[pathStart + 1] != '/') {
+    pathStart++;
+    topicPath += url[pathStart];
+  }
+  console.log(topicPath);
+  pathStart += 8
+  var postID = url[pathStart];
+  while (url[pathStart + 1] != '/') {
+    pathStart++;
+    postID += url[pathStart]
+  }
+  console.log(postID);
+</script>
+<script>
+  var boardNameShow = new Vue({
+    delimiters: ['[[', ']]'],
+    el: '#boardName',
+    data: {
+      boardID: '',
+      boardName: ''
+    },
+    mounted() {
+      var that = this;
+      axios
+        .get("http://127.0.0.1:8000/talk/api/boards/")
+        .then(function (response) {
+          for (i = 0; i < response.data.length; i++) {
+            if (response.data[i].id == boardPath) {
+              that.boardID = response.data[i].id;
+              that.boardName = response.data[i].name;
+              break;
+            }
+          }
+        })
+        .catch(function (error) {
+          console.log(error)
+        })
+    }
+  });
+</script>
+<script>
+  var topicSubjectShow = new Vue({
+    delimiters: ['[[', ']]'],
+    el: '#topicSubject',
+    data: {
+      topicHead: '',
+    },
+    mounted() {
+      var that = this;
+      axios
+        .get("http://127.0.0.1:8000/talk/api/boards/" + boardPath + "/topics/")
+        .then(function (response) {
+          function getK(page) {
+            axios
+              .get("http://127.0.0.1:8000/talk/api/boards/" + boardPath + "/topics/?page=" + page)
+              .then(function (response) {
+                var count = response.data.results.length;
+                for (i = 0; i < count; i++) {
+                  if (response.data.results[i].id == topicPath) {
+                    that.topicHead = response.data.results[i].subject;
+                    return;
+                  }
+                }
+                getK(page + 1);
+              })
+              .catch(function (error) {
+                console.log(error)
+              })
+          }
+          getK(1);
+          console.log(that.topicHead);
+        })
+        .catch(function (error) {
+          console.log(error)
+        })
+    }
+  })
+</script>
+<script>
+  var post = new Vue({
+    delimiters: ['[[', ']]'],
+    el: '#posts',
+    data: {
+      postMessage: ''
+    },
+    methods: {
+      getCookie(name) {
+        let value = '; ' + document.cookie;
+        let parts = value.split('; ' + name + '=');
+        if (parts.length === 2) return parts.pop().split(';').shift()
+      },
+      showMessageChange() {
+        console.log(this.postMessage);
+      },
+      updatePost() {
+        var that = this;
+        axios
+          .patch("http://127.0.0.1:8000/talk/api/boards/" + boardPath + "/topics/" + topicPath + "/posts/" + postID + "/edit/", {
+            message: this.postMessage
+          }, {
+            headers: {
+              'X-CSRFToken': that.getCookie('csrftoken')
+            }
+          })
+          .then(function (response) {
+            console.log("success!")
+          })
+          .catch(function (error) {
+            console.log(error)
+          })
+      },
+      deletePost() {
+        var that = this;
+        axios
+          .delete("http://127.0.0.1:8000/talk/api/boards/" + boardPath + "/topics/" + topicPath + "/posts/" + postID + "/delete/",
+            {
+              headers: {
+                'X-CSRFToken': that.getCookie('csrftoken')
+              }
+            })
+          .then(function (response) {
+            console.log("delete success!")
+          })
+          .catch(function (error) {
+            console.log(error)
+          })
+      }
+    },
+    mounted() {
+      var that = this;
+      axios
+        .get("http://127.0.0.1:8000/talk/api/boards/" + boardPath + "/topics/" + topicPath + "/")
+        .then(function (response) {
+          var allPostMessage = response.data;
+          for (i = 0; i < allPostMessage.length; i++) {
+            if (allPostMessage[i].id == postID)
+              that.postMessage = allPostMessage[i].message;
+          } console.log(that.postMessage)
+        }).catch(function (error) {
+          console.log(error)
+        })
+    }
+  })</script>
 {% endblock %}

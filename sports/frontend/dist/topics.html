@@ -3,56 +3,217 @@
 {% load humanize %}
 
 {% block title%}
-    {{board.name}}-{{block.super}}
+{{board.name}}-{{block.super}}
 {% endblock %}
 
 {% block breadcrumb %}
-    <li class="breadcrumb-item"><a href="{% url 'home_boards' %}">讨论区</a></li>
-    <li class="breadcrumb-item active">{{ board.name }}</li>
+<li class="breadcb-item"><a href="../../">讨论区</a></li>
+<li id="boardName" class="breadcb-item active">
+    <a href="javascript:location.reload();">
+        [[boardName]]
+    </a>
+</li>
 {% endblock %}
 
 {% block content %}
-    <div class="mb-4">
-        <a href="{% url 'new_topic' board.pk %}" class="btn btn-primary">发起新话题</a>
-    </div>
-    
-    <table class="table table-striped mb-4">
-        <thead class="thead-inverse">
-            <tr>
-                <th>话题</th>
-                <th>发起人</th>
-                <th>回复</th>
-                <th>浏览次数</th>
-                <th>最近一次更新</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for topic in topics %}
-                {% url 'topic_posts' board.pk topic.pk as topic_url %}
-                <tr>
-                    <td>
-                        <p class="mb-0">
-                            <a href="{{ topic_url }}">{{ topic.subject }}</a>
-                        </p>
-                        <small class="text-muted">
-                            Pages:
-                            {% for i in topic.get_page_range %}
-                              <a href="{{ topic_url }}?page={{ i }}">{{ i }}</a>
-                            {% endfor %}
-                            {% if topic.has_many_pages %}
-                            ...<a href="{{ topic_url }}?page={{ topic.get_page_count }}">Last Page</a>
-                            {% endif %}
-                        </small>
-                    </td>
-                    <td>{{ topic.starter.username }}</td>
-                    <td>{{ topic.replies }}</td>
-                    <td>{{ topic.views }}</td>
-                    <td>{{ topic.last_updated|naturaltime }}</td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+<div id="button" class="mb-4" style="float: right;">
+    <a id="newTopic" class="btn">发起新话题</a>
+</div>
 
-    {% include 'includes/pagination.html' %}
+<table class="table table-striped mb-4">
+    <thead class="thead-inverse">
+        <tr>
+            <th>话题</th>
+            <th>发起人</th>
+            <th>回复</th>
+            <th>浏览次数</th>
+            <th>最近一次更新</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for topic in topics %}
+        {% url 'topic_posts' board.pk topic.pk as topic_url %}
+        <tr>
+            <td>
+                <p class="mb-0">
+                    <a href="{{ topic_url }}">{{ topic.subject }}</a>
+                </p>
+                <small class="text-muted">
+                    Pages:
+                    {% for i in topic.get_page_range %}
+                    <a href="{{ topic_url }}?page={{ i }}">{{ i }}</a>
+                    {% endfor %}
+                    {% if topic.has_many_pages %}
+                    ...<a href="{{ topic_url }}?page={{ topic.get_page_count }}">Last Page</a>
+                    {% endif %}
+                </small>
+            </td>
+            <td>{{ topic.starter.username }}</td>
+            <td>{{ topic.replies }}</td>
+            <td>{{ topic.views }}</td>
+            <td>{{ topic.last_updated|naturaltime }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<div id="topics">
+    <div class="container" style="margin-bottom: 30px;">
+        <ul v-for="topic in topicMessage" class="list-group">
+            <li class="list-group-item">
+                <div class="clearfix item-topic">
+                    <div class="item-topic-left">
+                        <span class="reply-number">
+                            [[topic.replies]]
+                        </span>
+                    </div>
+                    <div class="item-topic-right">
+                        <div class="clearfix">
+                            <a class="top-title"
+                                v-bind:href="'http://127.0.0.1:8000/talk/boards/'+board+'/topics/'+topic.id">
+                                [[topic.subject]]
+                            </a>
+                            <div class="body-inform">
+                                <span>
+                                    <i class="usr-img"></i>
+                                    <span class="usr-inform">
+                                        [[topic.starter]]
+                                    </span>
+                                </span>
+                                <span>
+                                    <i class="view-img"></i>
+                                    <span class="view-inform">
+                                        [[topic.views]]
+                                    </span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="clearfix topic-right-body">
+                            <div class="body-inform">
+                                <span class="post-date">[[topic.last_updated]]</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="page-bar">
+        <ul>
+            <li v-if="cur!=totalPage"><a v-on:click="cur++,pageClick()">下一页</a></li>
+            <li v-if="cur == totalPage"><a class="banclick">下一页</a></li>
+            <li v-for="index in indexs" v-bind:class="{ 'active': cur == index}">
+                <a v-on:click="btnClick(index)">[[index]]</a>
+            </li>
+
+            <li v-if="cur>1"><a v-on:click="cur--,pageClick()">上一页</a></li>
+            <li v-if="cur==1"><a class="banclick">上一页</a></li>
+        </ul>
+    </div>
+</div>
+<script type="text/javascript">
+    var url = window.location.pathname;
+    document.getElementById("newTopic").href = url + "new/";
+    var pathStart = 13;
+    var boardPath = url[pathStart];
+    while (url[pathStart + 1] != '/') {
+        pathStart++;
+        boardPath += url[pathStart];
+    }
+    console.log(boardPath)
+</script>
+<script>
+    var boardNameShow = new Vue({
+        delimiters: ['[[', ']]'],
+        el: '#boardName',
+        data: {
+            boardName: ''
+        },
+        mounted() {
+            var that = this;
+            axios
+                .get("http://127.0.0.1:8000/talk/api/boards/")
+                .then(function (response) {
+                    for (i = 0; i < response.data.length; i++) {
+                        if (response.data[i].id == boardPath) {
+                            that.boardName = response.data[i].name;
+                            break;
+                        }
+                    }
+                })
+                .catch(function (error) {
+                    console.log(error)
+                })
+        }
+    })
+</script>
+<script>
+    var topic = new Vue({
+        delimiters: ['[[', ']]'],
+        el: '#topics',
+        data: {
+            board: boardPath,
+            cur: 1,
+            totalPage: 0,
+            topicMessage: ''
+        },
+        methods: {
+            getTotalPage() {
+                var that = this;
+                axios
+                    .get("http://127.0.0.1:8000/talk/api/boards/" + boardPath + "/topics/")
+                    .then(function (response) {
+                        that.totalPage = Math.ceil(response.data.count / 4);
+                        console.log(that.totalPage)
+                    })
+                    .catch(function (error) {
+                        console.log(error)
+                    })
+            },
+            getTopicMessage(index) {
+                var that = this;
+                axios
+                    .get("http://127.0.0.1:8000/talk/api/boards/" + boardPath + "/topics/?page=" + index)
+                    .then(function (response) {
+                        that.topicMessage = response.data.results;
+                        console.log(that.topicMessage)
+                    })
+                    .catch(function (error) {
+                        console.log(error)
+                    })
+            },
+            btnClick(data) {
+                var that = this;
+                if (data != that.cur) {
+                    that.cur = data
+                }
+                this.getTopicMessage(that.cur.toString());
+            },
+            pageClick() {
+                var that = this;
+                this.getTopicMessage(that.cur.toString());
+            }
+        },
+        computed: {
+            indexs: function () {
+                var that = this;
+                var left = that.totalPage;
+                var right = 1;
+                var ar = [];
+                while (left >= right) {
+                    ar.push(left);
+                    left--;
+                }
+                return ar
+            }
+        },
+        mounted() {
+            this.getTotalPage();
+            this.getTopicMessage(1);
+        }
+    })
+</script>
+{% block javascript %}{% endblock %}
+
+{% include 'includes/pagination.html' %}
 
 {% endblock %}

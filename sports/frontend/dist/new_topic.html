@@ -8,15 +8,56 @@ Start a New Topic
 {% endblock %}
 
 {% block breadcrumb %}
-    <li class="breadcrumb-item"><a href="{% url 'home_boards' %}">讨论区</a></li>
-    <li class="breadcrumb-item"><a href="{% url 'board_topics' board.pk %}">{{ board.name }}</a></li>
-    <li class="breadcrumb-item active">创建新话题</li>
+<li class="breadcb-item"><a href="../../../">讨论区</a></li>
+<li id="boardName" class="breadcb-item"><a href="../">[[boardName]]</a></li>
+<li class="breadcb-item active">
+    <a href="javascript:location.reload();">
+        创建新话题
+    </a>
+</li>
 {% endblock %}
 
 {% block content %}
 <form method="post" novalidate>
     {% csrf_token %}
-  
+
     {% include 'includes/form.html' %}
     <button type="submit" class="btn btn-success">发帖</button>
+</form>
+
+<script type="text/javascript">
+    var url = window.location.pathname;
+    var pathStart = 13;
+    var boardPath = url[pathStart];
+    while (url[pathStart + 1] != '/') {
+        pathStart++;
+        boardPath += url[pathStart];
+    }
+    console.log(boardPath)
+</script>
+<script>
+    var boardNameShow = new Vue({
+        delimiters: ['[[', ']]'],
+        el: '#boardName',
+        data: {
+            boardName: ''
+        },
+        mounted() {
+            var that = this;
+            axios
+                .get("http://127.0.0.1:8000/talk/api/boards/")
+                .then(function (response) {
+                    for (i = 0; i < response.data.length; i++) {
+                        if (response.data[i].id == boardPath) {
+                            that.boardName = response.data[i].name;
+                            break;
+                        }
+                    }
+                })
+                .catch(function (error) {
+                    console.log(error)
+                })
+        }
+    })
+</script>
 {% endblock %}

@@ -17,6 +17,8 @@
   <script src="{% static 'js/bootstrap.min.js' %}"></script>
   <script src="{% static 'js/jquery.tablesorter.min.js' %}"></script>
   <script src="{% static 'js/home.js' %}"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
 </head>
 
@@ -50,7 +52,7 @@
           <a class="nav-link" href="#">资讯</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'home_boards' %}">交流区</a>
+          <a class="nav-link" href="/../talk">交流区</a>
         </li>
       </ul>
     </div>
@@ -157,7 +159,8 @@
         <div class="row no-gutters">
           <div class="col-md-8">
             <a href="#">
-              <img src="http://5b0988e595225.cdn.sohucs.com/images/20200502/791db1af5862438298d98a7134e598cf.jpeg" class="card-img" alt="...">
+              <img src="http://5b0988e595225.cdn.sohucs.com/images/20200502/791db1af5862438298d98a7134e598cf.jpeg"
+                class="card-img" alt="...">
             </a>
           </div>
 
@@ -177,7 +180,8 @@
         <div class="row no-gutters">
           <div class="col-md-8">
             <a href="#">
-              <img src="https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1161591332,1616831420&fm=11&gp=0.jpg" class="card-img" alt="...">
+              <img src="https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1161591332,1616831420&fm=11&gp=0.jpg"
+                class="card-img" alt="...">
             </a>
           </div>
 
@@ -416,57 +420,94 @@
 
   <!--主体四，说明同主体三-->
   <div id="section4">
-    <h1 class="font-weight-bold text-center"><a href="{% url 'home_boards' %}">赛事讨论区</a></h1>
+    <h1 class="font-weight-bold text-center" style="margin-bottom: 0;">赛事讨论区</h1>
+    <div class="container" style="text-align: right;">
+      <a href="/../talk" class="btn more">
+        全部讨论区 &gt
+      </a>
+    </div>
     <hr class="style1" />
-    <div class="container">
-      <div class="container">
-        <ol class="breadcrumb my-4">
-          <li class="breadcrumb-item active">讨论区</li>
-        </ol>
-        <table class="table">
-          <thead class="thead-inverse">
-              <tr>
-                  <th>分区</th>
-                  <th>帖子</th>
-                  <th>话题</th>
-                  <th>最近一次发帖</th>
-              </tr>
-          </thead>
-          <tbody>
-              {% for board in boards %}
-              <tr>
-                  <td>
-                      <a href="{% url 'board_topics' board.pk %}">{{ board.name }}</a>
-                      <small class="text-muted d-block">{{board.description}}</small>
-                  </td>
-                  <td class="align-middle">
-                      {{ board.get_posts_count }}
-                  </td>
-                  <td class="align-middle">
-                      {{ board.topics.count }}
-                  </td>
-                  <td class="align-middle">
-                      {% with post=board.get_last_post %}
-                        {% if post %}
-                          <small>
-                              <a href="{% url 'topic_posts' board.pk post.topic.pk %}">
-                                  By {{ post.created_by.username }} at {{ post.created_at }}
-                              </a>
-                          </small>
-                        {% else %}
-                          <small class="text-muted">
-                              <em>这里空空如也~</em>
-                          </small>
-                        {% endif %}
-                      {% endwith %}
-                  </td>
-              </tr>
-              {% endfor %}
-          </tbody>
-      </table>
+    <div id="boards-inform" class="container" style="margin-bottom: 30px;">
+      <ul class="list-group">
+        <li v-for="boards in boardMessage" class="list-group-item">
+          <div class="item-board clearfix">
+            <a v-bind:href="'http://127.0.0.1:8000/talk/boards/'+boards.id" class="board-img">
+              <img src="{% static 'img/boards.jpg' %}" width="95" height="95">
+            </a>
+            <div class="board-information">
+              <a v-bind:href="'http://127.0.0.1:8000/talk/boards/'+boards.id">[[boards.name]]</a>
+              <p class="board-description">
+                [[boards.description]]
+              </p>
+              <small v-for="(count, index) in topicCount" class="board-topic">
+                <span v-if="index == boards.id-1">[[count]]</span>
+              </small>
+            </div>
+            <div v-for="(lastupdated, index) in topicMessage" class="board-recent">
+              <span v-if="index == boards.id-1">
+                <small v-if="lastupdated!=null">最近一次发帖:[[lastupdated]]</small>
+                <small v-else>这里空空如也~</small>
+              </span>
+            </div>
+          </div>
+        </li>
+      </ul>
     </div>
   </div>
   <br>
 </body>
+
+<script>
+  var boards = new Vue({
+    delimiters: ['[[', ']]'],
+    el: '#boards-inform',
+    data: {
+      boardMessage: '',
+      boardCount: 0,
+      topicMessage: new Array(),
+      topicCount: new Array()
+    },
+    mounted() {
+      var that = this;
+      axios
+        .get("http://127.0.0.1:8000/talk/api/boards/")
+        .then(function (response) {
+          var boards = response.data;
+          that.boardCount = boards.length;
+          console.log("讨论区数：" + that.boardCount);
+          if (that.boardCount != 0) {
+            that.boardMessage = response.data;
+            console.log(that.boardMessage);
+          }
+          function getK(i) {
+            axios
+              .get("http://127.0.0.1:8000/talk/api/boards/" + (i + 1) + "/topics/")
+              .then(function (response) {
+                var count = response.data.count;
+                that.topicCount.push(count);
+                if (that.topicCount[i] != 0) {
+                  that.topicMessage.push(response.data.results[0].last_updated);
+                  console.log(that.topicMessage[i]);
+                }
+                else {
+                  that.topicMessage.push(null);
+                }
+                console.log(that.topicCount[i]);
+                if (i < that.boardCount - 1) {
+                  getK(i + 1);
+                }
+              })
+              .catch(function (error) {
+                console.log(error)
+              })
+          }
+          getK(0);
+        })
+        .catch(function (error) {
+          console.log(error)
+        })
+    }
+  });
+</script>
 
 </html>

@@ -1,49 +1,134 @@
 {% extends 'base_boards.html' %}
 
+{% load static %}
 {% block breadcrumb %}
-    <li class="breadcrumb-item active">讨论区</li>
+<li class="breadcb-item active">
+    <a href="javascript:location.reload();">
+        讨论区
+    </a>
+</li>
 {% endblock %}
 
 {% block content %}
-    <table class="table">
-        <thead class="thead-inverse">
-            <tr>
-                <th>分区</th>
-                <th>帖子</th>
-                <th>话题</th>
-                <th>最近一次发帖</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for board in boards %}
-            <tr>
-                <td>
-                    <a href="{% url 'board_topics' board.pk %}">{{ board.name }}</a>
-                    <small class="text-muted d-block">{{board.description}}</small>
-                </td>
-                <td class="align-middle">
-                    {{ board.get_posts_count }}
-                </td>
-                <td class="align-middle">
-                    {{ board.topics.count }}
-                </td>
-                <td class="align-middle">
-                    {% with post=board.get_last_post %}
-                      {% if post %}
-                        <small>
-                            <a href="{% url 'topic_posts' board.pk post.topic.pk %}">
-                                By {{ post.created_by.username }} at {{ post.created_at }}
-                            </a>
-                        </small>
-                      {% else %}
-                        <small class="text-muted">
-                            <em>这里空空如也~</em>
-                        </small>
-                      {% endif %}
-                    {% endwith %}
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+<table class="table">
+    <thead class="thead-inverse">
+        <tr>
+            <th>分区</th>
+            <th>帖子</th>
+            <th>话题</th>
+            <th>最近一次发帖</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for board in boards %}
+        <tr>
+            <td>
+                <a href="{% url 'board_topics' board.pk %}">{{ board.name }}</a>
+                <small class="text-muted d-block">{{board.description}}</small>
+            </td>
+            <td class="align-middle">
+                {{ board.get_posts_count }}
+            </td>
+            <td class="align-middle">
+                {{ board.topics.count }}
+            </td>
+            <td class="align-middle">
+                {% with post=board.get_last_post %}
+                {% if post %}
+                <small>
+                    <a href="{% url 'topic_posts' board.pk post.topic.pk %}">
+                        By {{ post.created_by.username }} at {{ post.created_at }}
+                    </a>
+                </small>
+                {% else %}
+                <small class="text-muted">
+                    <em>这里空空如也~</em>
+                </small>
+                {% endif %}
+                {% endwith %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<div id="boards-inform" style="margin-bottom: 30px;">
+    <ul class="list-group">
+        <li v-for="boards in boardMessage" class="list-group-item">
+            <div class="item-board clearfix">
+                <a v-bind:href="'http://127.0.0.1:8000/talk/boards/'+boards.id" class="board-img">
+                    <img src="{% static 'img/boards.jpg' %}" width="95" height="95">
+                </a>
+                <div class="board-information">
+                    <a v-bind:href="'http://127.0.0.1:8000/talk/boards/'+boards.id">[[boards.name]]</a>
+                    <p class="board-description">
+                        [[boards.description]]
+                    </p>
+                    <small v-for="(count, index) in topicCount" class="board-topic">
+                        <span v-if="index == boards.id-1">[[count]]</span>
+                    </small>
+                </div>
+                <div v-for="(lastupdated, index) in topicMessage" class="board-recent">
+                    <span v-if="index == boards.id-1">
+                        <small v-if="lastupdated!=null">最近一次发帖:[[lastupdated]]</small>
+                        <small v-else>这里空空如也~</small>
+                    </span>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>
+
+<script type="text/javascript">
+    var boards = new Vue({
+        delimiters: ['[[', ']]'],
+        el: '#boards-inform',
+        data: {
+            boardMessage: '',
+            boardCount: 0,
+            topicMessage: new Array(),
+            topicCount: new Array()
+        },
+        mounted() {
+            var that = this;
+            axios
+                .get("http://127.0.0.1:8000/talk/api/boards/")      //第一次请求获取讨论区的信息
+                .then(function (response) {
+                    var boards = response.data;
+                    that.boardCount = boards.length;                //计算讨论区的个数，保存到boardCount
+                    console.log("讨论区数：" + that.boardCount);    //检查得到的讨论区个数
+                    if (that.boardCount != 0) {
+                        that.boardMessage = response.data;          //保存讨论区信息到boardMessage
+                        console.log(that.boardMessage);             //检查得到的讨论区信息
+                    }
+                    function getK(i) {                                                              //定义方法，请求第i个讨论区中帖子的信息
+                        axios
+                            .get("http://127.0.0.1:8000/talk/api/boards/" + (i + 1) + "/topics/")
+                            .then(function (response) {
+                                var count = response.data.count;
+                                that.topicCount.push(count);                                 //计算帖子数量，保存到topicCount[i]
+                                if (that.topicCount[i] != 0) {
+                                    that.topicMessage.push(response.data.results[0].last_updated);           //获取最新一个帖子的信息,保存到topicMessage[i]
+                                    console.log(that.topicMessage[i]);                              //检查得到的帖子信息
+                                }
+                                else {
+                                    that.topicMessage.push(null);
+                                }
+                                console.log(that.topicCount[i]);                                    //检查得到的帖子数量
+                                if (i < that.boardCount - 1) {                                      //如果i小于讨论区个数，递归，请求下一个讨论区中帖子信息
+                                    getK(i + 1);
+                                }
+                            })
+                            .catch(function (error) {
+                                console.log(error)
+                            })
+                    }
+                    getK(0);                                                                        //调用上面定义的方法，从第一个讨论区开始请求
+                })
+                .catch(function (error) {
+                    console.log(error)
+                })
+        }
+    });
+</script>
 {% endblock %}
