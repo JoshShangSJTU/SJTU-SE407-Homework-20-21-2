@@ -26,7 +26,7 @@ SECRET_KEY = 'y5l6nw==^re-wdenz2jh6cni!7)&@1s&ll1u%8+3l-#%j7#^#f'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -139,5 +139,7 @@ STATIC_URL = '/static/'
 
 # 静态文件的搜索路径
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "frontend/dist/static")
-]
+    os.path.join(BASE_DIR, "frontend/dist/static")]
+
+# 静态文件的收集路径
+STATIC_ROOT = os.path.join(BASE_DIR, 'collected_static')
