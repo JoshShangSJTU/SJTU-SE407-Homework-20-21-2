@@ -26,7 +26,9 @@
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar1">
             <span class="navbar-toggler-icon"></span>
         </button>
-
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
         <!--导航栏选项（按钮内）-->
         <div class="collapse navbar-collapse" id="navbar1">
             <ul class="navbar-nav">
@@ -56,8 +58,9 @@
             </form>
         </div>
 
-        <div>
-            <a class="nav-link text-primary" href="login">登录</a>
+        <div id="login">
+            <a class="nav-link text-primary" href="\login">[[message]]</a>
+            <a class="nav-link text-primary" v-show="seen" href="\user">个人中心</a>
         </div>
     </nav>
 
@@ -77,8 +80,34 @@
     <span class="label" style="transform: translateY(320px);">
         <p>排球</p>
     </span>
--->
+-->   
+    <script>
+      var login = new Vue({
+      delimiters: ['[[', ']]'],
+      el: "#login",
+      data: { message: "登录", seen: false, },
+      created: function () {
+        var that = this
+        axios
+          .post("http://127.0.0.1:8000/api/usr/data")
+          .then(function (response) {
+            if (response.data.ret == 1) {
+              alert(response.data.msg)
+            };
+            if (response.data.ret == 0) {
+              that.message = response.data.username;
+              console.log(that.message);
+              that.seen = 1;
+            };
 
+
+          })
+          .catch(function (error) { // 请求失败处理
+            console.log(error);
+          })
+      }
+    })
+    </script>
     <div class="backgrd">
         <div class="body-top">
             <b>赛 事 信 息 列 表</b>
