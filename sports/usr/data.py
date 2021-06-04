@@ -8,14 +8,12 @@ def data(request):
     if 'usertype' not in request.session:
         return JsonResponse({'ret': 1,'msg': '未登录'})
     else:
-        userName=HttpRequest.user.get_username()
-        userEmail=HttpRequest.user.get_useremail()
         return JsonResponse(
             {
                 'ret':0,
                 'usertype': request.session['usertype'],
-                'username': userName,
-                'useremail': userEmail
+                'username': request.user.username,
+                'useremail': request.user.email
             }
         )
     
