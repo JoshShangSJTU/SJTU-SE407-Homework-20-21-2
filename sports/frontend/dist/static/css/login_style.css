@@ -53,6 +53,7 @@ body{
     transition: 0.25s;
 }
 .content input[type="submit"]{
+    margin-top: 20px;
 	width: 150px;
 	height: 40px;
 	border-radius: 24px;
@@ -62,7 +63,7 @@ body{
 	cursor: pointer;
     outline: none;
 	letter-spacing: 4px;
-	margin-bottom: 20px;
+	margin-bottom: 10px;
 }
 .active{
 	background: black;
