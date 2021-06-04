@@ -186,7 +186,7 @@
     <table class="table table-hover tablesorter" id="table1">
       <thead class="thead-light">
         <tr>
-          <th scope="row" class="header">#</th>
+          <th scope="row" class="header">排名</th>
           <th scope="row" class="header">球员</th>
           <th scope="row" class="header">进球数</th>
         </tr>
@@ -194,110 +194,130 @@
       <tbody>
         <tr>
           <td>1</td>
-          <td>{{name1}}</td>
-          <td>{{goal1}}</td>
+          <td>[[name1]]</td>
+          <td>[[goal1]]</td>
 
         </tr>
         <tr>
           <td>2</td>
-          <td>{{name2}}</td>
-          <td>{{goal2}}</td>
+          <td>[[name2]]</td>
+          <td>[[goal2]]</td>
 
         </tr>
         <tr>
           <td>3</td>
-          <td>{{name3}}</td>
-          <td>{{goal3}}</td>
+          <td>[[name3]]</td>
+          <td>[[goal3]]</td>
 
         </tr>
         <tr>
           <td>4</td>
-          <td>{{name4}}</td>
-          <td>{{goal4}}</td>
+          <td>[[name4]]</td>
+          <td>[[goal4]]</td>
 
         </tr>
         <tr>
           <td>5</td>
-          <td>{{name5}}</td>
-          <td>{{goal5}}</td>
+          <td>[[name5]]</td>
+          <td>[[goal5]]</td>
+
+        </tr>
+        <tr>
+          <td>6</td>
+          <td>[[name6]]</td>
+          <td>[[goal6]]</td>
+
+        </tr>
+        <tr>
+          <td>7</td>
+          <td>[[name7]]</td>
+          <td>[[goal7]]</td>
+
+        </tr>
+        <tr>
+          <td>8</td>
+          <td>[[name8]]</td>
+          <td>[[goal8]]</td>
+
+        </tr>
+        <tr>
+          <td>9</td>
+          <td>[[name9]]</td>
+          <td>[[goal9]]</td>
+
+        </tr>
+        <tr>
+          <td>10</td>
+          <td>[[name10]]</td>
+          <td>[[goal10]]</td>
 
         </tr>
       </tbody>
     </table>
   </div>
+  <script>
+    var section2=new Vue({
+                  delimiters:['[[',']]'],
+                  el:"#section2",
+                  data:{
+                    name1:"",
+                    goal1:"",
+                    name2:"",
+                    goal2:"",
+                    name3:"",
+                    goal3:"",
+                    name4:"",
+                    goal4:"",
+                    name5:"",
+                    goal5:"",
+                    name6:"",
+                    goal6:"",
+                    name7:"",
+                    goal7:"",
+                    name8:"",
+                    goal8:"",
+                    name9:"",
+                    goal9:"",
+                    name10:"",
+                    goal10:"",
+                  } ,
+                  created:function(){
+                          var that=this
+                          axios
+                          .get("get http://127.0.0.1:8000/api/info/goal_list")
+                          .then(function(response){
+                              console.log(response.data);
+                              that.name1 = response.data[0].player_name;
+                              that.goal1 = response.data[0].goal;
+                              that.name2 = response.data[1].player_name;
+                              that.goal2 = response.data[1].goal;
+                              that.name3 = response.data[2].player_name;
+                              that.goal3 = response.data[2].goal;
+                              that.name4 = response.data[3].player_name;
+                              that.goal4 = response.data[3].goal;
+                              that.name5 = response.data[4].player_name;
+                              that.goal5 = response.data[4].goal;
+                              that.name6 = response.data[5].player_name;
+                              that.goal6 = response.data[5].goal;
+                              that.name7 = response.data[6].player_name;
+                              that.goal7 = response.data[6].goal;
+                              that.name8 = response.data[7].player_name;
+                              that.goal8 = response.data[7].goal;
+                              that.name9 = response.data[8].player_name;
+                              that.goal9 = response.data[8].goal;
+                              that.name10 = response.data[9].player_name;
+                              that.goal10 = response.data[9].goal;
+  
+                          })
+                          .catch(function (error) { // 请求失败处理
+                              console.log(error);
+                          })
+                    }
+            })
+  </script>
+
 
   <!--主体三，当前内容用于测试滚动监听效果用，后续可添加实际内容-->
-  <div id="section3">
-    <h1 class="font-weight-bold text-center">赛事资讯</h1>
-    <div class="container" style="text-align: right;">
-      <a href="#" target="_blank" class="btn more">
-        更多
-      </a>
-    </div>
-    <hr class="style1" />
-    <div style="text-align: center;" id="news">
-      <div class="card mb-3">
-        <div class="row no-gutters">
-          <div class="col-md-10">
-            <div class="card-body">
-              <a href="#">
-                <h5 class="card-title">震惊！</h5>
-              </a>
-              <p class="card-text">内容</p>
-              <p class="card-text" style="text-align: right;">
-                <small class="text-muted">xxxx/xx/xx</small>
-              </p>
-            </div>
-
-            <div class="col-md-2">
-              <img src="..." class="card-img" alt="...">
-            </div>
-          </div>
-        </div>
-        <hr class="style2" />
-        <div class="card mb-3">
-          <div class="row no-gutters">
-            <div class="col-md-10">
-              <div class="card-body">
-                <a href="#">
-                  <h5 class="card-title">标题</h5>
-                </a>
-                <p class="card-text">内容</p>
-                <p class="card-text" style="text-align: right;">
-                  <small class="text-muted">xxxx/xx/xx</small>
-                </p>
-              </div>
-            </div>
-
-            <div class="col-md-2">
-              <img src="..." class="card-img" alt="...">
-            </div>
-          </div>
-        </div>
-        <hr class="style2" />
-        <div class="card mb-3">
-          <div class="row no-gutters">
-            <div class="col-md-10">
-              <div class="card-body">
-                <a href="#">
-                  <h5 class="card-title">标题</h5>
-                </a>
-                <p class="card-text">内容</p>
-                <p class="card-text" style="text-align: right;">
-                  <small class="text-muted">xxxx/xx/xx</small>
-                </p>
-              </div>
-            </div>
-
-            <div class="col-md-2">
-              <img src="..." class="card-img" alt="...">
-            </div>
-          </div>
-        </div>
-        <hr class="style2" />
-      </div>
-    </div>
-  </div>
 
   <!--主体四，说明同主体三-->
   <div id="section4">
