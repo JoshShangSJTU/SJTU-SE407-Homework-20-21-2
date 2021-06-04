@@ -7,17 +7,17 @@
 {% endblock %}
 
 {% block breadcrumb %}
-<li class="breadcb-item"><a href="{% url 'home_boards' %}">讨论区</a></li>
-<li class="breadcb-item active">
+<li class="breadcb-item"><a href="../../">讨论区</a></li>
+<li id="boardName" class="breadcb-item active">
     <a href="javascript:location.reload();">
-        {{ board.name }}
+        [[boardName]]
     </a>
 </li>
 {% endblock %}
 
 {% block content %}
 <div id="button" class="mb-4" style="float: right;">
-    <a href="{% url 'new_topic' board.pk %}" class="btn">发起新话题</a>
+    <a id="newTopic" class="btn">发起新话题</a>
 </div>
 
 <table class="table table-striped mb-4">
@@ -99,18 +99,20 @@
     </div>
     <div class="page-bar">
         <ul>
-            <li v-if="cur>1"><a v-on:click="cur--,pageClick()">上一页</a></li>
-            <li v-if="cur==1"><a class="banclick">上一页</a></li>
+            <li v-if="cur!=totalPage"><a v-on:click="cur++,pageClick()">下一页</a></li>
+            <li v-if="cur == totalPage"><a class="banclick">下一页</a></li>
             <li v-for="index in indexs" v-bind:class="{ 'active': cur == index}">
                 <a v-on:click="btnClick(index)">[[index]]</a>
             </li>
-            <li v-if="cur!=totalPage"><a v-on:click="cur++,pageClick()">下一页</a></li>
-            <li v-if="cur == totalPage"><a class="banclick">下一页</a></li>
+
+            <li v-if="cur>1"><a v-on:click="cur--,pageClick()">上一页</a></li>
+            <li v-if="cur==1"><a class="banclick">上一页</a></li>
         </ul>
     </div>
 </div>
 <script type="text/javascript">
     var url = window.location.pathname;
+    document.getElementById("newTopic").href = url + "new/";
     var pathStart = 13;
     var boardPath = url[pathStart];
     while (url[pathStart + 1] != '/') {
@@ -118,6 +120,33 @@
         boardPath += url[pathStart];
     }
     console.log(boardPath)
+</script>
+<script>
+    var boardNameShow = new Vue({
+        delimiters: ['[[', ']]'],
+        el: '#boardName',
+        data: {
+            boardName: ''
+        },
+        mounted() {
+            var that = this;
+            axios
+                .get("http://127.0.0.1:8000/talk/api/boards/")
+                .then(function (response) {
+                    for (i = 0; i < response.data.length; i++) {
+                        if (response.data[i].id == boardPath) {
+                            that.boardName = response.data[i].name;
+                            break;
+                        }
+                    }
+                })
+                .catch(function (error) {
+                    console.log(error)
+                })
+        }
+    })
+</script>
+<script>
     var topic = new Vue({
         delimiters: ['[[', ']]'],
         el: '#topics',
@@ -167,12 +196,12 @@
         computed: {
             indexs: function () {
                 var that = this;
-                var left = 1;
-                var right = that.totalPage;
+                var left = that.totalPage;
+                var right = 1;
                 var ar = [];
-                while (left <= right) {
-                    ar.push(left)
-                    left++
+                while (left >= right) {
+                    ar.push(left);
+                    left--;
                 }
                 return ar
             }

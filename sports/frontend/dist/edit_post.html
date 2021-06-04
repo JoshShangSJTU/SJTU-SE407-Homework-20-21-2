@@ -16,10 +16,10 @@
 {% endblock %}
 
 {% block breadcrumb %}
-<li class="breadcb-item"><a href="{% url 'home_boards' %}">讨论区</a></li>
-<li class="breadcb-item"><a href="{% url 'board_topics' post.topic.board.pk %}">{{ post.topic.board.name }}</a></li>
-<li class="breadcb-item"><a href="{% url 'topic_posts' post.topic.board.pk post.topic.pk %}">{{ post.topic.subject
-    }}</a></li>
+<li class="breadcb-item"><a href="http://127.0.0.1:8000/talk/">讨论区</a></li>
+<li id="boardName" class="breadcb-item"><a v-bind:href="'http://127.0.0.1:8000/talk/boards/'+boardID">[[boardName]]</a>
+</li>
+<li id="topicSubject" class="breadcb-item"><a href="../../../">[[topicHead]]</a></li>
 <li class="breadcb-item active">
   <a href="javascript:location.reload();">
     编辑帖子
@@ -71,6 +71,73 @@
     postID += url[pathStart]
   }
   console.log(postID);
+</script>
+<script>
+  var boardNameShow = new Vue({
+    delimiters: ['[[', ']]'],
+    el: '#boardName',
+    data: {
+      boardID: '',
+      boardName: ''
+    },
+    mounted() {
+      var that = this;
+      axios
+        .get("http://127.0.0.1:8000/talk/api/boards/")
+        .then(function (response) {
+          for (i = 0; i < response.data.length; i++) {
+            if (response.data[i].id == boardPath) {
+              that.boardID = response.data[i].id;
+              that.boardName = response.data[i].name;
+              break;
+            }
+          }
+        })
+        .catch(function (error) {
+          console.log(error)
+        })
+    }
+  });
+</script>
+<script>
+  var topicSubjectShow = new Vue({
+    delimiters: ['[[', ']]'],
+    el: '#topicSubject',
+    data: {
+      topicHead: '',
+    },
+    mounted() {
+      var that = this;
+      axios
+        .get("http://127.0.0.1:8000/talk/api/boards/" + boardPath + "/topics/")
+        .then(function (response) {
+          function getK(page) {
+            axios
+              .get("http://127.0.0.1:8000/talk/api/boards/" + boardPath + "/topics/?page=" + page)
+              .then(function (response) {
+                var count = response.data.results.length;
+                for (i = 0; i < count; i++) {
+                  if (response.data.results[i].id == topicPath) {
+                    that.topicHead = response.data.results[i].subject;
+                    return;
+                  }
+                }
+                getK(page + 1);
+              })
+              .catch(function (error) {
+                console.log(error)
+              })
+          }
+          getK(1);
+          console.log(that.topicHead);
+        })
+        .catch(function (error) {
+          console.log(error)
+        })
+    }
+  })
+</script>
+<script>
   var post = new Vue({
     delimiters: ['[[', ']]'],
     el: '#posts',
@@ -89,7 +156,9 @@
       updatePost() {
         var that = this;
         axios
-          .patch("http://127.0.0.1:8000/talk/api/boards/" + boardPath + "/topics/" + topicPath + "/posts/" + postID + "/edit/", { message: this.postMessage }, {
+          .patch("http://127.0.0.1:8000/talk/api/boards/" + boardPath + "/topics/" + topicPath + "/posts/" + postID + "/edit/", {
+            message: this.postMessage
+          }, {
             headers: {
               'X-CSRFToken': that.getCookie('csrftoken')
             }
@@ -104,11 +173,12 @@
       deletePost() {
         var that = this;
         axios
-          .delete("http://127.0.0.1:8000/talk/api/boards/" + boardPath + "/topics/" + topicPath + "/posts/" + postID + "/delete/", {
-            headers: {
-              'X-CSRFToken': that.getCookie('csrftoken')
-            }
-          })
+          .delete("http://127.0.0.1:8000/talk/api/boards/" + boardPath + "/topics/" + topicPath + "/posts/" + postID + "/delete/",
+            {
+              headers: {
+                'X-CSRFToken': that.getCookie('csrftoken')
+              }
+            })
           .then(function (response) {
             console.log("delete success!")
           })
@@ -126,13 +196,10 @@
           for (i = 0; i < allPostMessage.length; i++) {
             if (allPostMessage[i].id == postID)
               that.postMessage = allPostMessage[i].message;
-          }
-          console.log(that.postMessage)
-        })
-        .catch(function (error) {
+          } console.log(that.postMessage)
+        }).catch(function (error) {
           console.log(error)
         })
     }
-  })
-</script>
+  })</script>
 {% endblock %}

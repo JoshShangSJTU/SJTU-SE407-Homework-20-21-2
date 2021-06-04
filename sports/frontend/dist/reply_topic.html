@@ -16,9 +16,9 @@
 {% endblock %}
 
 {% block breadcrumb %}
-<li class="breadcb-item"><a href="{% url 'home_boards' %}">讨论区</a></li>
-<li class="breadcb-item"><a href="{% url 'board_topics' topic.board.pk %}">{{ topic.board.name }}</a></li>
-<li class="breadcb-item"><a href="{% url 'topic_posts' topic.board.pk topic.pk %}">{{ topic.subject }}</a></li>
+<li class="breadcb-item"><a href="http://127.0.0.1:8000/talk/">讨论区</a></li>
+<li id="boardName" class="breadcb-item"><a href="../../../">[[boardName]]</a></li>
+<li id="topicSubject" class="breadcb-item"><a href="../">[[topicHead]]</a></li>
 <li class="breadcb-item active">
   <a href="javascript:location.reload();">
     回复
@@ -65,8 +65,86 @@
 </div>
 <script>
   var url = window.location.pathname;
-  var boardPath = url[url.length - 17];
-  var topicPath = url[url.length - 8];
+  console.log(url);
+  var pathStart = 13;
+  var boardPath = url[pathStart];
+  while (url[pathStart + 1] != '/') {
+    pathStart++;
+    boardPath += url[pathStart];
+  }
+  console.log(boardPath);
+  pathStart += 9;
+  var topicPath = url[pathStart];
+  while (url[pathStart + 1] != '/') {
+    pathStart++;
+    topicPath += url[pathStart];
+  }
+  console.log(topicPath);
+</script>
+<script>
+  var boardNameShow = new Vue({
+    delimiters: ['[[', ']]'],
+    el: '#boardName',
+    data: {
+      boardName: ''
+    },
+    mounted() {
+      var that = this;
+      axios
+        .get("http://127.0.0.1:8000/talk/api/boards/")
+        .then(function (response) {
+          for (i = 0; i < response.data.length; i++) {
+            if (response.data[i].id == boardPath) {
+              that.boardName = response.data[i].name;
+              break;
+            }
+          }
+        })
+        .catch(function (error) {
+          console.log(error)
+        })
+    }
+  });
+</script>
+<script>
+  var topicSubjectShow = new Vue({
+    delimiters: ['[[', ']]'],
+    el: '#topicSubject',
+    data: {
+      topicHead: '',
+    },
+    mounted() {
+      var that = this;
+      axios
+        .get("http://127.0.0.1:8000/talk/api/boards/" + boardPath + "/topics/")
+        .then(function (response) {
+          function getK(page) {
+            axios
+              .get("http://127.0.0.1:8000/talk/api/boards/" + boardPath + "/topics/?page=" + page)
+              .then(function (response) {
+                var count = response.data.results.length;
+                for (i = 0; i < count; i++) {
+                  if (response.data.results[i].id == topicPath) {
+                    that.topicHead = response.data.results[i].subject;
+                    return;
+                  }
+                }
+                getK(page + 1);
+              })
+              .catch(function (error) {
+                console.log(error)
+              })
+          }
+          getK(1);
+          console.log(that.topicHead);
+        })
+        .catch(function (error) {
+          console.log(error)
+        })
+    }
+  })
+</script>
+<script>
   var post = new Vue({
     delimiters: ['[[', ']]'],
     el: '#posts',
