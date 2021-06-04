@@ -473,7 +473,8 @@ b{
     width: 114px;
     height: 114px;
     border-radius: 50%;
-    background: #fafafc
+    background: url(../img/player.jpg);
+    background-size: 114px, 114px;
 }
 
 .usr-name{
