@@ -82,7 +82,7 @@
                         .post("http://127.0.0.1:8000/api/usr/data")
                         .then(function(response){
                             if(response.data.ret==1){
-                               alert(response.data.mgr)
+                               alert(response.data.msg)
                               };
                             if(response.data.ret==0){
                             that.message = response.data.username;
