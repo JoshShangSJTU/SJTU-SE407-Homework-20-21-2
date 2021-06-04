@@ -76,3 +76,7 @@ class Package(models.Model):
     
     def clear():
         Package.objects.all().delete()
+
+    def refresh():
+        Package.clear()
+        Package.init()

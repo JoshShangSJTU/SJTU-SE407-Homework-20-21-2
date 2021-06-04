@@ -25,7 +25,7 @@ count() 方法用于查询数据的数量，返回的数据是整数
 '''
 def Homedata(request,page):  #向赛事信息列表发送数据的视图
     
-    Package.init()
+    Package.refresh()
 
     page=int(page)
     package=[]
