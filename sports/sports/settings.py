@@ -136,5 +136,7 @@ STATIC_URL = '/static/'
 
 # 静态文件的搜索路径
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "frontend/dist/static")
-]
+    os.path.join(BASE_DIR, "frontend/dist/static")]
+
+# 静态文件的收集路径
+STATIC_ROOT = os.path.join(BASE_DIR, 'collected_static')
