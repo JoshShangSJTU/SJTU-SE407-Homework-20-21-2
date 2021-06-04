@@ -396,6 +396,7 @@
       matchMessage: ''
     },
     mounted() {
+      var that = this
       axios
         .get("http://127.0.0.1:8000/matchinfo/api/homedata/1/")
         .then(function (response) {
