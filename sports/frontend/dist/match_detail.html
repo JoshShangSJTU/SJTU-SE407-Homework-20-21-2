@@ -255,10 +255,10 @@
                 .then(function (response) {
                     that.teamMessageLeft = response.data.主队信息;
                     that.playerMessageLeft = response.data.主队信息.队员表;
-                    console.log(that.playerMessageLeft.length);
                     that.teamMessageRight = response.data.客队信息;
                     that.playerMessageRight = response.data.客队信息.队员表;
                     that.matchMessage = response.data.比赛信息;
+                    console.log(that.teamMessageLeft);
                     var time = '';
                     for (j = 0; j < 3; j++) {
                         if (j == 0) {
