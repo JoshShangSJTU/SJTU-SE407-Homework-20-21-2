@@ -28,13 +28,6 @@
 {% endblock %}
 
 {% block content %}
-<form method="POST" class="mb-4" novalidate>
-  {% csrf_token %}
-  {% include 'includes/form.html' %}
-  <button type="submit" class="btn btn-success">保存修改</button>
-  <a href="{% url 'topic_posts' post.topic.board.pk post.topic.pk %}" class="btn btn-outline-secondary"
-    role="button">取消</a>
-</form>
 
 <form id="posts" method="POST" class="mb-4" novalidate>
   <div class="form-group">
