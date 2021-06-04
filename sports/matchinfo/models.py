@@ -70,6 +70,7 @@ class Package(models.Model):
                     a_match_score = match.a_score,
                     a_player_set = str(playeraset),
                 )
+        
 
     def delete(key):
         Package.objects.filter(match_no=key).delete()

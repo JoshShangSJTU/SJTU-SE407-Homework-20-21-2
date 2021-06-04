@@ -69,9 +69,31 @@ def Detaildata(request,para,sign):    #向详情页发送数据的视图
     if para not in checklist:        
         return JsonResponse("没有该比赛编号！",safe=False,json_dumps_params={'ensure_ascii':False})
         
+    if para not in checklist:        
+        return JsonResponse("没有该比赛编号！",safe=False,json_dumps_params={'ensure_ascii':False})
+        
+    h_player_set=[]
+    a_player_set=[]
+
+    for match in models.Match.objects.all():
+        teamh = models.Team.objects.get(pk=match.h_team_name_id)
+        teama = models.Team.objects.get(pk=match.a_team_name_id)  
+
+        playerh = models.Player.objects.filter(team_id=match.h_team_name_id)
+        playerhset = []
+        for player in playerh:
+            playerhset.append(player.player_name) 
+        h_player_set=playerhset
+                            
+        playera = models.Player.objects.filter(team_id=match.a_team_name_id)
+        playeraset = []
+        for player in playera:
+            playeraset.append(player.player_name)
+        a_player_set=playeraset
+
     info = Package.objects.all().get(match_no=para)
-    H_info = {'主队队名':info.h_team_name,'主队得分':info.h_match_score,'队员表':info.h_player_set}
-    A_info = {'客队队名':info.a_team_name,'客队得分':info.a_match_score,'队员表':info.a_player_set}
+    H_info = {'主队队名':info.h_team_name,'主队得分':info.h_match_score,'队员表':h_player_set}
+    A_info = {'客队队名':info.a_team_name,'客队得分':info.a_match_score,'队员表':a_player_set}
     baseinfo= {'比赛编号':info.match_no,'比赛地点':info.match_loc,'比赛时间':info.match_loc}
     info = {'比赛信息':baseinfo,'主队信息':H_info,'客队信息':A_info}
 
