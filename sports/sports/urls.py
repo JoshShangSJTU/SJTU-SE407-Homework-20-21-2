@@ -20,7 +20,7 @@ from django.views.generic import TemplateView
 from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
 from rest_framework import permissions, routers
-from . import views_news
+from splatform import views_news 
 
 # 自动产生接口文档
 schema_view = get_schema_view(
